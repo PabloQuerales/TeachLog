@@ -10,7 +10,7 @@ CORS(app)
 
 @app.route("/")
 def index():
-    return {"message": "Hola Camilo"}
+    return {"message": "Bienvenido a TeachLog"}
 
 if __name__ == "__main__":
     app.run(port=5000, debug=True)
