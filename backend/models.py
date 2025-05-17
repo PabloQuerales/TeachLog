@@ -2,8 +2,17 @@ from typing import List
 from sqlalchemy.orm import declarative_base, Mapped, mapped_column, relationship
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import String, create_engine, ForeignKey
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
 
 db = SQLAlchemy()
+
+def setup_db(app):
+    app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv("DATABASE_URL")
+    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+    db.init_app(app)
 
 class User(db.Model):
     __tablename__ = 'user'
@@ -52,12 +61,19 @@ class Student_details(db.Model):
     def serialize(self):
         return {
             "id": self.id,
-            "accounts_id": self.accounts_id,
-            "detail": self.detail,
-            "amount": self.amount,
-            "coin": self.coin,
-            "type": self.type,
+            "student_id": self.student_id,
             "date": self.date,
-            "time": self.time,
-            "operation": self.operation,
-        }   
+            "time": self.time
+        }
+        
+class Item(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(120), nullable=False)
+    quantity = db.Column(db.Integer, default=1)
+
+    def serialize(self):
+        return {
+            "id": self.id,
+            "name": self.name,
+            "quantity": self.quantity
+        }
