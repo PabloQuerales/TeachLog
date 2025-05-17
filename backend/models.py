@@ -65,15 +65,3 @@ class Student_details(db.Model):
             "date": self.date,
             "time": self.time
         }
-        
-class Item(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(120), nullable=False)
-    quantity = db.Column(db.Integer, default=1)
-
-    def serialize(self):
-        return {
-            "id": self.id,
-            "name": self.name,
-            "quantity": self.quantity
-        }

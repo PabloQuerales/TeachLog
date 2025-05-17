@@ -3,15 +3,17 @@ from flask_cors import CORS
 from dotenv import load_dotenv
 import os
 from models import setup_db, db
-from routes.items import items_bp
+from routes import all_blueprints
 
 load_dotenv()
 
 app = Flask(__name__)
-app.register_blueprint(items_bp)
 CORS(app)
 
 setup_db(app)
+
+for bp in all_blueprints:
+    app.register_blueprint(bp)
 
 @app.route("/")
 def index():
