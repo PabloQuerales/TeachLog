@@ -20,7 +20,8 @@ sqlalchemy = "*"
 psycopg2-binary = "*"
 python-dotenv = "*"
 flask = "*"
-
+flask-bcrypt = "*"
+flask-jwt-extended = "*"
 [dev-packages]
 
 [requires]
