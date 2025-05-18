@@ -1,9 +1,15 @@
 from flask import Blueprint, jsonify
-from models import User
+from models import User,db
 
 users_bp = Blueprint('users_bp', __name__)
 
-@users_bp.route("/users", methods=["GET"])
+@users_bp.route('/users', methods=['GET'])
 def get_all_users():
-    users = User.query.all()
-    return jsonify([user.serialize() for user in users]), 200
+    data = db.session.scalars(db.select(User)).all()
+    result = list(map(lambda item: item.serialize(),data))
+    if result == []:
+        return jsonify({"msg":"Usuario no encontrado"}), 404
+    response_body = {
+        "results": result
+    }
+    return jsonify(response_body), 200
