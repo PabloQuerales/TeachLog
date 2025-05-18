@@ -20,6 +20,8 @@ flask-cors = "*"
 sqlalchemy = "*"
 psycopg2-binary = "*"
 python-dotenv = "*"
+flask-bcrypt = "*"
+flask-jwt-extended = "*"
 
 [dev-packages]
 
