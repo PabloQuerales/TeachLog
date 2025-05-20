@@ -1,4 +1,5 @@
 import { LoginForm } from "../components/LoginForm";
+import { SignupForm } from "../components/SignupForm";
 // import { Context } from "../store/appContext";
 
 export const Login = () => {
@@ -20,7 +21,7 @@ export const Login = () => {
 						Organiza tus clases, mejora tu seguimiento y enfócate en enseñar. ¡Empieza ahora!
 					</p>
 				</div>
-				<div className="login-right w-50 ">{<LoginForm />}</div>
+				<div className="login-right w-50 ">{<SignupForm />}</div>
 			</div>
 		</div>
 	);

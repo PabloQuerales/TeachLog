@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "formik": "^2.4.6",
+    "react-router-dom": "^7.6.0",
+    "sweetalert2": "^11.21.2",
+    "yup": "^1.6.1"
+  }
+}
