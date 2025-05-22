@@ -1,0 +1,151 @@
+.container-login {
+	height: 100vh;
+	width: 100vw;
+	display: flex;
+	justify-content: center;
+}
+
+.login {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100%;
+}
+
+.login-left {
+	display: flex;
+	flex-direction: column;
+	text-align: center;
+}
+
+.invalidAccount {
+	color: red;
+	font-weight: bold;
+}
+
+.buttons {
+	flex-direction: column;
+	justify-content: center;
+	text-align: center;
+}
+
+.buttons p {
+	margin-bottom: 10px;
+}
+
+.form-text {
+	font-size: 10px;
+}
+
+.input-container {
+	margin: 5px 0;
+}
+
+.hr-login {
+	margin: 15px 0 5px 0;
+}
+
+.create-user {
+	width: 46%;
+	font-size: 17px;
+	padding: 10px;
+	font-weight: bold;
+	text-transform: uppercase;
+	border-radius: 8px;
+	text-align: center;
+}
+
+.login-user {
+	width: 90%;
+	font-size: 17px;
+	margin-top: 20px;
+}
+
+.buttons-container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+	margin-top: 10px;
+}
+
+.register-container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 5px;
+}
+
+.register-text {
+	font-size: 12px;
+	opacity: 0.8;
+	text-align: center;
+	width: 100%;
+}
+
+.optima-title {
+	font-size: 4rem;
+}
+.highlight-text {
+	font-weight: bold;
+	color: var(--primary);
+	text-decoration: underline;
+	cursor: pointer;
+	transition: color 0.3s, transform 0.2s;
+}
+
+.highlight-text:hover {
+	color: #0026ff;
+	transform: scale(1.05);
+	text-decoration: none;
+}
+
+@media (max-width: 768px) {
+	.optima-title {
+		font-size: 4rem;
+	}
+
+	.login {
+		flex-direction: column;
+		width: 100% !important;
+	}
+
+	.login-user,
+	.create-user {
+		font-size: 15px;
+	}
+}
+
+@media (max-width: 480px) {
+	.form-container {
+		padding: 10px;
+	}
+
+	.login-user,
+	.create-user {
+		font-size: 14px;
+		padding: 8px;
+	}
+
+	.register-text {
+		font-size: 11px;
+	}
+
+	.form-container {
+		width: 75% !important;
+		padding: 15px;
+	}
+
+	.optima-title {
+		font-size: 3rem;
+	}
+
+	.login-right {
+		width: 100% !important;
+	}
+
+	.login-left {
+		width: 100% !important;
+	}
+}
