@@ -1,8 +1,10 @@
+import { useState } from "react";
 import { LoginForm } from "../components/LoginForm";
 import { SignupForm } from "../components/SignupForm";
 // import { Context } from "../store/appContext";
 
 export const Login = () => {
+	const [isRegistered, setIsRegistered] = useState(true);
 	// const { store, actions } = useContext(Context);
 
 	// useEffect(() => {
