@@ -1,8 +1,10 @@
+import { useState } from "react";
 import { LoginForm } from "../components/LoginForm";
 import { SignupForm } from "../components/SignupForm";
 // import { Context } from "../store/appContext";
 
 export const Login = () => {
+	const [isRegistered, setIsRegistered] = useState(true);
 	// const { store, actions } = useContext(Context);
 
 	// useEffect(() => {
@@ -21,7 +23,7 @@ export const Login = () => {
 						Organiza tus clases, mejora tu seguimiento y enfócate en enseñar. ¡Empieza ahora!
 					</p>
 				</div>
-				<div className="login-right w-50 ">{<SignupForm />}</div>
+				{isRegistered ? <div className="login-right w-50 ">{<SignupForm />}</div> : <div className="login-right w-50 ">{<LoginForm />}</div>}
 			</div>
 		</div>
 	);

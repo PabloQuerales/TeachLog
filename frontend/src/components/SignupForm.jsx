@@ -31,28 +31,28 @@ export const SignupForm = () => {
 					}}
 					validationSchema={validationSchema}>
 					{({ isSubmitting }) => (
-						<Form className="signup-form p-4 border rounded shadow bg-white">
-							<div className="mb-3">
+						<Form className="form-container mx-auto w-50">
+							<div className="input-container">
 								<label className="form-label">Nombre</label>
 								<Field type="text" className="form-control" name="first_name" />
 								<ErrorMessage name="first_name" component="div" className="text-danger" />
 							</div>
-							<div className="mb-3">
+							<div className="input-container">
 								<label className="form-label">Apellidos</label>
 								<Field type="text" className="form-control" name="last_name" />
 								<ErrorMessage name="last_name" component="div" className="text-danger" />
 							</div>
-							<div className="mb-3">
+							<div className="input-container">
 								<label className="form-label">Email</label>
 								<Field type="email" className="form-control" name="email" />
 								<ErrorMessage name="email" component="div" className="text-danger" />
 							</div>
-							<div className="mb-3">
+							<div className="input-container">
 								<label className="form-label">Contraseña</label>
 								<Field type="password" className="form-control" name="password" />
 								<ErrorMessage name="password" component="div" className="text-danger" />
 							</div>
-							<div className="mb-3 mt-4">
+							<div className="input-container mt-4">
 								<button type="submit" className="btn btn-primary w-100" disabled={isSubmitting}>
 									{isSubmitting ? "Registrando..." : "Crear cuenta"}
 								</button>
