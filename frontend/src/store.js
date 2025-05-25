@@ -15,8 +15,6 @@ export const initialStore=()=>{
         background: null,
       }
     ],
-    contactList: [],
-    hiddenMessage:"hidden"
   }
 }
 

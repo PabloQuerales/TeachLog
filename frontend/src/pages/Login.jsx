@@ -4,7 +4,7 @@ import { SignupForm } from "../components/SignupForm";
 // import { Context } from "../store/appContext";
 
 export const Login = () => {
-	const [isRegistered, setIsRegistered] = useState(true);
+	const [isRegistered, setIsRegistered] = useState(false);
 	// const { store, actions } = useContext(Context);
 
 	// useEffect(() => {
