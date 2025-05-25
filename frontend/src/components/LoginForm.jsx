@@ -1,4 +1,5 @@
 import { useState, useContext, useEffect } from "react";
+import useStore from "../store";
 import "../styles/login.css";
 // import { Context } from "../store/appContext";
 // import { Link, useNavigate } from "react-router-dom";
@@ -34,6 +35,10 @@ export const LoginForm = () => {
 	// 		setInvalidAccount(false);
 	// 	}
 	// }, [store.auth]);
+	const { setIsRegistered } = useStore();
+	const handleClick = () => {
+		setIsRegistered(true);
+	};
 
 	return (
 		<>
@@ -83,7 +88,9 @@ export const LoginForm = () => {
 			</form>
 			<div className="register-container">
 				<div className="form-text register-text">¿Aún no estás registrado?</div>
-				<button className="btn btn-secondary create-user" /*onClick={handleClick}*/>Crear usuario</button>
+				<button className="btn btn-secondary create-user" onClick={handleClick}>
+					Crear usuario
+				</button>
 			</div>
 		</>
 	);

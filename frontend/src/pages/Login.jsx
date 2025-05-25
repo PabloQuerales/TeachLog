@@ -1,17 +1,11 @@
-import { useState } from "react";
+import { useEffect } from "react";
 import { LoginForm } from "../components/LoginForm";
 import { SignupForm } from "../components/SignupForm";
-// import { Context } from "../store/appContext";
+import useStore from "../store";
 
 export const Login = () => {
-	const [isRegistered, setIsRegistered] = useState(false);
-	// const { store, actions } = useContext(Context);
+	const { isRegistered } = useStore();
 
-	// useEffect(() => {
-	// 	if (store.theme === "dark") {
-	// 		actions.toggleTheme();
-	// 	}
-	// }, []);
 	return (
 		<div className="container-login">
 			<div className="login w-75">
