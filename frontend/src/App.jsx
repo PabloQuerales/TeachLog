@@ -1,16 +1,6 @@
-// src/App.jsx
-import { useEffect, useState } from "react";
+import { RouterProvider } from "react-router-dom";
+import { router } from "./routes";
 
-function App() {
-	const [message, setMessage] = useState("");
-
-	useEffect(() => {
-		fetch(`${import.meta.env.VITE_BACKEND_URL}/`)
-			.then((res) => res.json())
-			.then((data) => setMessage(data.message));
-	}, []);
-
-	return <h1>{message}</h1>;
+export default function App() {
+	return <RouterProvider router={router} />;
 }
-
-export default App;
