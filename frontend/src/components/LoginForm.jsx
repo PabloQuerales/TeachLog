@@ -1,4 +1,4 @@
-import { useState, useContext, useEffect } from "react";
+import { useState } from "react";
 import useStore from "../store";
 import "../styles/login.css";
 // import { Context } from "../store/appContext";
@@ -35,10 +35,7 @@ export const LoginForm = () => {
 	// 		setInvalidAccount(false);
 	// 	}
 	// }, [store.auth]);
-	const { setIsRegistered } = useStore();
-	const handleClick = () => {
-		setIsRegistered(true);
-	};
+	const { toggleIsRegistered } = useStore();
 
 	return (
 		<>
@@ -88,7 +85,7 @@ export const LoginForm = () => {
 			</form>
 			<div className="register-container">
 				<div className="form-text register-text">¿Aún no estás registrado?</div>
-				<button className="btn btn-secondary create-user" onClick={handleClick}>
+				<button className="btn btn-secondary create-user" onClick={() => toggleIsRegistered()}>
 					Crear usuario
 				</button>
 			</div>

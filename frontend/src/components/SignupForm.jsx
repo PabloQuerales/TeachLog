@@ -1,11 +1,10 @@
-// import useNavigate from "react-router-dom";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import Swal from "sweetalert2";
+import useStore from "../store";
 
 export const SignupForm = () => {
-	// let navigate = useNavigate();
-
+	const { toggleIsRegistered } = useStore();
 	const validationSchema = Yup.object().shape({
 		first_name: Yup.string().min(2, "El nombre debe tener al menos 2 caracteres").required("El nombre es obligatorio"),
 		last_name: Yup.string().min(2, "El apellido debe tener al menos 2 caracteres").required("El apellido es obligatorio"),
@@ -55,8 +54,8 @@ export const SignupForm = () => {
 							{isSubmitting ? "Registrando..." : "Crear cuenta"}
 						</button>
 						<hr />
-						<button type="button" className="btn btn-secondary w-100 mb-2">
-							Volver al inicio
+						<button type="button" className="btn btn-secondary w-100 mb-2" onClick={() => toggleIsRegistered()}>
+							Volver
 						</button>
 					</div>
 				</Form>

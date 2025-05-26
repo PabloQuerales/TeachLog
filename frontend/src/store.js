@@ -8,6 +8,10 @@ const useStore = create((set) => ({
 
 // Actions
   setIsRegistered: (value) => set({ isRegistered: value }),
+  toggleIsRegistered: () =>
+    set((state) => ({
+      isRegistered: !state.isRegistered,
+    })),
   setTheme: (theme) => set({ theme }),
 }));
   
