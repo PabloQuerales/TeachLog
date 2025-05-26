@@ -1,9 +1,10 @@
 import { LoginForm } from "../components/LoginForm";
 import { SignupForm } from "../components/SignupForm";
 import useStore from "../store";
+import ReactCardFlip from "react-card-flip";
 
 export const Login = () => {
-	const { isRegistered } = useStore();
+	const { isRegistered, toggleIsFlipped, isFlipped } = useStore();
 
 	return (
 		<div className="container-login">
@@ -16,7 +17,10 @@ export const Login = () => {
 						Organiza tus clases, mejora tu seguimiento y enfócate en enseñar. ¡Empieza ahora!
 					</p>
 				</div>
-				{isRegistered ? <div className="login-right w-50 ">{<SignupForm />}</div> : <div className="login-right w-50 ">{<LoginForm />}</div>}
+				<ReactCardFlip className="login-right " isFlipped={isFlipped} flipDirection="horizontal">
+					<LoginForm />
+					<SignupForm />
+				</ReactCardFlip>
 			</div>
 		</div>
 	);

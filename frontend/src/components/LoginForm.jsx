@@ -35,11 +35,11 @@ export const LoginForm = () => {
 	// 		setInvalidAccount(false);
 	// 	}
 	// }, [store.auth]);
-	const { toggleIsRegistered } = useStore();
+	const { toggleIsFlipped } = useStore();
 
 	return (
 		<>
-			<form /*onSubmit={handleSubmit}*/ className="form-container mx-auto w-50">
+			<form /*onSubmit={handleSubmit}*/ className="form-container mx-auto ">
 				<div className="input-container">
 					<label htmlFor="exampleInputEmail1" className="form-label">
 						Correo
@@ -69,7 +69,7 @@ export const LoginForm = () => {
 					)}
 				</div>
 				<div className="buttons">
-					<button type="submit" className="btn btn-primary login-user">
+					<button type="submit" className="btn btn-primary w-100">
 						INICIAR SESION
 					</button>
 					<div
@@ -85,7 +85,7 @@ export const LoginForm = () => {
 			</form>
 			<div className="register-container">
 				<div className="form-text register-text">¿Aún no estás registrado?</div>
-				<button className="btn btn-secondary create-user" onClick={() => toggleIsRegistered()}>
+				<button className="btn btn-secondary w-100 mb-2" onClick={() => toggleIsFlipped()}>
 					Crear usuario
 				</button>
 			</div>

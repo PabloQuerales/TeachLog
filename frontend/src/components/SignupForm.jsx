@@ -4,7 +4,7 @@ import Swal from "sweetalert2";
 import useStore from "../store";
 
 export const SignupForm = () => {
-	const { toggleIsRegistered } = useStore();
+	const { toggleIsRegistered, toggleIsFlipped } = useStore();
 	const validationSchema = Yup.object().shape({
 		first_name: Yup.string().min(2, "El nombre debe tener al menos 2 caracteres").required("El nombre es obligatorio"),
 		last_name: Yup.string().min(2, "El apellido debe tener al menos 2 caracteres").required("El apellido es obligatorio"),
@@ -28,7 +28,7 @@ export const SignupForm = () => {
 			}}
 			validationSchema={validationSchema}>
 			{({ isSubmitting }) => (
-				<Form className="form-container mx-auto w-50">
+				<Form className="form-container mx-auto">
 					<div className="input-container">
 						<label className="form-label">Nombre</label>
 						<Field type="text" className="form-control" name="first_name" />
@@ -54,7 +54,7 @@ export const SignupForm = () => {
 							{isSubmitting ? "Registrando..." : "Crear cuenta"}
 						</button>
 						<hr />
-						<button type="button" className="btn btn-secondary w-100 mb-2" onClick={() => toggleIsRegistered()}>
+						<button type="button" className="btn btn-secondary w-100 mb-2" onClick={() => toggleIsFlipped()}>
 							Volver
 						</button>
 					</div>
