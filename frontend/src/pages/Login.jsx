@@ -1,17 +1,11 @@
-import { useState } from "react";
 import { LoginForm } from "../components/LoginForm";
 import { SignupForm } from "../components/SignupForm";
-// import { Context } from "../store/appContext";
+import useStore from "../store";
+import ReactCardFlip from "react-card-flip";
 
 export const Login = () => {
-	const [isRegistered, setIsRegistered] = useState(true);
-	// const { store, actions } = useContext(Context);
+	const { isFlipped } = useStore();
 
-	// useEffect(() => {
-	// 	if (store.theme === "dark") {
-	// 		actions.toggleTheme();
-	// 	}
-	// }, []);
 	return (
 		<div className="container-login">
 			<div className="login w-75">
@@ -23,7 +17,12 @@ export const Login = () => {
 						Organiza tus clases, mejora tu seguimiento y enfócate en enseñar. ¡Empieza ahora!
 					</p>
 				</div>
-				{isRegistered ? <div className="login-right w-50 ">{<SignupForm />}</div> : <div className="login-right w-50 ">{<LoginForm />}</div>}
+				<div className="login-right w-50 ">
+					<ReactCardFlip isFlipped={isFlipped} flipDirection="horizontal">
+						<SignupForm />
+						<LoginForm />
+					</ReactCardFlip>
+				</div>
 			</div>
 		</div>
 	);

@@ -13,7 +13,7 @@ def get_all_users():
     data = db.session.scalars(db.select(User)).all()
     result = list(map(lambda item: item.serialize(),data))
     if result == []:
-        return jsonify({"msg":"Usuario no encontrado"}), 404
+        return jsonify({"msg":"No hay usuarios registrados"}), 404
     response_body = {
         "results": result
     }
@@ -22,6 +22,9 @@ def get_all_users():
 @users_bp.route("/singup", methods=["POST"])
 def singup():
     body = request.json
+    email = db.session.query(db.select(User).filter_by(email=body.get("email")).exists()).scalar()
+    if email:
+        return jsonify({"msg": "correo en uso"}), 406
     if not body or not body.get("email") or not body.get("password") or not body.get("last_name")or not body.get("first_name"):
         return jsonify({"msg": "body incompleto"}), 400
     hashe_password = bcrypt.generate_password_hash(body["password"]).decode("utf-8")
@@ -36,11 +39,10 @@ def login():
     password = request.json.get("password", None)
     try:
         user = db.session.execute(db.select(User).filter_by(email=email)).scalar_one()
-        print(user.serialize())
         if not bcrypt.check_password_hash(user.password, password):
             return jsonify({"msg": "email o contraseña equivocados"}), 401
         access_token = create_access_token(identity=email)
-        return jsonify(access_token=access_token)
+        return jsonify({"token": access_token, "email": user.email})
     except:
         return jsonify({"msg": "este usuario no existe"}), 404
 
