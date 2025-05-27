@@ -28,7 +28,7 @@ export const SignupForm = () => {
 			}}
 			validationSchema={validationSchema}>
 			{({ isSubmitting }) => (
-				<Form className="form-container mx-auto">
+				<Form className="form-container mx-auto w-50">
 					<div className="input-container">
 						<label className="form-label">Nombre</label>
 						<Field type="text" className="form-control" name="first_name" />

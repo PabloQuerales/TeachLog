@@ -17,10 +17,12 @@ export const Login = () => {
 						Organiza tus clases, mejora tu seguimiento y enfócate en enseñar. ¡Empieza ahora!
 					</p>
 				</div>
-				<ReactCardFlip className="login-right " isFlipped={isFlipped} flipDirection="horizontal">
-					<LoginForm />
-					<SignupForm />
-				</ReactCardFlip>
+				<div className="login-right w-50 ">
+					<ReactCardFlip isFlipped={isFlipped} flipDirection="horizontal">
+						<LoginForm />
+						<SignupForm />
+					</ReactCardFlip>
+				</div>
 			</div>
 		</div>
 	);

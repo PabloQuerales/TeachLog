@@ -39,7 +39,7 @@ export const LoginForm = () => {
 
 	return (
 		<>
-			<form /*onSubmit={handleSubmit}*/ className="form-container mx-auto ">
+			<form /*onSubmit={handleSubmit}*/ className="form-container mx-auto w-50 ">
 				<div className="input-container">
 					<label htmlFor="exampleInputEmail1" className="form-label">
 						Correo
@@ -68,27 +68,27 @@ export const LoginForm = () => {
 						</div>
 					)}
 				</div>
-				<div className="buttons">
+				<div className="input-container mt-4">
 					<button type="submit" className="btn btn-primary w-100">
 						INICIAR SESION
 					</button>
 					<div
-						className="form-text register-text highlight-text"
+						className="form-text register-text highlight-text mt-2"
 						// onClick={() => {
 						// 	navigate("/recuperar-contrasena");
 						// }}
 					>
-						¿Olvidaste tu contraseña?
+						Olvidé mi contraseña
 					</div>
 					<hr className="hr-login" />
 				</div>
+				<div className="register-container">
+					<spam className="form-text register-text">¿Aún no estás registrado?</spam>
+					<button className="btn btn-secondary w-100 mb-2" onClick={() => toggleIsFlipped()}>
+						Crear usuario
+					</button>
+				</div>
 			</form>
-			<div className="register-container">
-				<div className="form-text register-text">¿Aún no estás registrado?</div>
-				<button className="btn btn-secondary w-100 mb-2" onClick={() => toggleIsFlipped()}>
-					Crear usuario
-				</button>
-			</div>
 		</>
 	);
 };
