@@ -104,7 +104,14 @@ export const SignupForm = () => {
 					</div>
 					<div className="input-container mt-4">
 						<button type="submit" className="btn btn-primary w-100" disabled={isSubmitting}>
-							{isSubmitting ? "Registrando..." : "Crear cuenta"}
+							{isSubmitting ? (
+								<>
+									<span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+									Registrando...
+								</>
+							) : (
+								"Crear cuenta"
+							)}{" "}
 						</button>
 						<hr />
 						<button type="button" className="btn btn-secondary w-100 mb-2" onClick={() => toggleIsFlipped()}>
