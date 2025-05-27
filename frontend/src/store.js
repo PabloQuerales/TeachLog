@@ -6,6 +6,8 @@ const useStore = create((set) => ({
   isRegistered: false,
   theme: "light",
   isFlipped: true,
+  backendUrl: import.meta.env.VITE_BACKEND_URL,
+
 
 // Actions
   setIsRegistered: (value) => set({ isRegistered: value }),

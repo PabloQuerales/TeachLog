@@ -4,7 +4,7 @@ import useStore from "../store";
 import ReactCardFlip from "react-card-flip";
 
 export const Login = () => {
-	const { isRegistered, toggleIsFlipped, isFlipped } = useStore();
+	const { isFlipped } = useStore();
 
 	return (
 		<div className="container-login">
@@ -19,8 +19,8 @@ export const Login = () => {
 				</div>
 				<div className="login-right w-50 ">
 					<ReactCardFlip isFlipped={isFlipped} flipDirection="horizontal">
-						<LoginForm />
 						<SignupForm />
+						<LoginForm />
 					</ReactCardFlip>
 				</div>
 			</div>

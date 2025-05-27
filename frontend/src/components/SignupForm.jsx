@@ -4,7 +4,7 @@ import Swal from "sweetalert2";
 import useStore from "../store";
 
 export const SignupForm = () => {
-	const { toggleIsRegistered, toggleIsFlipped } = useStore();
+	const { toggleIsFlipped, backendUrl } = useStore();
 	const validationSchema = Yup.object().shape({
 		first_name: Yup.string().min(2, "El nombre debe tener al menos 2 caracteres").required("El nombre es obligatorio"),
 		last_name: Yup.string().min(2, "El apellido debe tener al menos 2 caracteres").required("El apellido es obligatorio"),
@@ -17,7 +17,61 @@ export const SignupForm = () => {
 			.notOneOf([Yup.ref("first_name"), Yup.ref("last_name")], "No puede ser igual a tu nombre o apellido")
 			.required("La contraseña es obligatoria")
 	});
+	const createUser = async (value) => {
+		const myHeaders = new Headers();
+		myHeaders.append("Content-Type", "application/json");
 
+		const raw = JSON.stringify({
+			first_name: value.first_name,
+			last_name: value.last_name,
+			email: value.email,
+			password: value.password
+		});
+
+		const requestOptions = {
+			method: "POST",
+			headers: myHeaders,
+			body: raw,
+			redirect: "follow"
+		};
+
+		try {
+			const response = await fetch(`${backendUrl}/singup`, requestOptions);
+			if (response.status === 200) {
+				Swal.fire({
+					title: "Usuario registrado correctamente",
+					icon: "success",
+					customClass: {
+						confirmButton: "swal-confirm-btn"
+					}
+				});
+			} else if (response.status === 406) {
+				Swal.fire({
+					title: "Error!",
+					text: "Este correo ya está siendo utilizado",
+					icon: "error",
+					confirmButtonText: "Volver",
+					confirmButtonColor: "#010D87",
+					customClass: {
+						confirmButton: "swal-confirm-btn"
+					}
+				});
+			} else {
+				Swal.fire({
+					title: "Error!",
+					text: "Campos incompletos, asegúrate de escribir toda la información",
+					icon: "error",
+					confirmButtonText: "Volver",
+					confirmButtonColor: "#010D87",
+					customClass: {
+						confirmButton: "swal-confirm-btn"
+					}
+				});
+			}
+		} catch (error) {
+			console.error(error);
+		}
+	};
 	return (
 		<Formik
 			initialValues={{
@@ -26,7 +80,12 @@ export const SignupForm = () => {
 				email: "",
 				password: ""
 			}}
-			validationSchema={validationSchema}>
+			validationSchema={validationSchema}
+			onSubmit={(values, { setSubmitting, resetForm }) => {
+				createUser(values);
+				resetForm();
+				setSubmitting(false);
+			}}>
 			{({ isSubmitting }) => (
 				<Form className="form-container mx-auto w-50">
 					<div className="input-container">

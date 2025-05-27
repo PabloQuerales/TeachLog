@@ -1,29 +1,23 @@
 import { useState } from "react";
 import useStore from "../store";
 import "../styles/login.css";
-// import { Context } from "../store/appContext";
-// import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export const LoginForm = () => {
 	const [invalidAccount, setInvalidAccount] = useState(false);
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
-	// const { store, actions } = useContext(Context);
-	// let navigate = useNavigate();
+	let navigate = useNavigate();
 
-	// const handleClick = () => {
-	// 	navigate("/registro");
-	// };
-
-	// async function handleSubmit(e) {
-	// 	e.preventDefault();
-	// 	await actions.login(email, password);
-	// 	if (!store.auth) {
-	// 		setInvalidAccount(true);
-	// 	} else {
-	// 		setInvalidAccount(false);
-	// 	}
-	// }
+	async function handleSubmit(e) {
+		e.preventDefault();
+		await actions.login(email, password);
+		if (!store.auth) {
+			setInvalidAccount(true);
+		} else {
+			setInvalidAccount(false);
+		}
+	}
 
 	// useEffect(() => {
 	// 	if (store.auth) {
@@ -39,7 +33,7 @@ export const LoginForm = () => {
 
 	return (
 		<>
-			<form /*onSubmit={handleSubmit}*/ className="form-container mx-auto w-50 ">
+			<form onSubmit={handleSubmit} className="form-container mx-auto w-50 ">
 				<div className="input-container">
 					<label htmlFor="exampleInputEmail1" className="form-label">
 						Correo
@@ -84,7 +78,7 @@ export const LoginForm = () => {
 				</div>
 				<div className="register-container">
 					<spam className="form-text register-text">¿Aún no estás registrado?</spam>
-					<button className="btn btn-secondary w-100 mb-2" onClick={() => toggleIsFlipped()}>
+					<button type="button" className="btn btn-secondary w-100 mb-2" onClick={() => toggleIsFlipped()}>
 						Crear usuario
 					</button>
 				</div>
