@@ -5,18 +5,49 @@ import { useNavigate } from "react-router-dom";
 
 export const LoginForm = () => {
 	const [invalidAccount, setInvalidAccount] = useState(false);
-	const [email, setEmail] = useState("");
-	const [password, setPassword] = useState("");
+	const [loginForm, setLoginForm] = useState({ email: "", password: "" });
 	let navigate = useNavigate();
+	const { toggleIsFlipped, backendUrl } = useStore();
+
+	const login = async (value) => {
+		const myHeaders = new Headers();
+		myHeaders.append("Content-Type", "application/json");
+		myHeaders.append("api-key", "OMpqVWAH.UC80wyXTtPwhDgAUdCTx6");
+		console.log(value);
+		const raw = JSON.stringify({
+			email: value.email,
+			password: value.password
+		});
+
+		const requestOptions = {
+			method: "POST",
+			headers: myHeaders,
+			body: raw,
+			redirect: "follow"
+		};
+
+		try {
+			const response = await fetch(`${backendUrl}/login`, requestOptions);
+			const result = await response.json();
+			console.log(result);
+			if (response.status === 200) {
+				localStorage.setItem("token", JSON.stringify(result));
+				setLoginForm({ email: "", password: "" });
+			} else {
+				setInvalidAccount(false);
+			}
+		} catch (error) {
+			console.error(error);
+		}
+	};
 
 	async function handleSubmit(e) {
 		e.preventDefault();
-		await actions.login(email, password);
-		if (!store.auth) {
-			setInvalidAccount(true);
-		} else {
-			setInvalidAccount(false);
-		}
+		await login(loginForm);
+		// if (!store.auth) {
+		// } else {
+		// 	setInvalidAccount(false);
+		// }
 	}
 
 	// useEffect(() => {
@@ -29,7 +60,6 @@ export const LoginForm = () => {
 	// 		setInvalidAccount(false);
 	// 	}
 	// }, [store.auth]);
-	const { toggleIsFlipped } = useStore();
 
 	return (
 		<>
@@ -43,15 +73,21 @@ export const LoginForm = () => {
 						className="form-control"
 						id="exampleInputEmail1"
 						aria-describedby="emailHelp"
-						onChange={(e) => setEmail(e.target.value)}
-						value={email}
+						onChange={(e) => setLoginForm({ ...loginForm, email: e.target.value })}
+						value={loginForm.email}
 					/>
 				</div>
 				<div className="input-container">
 					<label htmlFor="exampleInputPassword1" className="form-label">
 						Contraseña
 					</label>
-					<input type="password" className="form-control" id="exampleInputPassword1" onChange={(e) => setPassword(e.target.value)} value={password} />
+					<input
+						type="password"
+						className="form-control"
+						id="exampleInputPassword1"
+						onChange={(e) => setLoginForm({ ...loginForm, password: e.target.value })}
+						value={loginForm.password}
+					/>
 					{!invalidAccount ? (
 						<div id="emailHelp" className="form-text">
 							Nunca compartiremos su correo electrónico con nadie más.

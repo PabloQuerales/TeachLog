@@ -42,7 +42,7 @@ def login():
         if not bcrypt.check_password_hash(user.password, password):
             return jsonify({"msg": "email o contraseña equivocados"}), 401
         access_token = create_access_token(identity=email)
-        return jsonify({"token": access_token, "user_id": user.email})
+        return jsonify({"token": access_token, "email": user.email})
     except:
         return jsonify({"msg": "este usuario no existe"}), 404
 

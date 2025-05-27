@@ -14,7 +14,6 @@ export const SignupForm = () => {
 			.matches(/[A-Z]/, "Debe contener al menos una letra mayúscula")
 			.matches(/[0-9]/, "Debe contener al menos un número")
 			.matches(/[@$!%*?&]/, "Debe contener al menos un carácter especial (@$!%*?&)")
-			.notOneOf([Yup.ref("first_name"), Yup.ref("last_name")], "No puede ser igual a tu nombre o apellido")
 			.required("La contraseña es obligatoria")
 	});
 	const createUser = async (value) => {
