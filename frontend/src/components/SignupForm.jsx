@@ -45,21 +45,10 @@ export const SignupForm = () => {
 						confirmButton: "swal-confirm-btn"
 					}
 				});
-			} else if (response.status === 406) {
-				Swal.fire({
-					title: "Error!",
-					text: "Este correo ya está siendo utilizado",
-					icon: "error",
-					confirmButtonText: "Volver",
-					confirmButtonColor: "#010D87",
-					customClass: {
-						confirmButton: "swal-confirm-btn"
-					}
-				});
 			} else {
 				Swal.fire({
 					title: "Error!",
-					text: "Campos incompletos, asegúrate de escribir toda la información",
+					text: "Este correo ya está siendo utilizado",
 					icon: "error",
 					confirmButtonText: "Volver",
 					confirmButtonColor: "#010D87",
@@ -81,10 +70,15 @@ export const SignupForm = () => {
 				password: ""
 			}}
 			validationSchema={validationSchema}
-			onSubmit={(values, { setSubmitting, resetForm }) => {
-				createUser(values);
-				resetForm();
-				setSubmitting(false);
+			onSubmit={async (values, { setSubmitting, resetForm }) => {
+				try {
+					await createUser(values);
+					resetForm();
+				} catch (error) {
+					console.error(error);
+				} finally {
+					setSubmitting(false);
+				}
 			}}>
 			{({ isSubmitting }) => (
 				<Form className="form-container mx-auto w-50">
