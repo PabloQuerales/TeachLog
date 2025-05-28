@@ -10,7 +10,8 @@ from flask_jwt_extended import JWTManager
 load_dotenv()
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, supports_credentials=True, origins=["http://localhost:5173"])
+
 
 setup_db(app)
 

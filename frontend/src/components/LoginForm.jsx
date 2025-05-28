@@ -6,14 +6,13 @@ import { useNavigate } from "react-router-dom";
 export const LoginForm = () => {
 	const [invalidAccount, setInvalidAccount] = useState(false);
 	const [loginForm, setLoginForm] = useState({ email: "", password: "" });
+	const [charge, setCharge] = useState(false);
 	let navigate = useNavigate();
 	const { toggleIsFlipped, backendUrl } = useStore();
 
 	const login = async (value) => {
 		const myHeaders = new Headers();
 		myHeaders.append("Content-Type", "application/json");
-		myHeaders.append("api-key", "OMpqVWAH.UC80wyXTtPwhDgAUdCTx6");
-		console.log(value);
 		const raw = JSON.stringify({
 			email: value.email,
 			password: value.password
@@ -23,18 +22,18 @@ export const LoginForm = () => {
 			method: "POST",
 			headers: myHeaders,
 			body: raw,
-			redirect: "follow"
+			redirect: "follow",
+			credentials: "include"
 		};
 
 		try {
 			const response = await fetch(`${backendUrl}/login`, requestOptions);
-			const result = await response.json();
-			console.log(result);
 			if (response.status === 200) {
-				localStorage.setItem("token", JSON.stringify(result));
 				setLoginForm({ email: "", password: "" });
+				navigate("/lobby");
 			} else {
-				setInvalidAccount(false);
+				setInvalidAccount(true);
+				setCharge(false);
 			}
 		} catch (error) {
 			console.error(error);
@@ -43,6 +42,7 @@ export const LoginForm = () => {
 
 	async function handleSubmit(e) {
 		e.preventDefault();
+		setCharge(true);
 		await login(loginForm);
 		// if (!store.auth) {
 		// } else {
@@ -99,9 +99,17 @@ export const LoginForm = () => {
 					)}
 				</div>
 				<div className="input-container mt-4">
-					<button type="submit" className="btn btn-primary w-100">
-						INICIAR SESION
-					</button>
+					{charge ? (
+						<button type="submit" className="btn btn-primary w-100" disabled={charge}>
+							<>
+								INICIAR SESION <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+							</>
+						</button>
+					) : (
+						<button type="submit" className="btn btn-primary w-100" disabled={charge}>
+							<>INICIAR SESION</>
+						</button>
+					)}
 					<div
 						className="form-text register-text highlight-text mt-2"
 						// onClick={() => {
@@ -113,7 +121,7 @@ export const LoginForm = () => {
 					<hr className="hr-login" />
 				</div>
 				<div className="register-container">
-					<spam className="form-text register-text">¿Aún no estás registrado?</spam>
+					<p className="form-text register-text m-0">¿Aún no estás registrado?</p>
 					<button type="button" className="btn btn-secondary w-100 mb-2" onClick={() => toggleIsFlipped()}>
 						Crear usuario
 					</button>

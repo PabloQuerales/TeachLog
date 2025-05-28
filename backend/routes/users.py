@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify, request
+from flask import Blueprint, jsonify, make_response, request
 from models import User,db
 from flask_bcrypt import Bcrypt
 from flask_jwt_extended import create_access_token, get_jwt_identity, jwt_required,verify_jwt_in_request, decode_token
@@ -41,13 +41,21 @@ def login():
         user = db.session.execute(db.select(User).filter_by(email=email)).scalar_one()
         if not bcrypt.check_password_hash(user.password, password):
             return jsonify({"msg": "email o contraseña equivocados"}), 401
-        access_token = create_access_token(identity=email)
-        return jsonify({"token": access_token, "email": user.email})
+        access_token = create_access_token(identity=email)        
+        response = make_response(jsonify({"msg": "Login exitoso", "email": user.email}))
+        response.set_cookie(
+            "access_token_cookie",
+            access_token,
+            httponly=True,
+            secure=False,    # en desarrollo lo dejamos False; en prod: True con HTTPS
+            samesite='Strict'
+        )
+        return response
     except:
         return jsonify({"msg": "este usuario no existe"}), 404
 
 @users_bp.route("/protected", methods=["GET"])
-@jwt_required()
+@jwt_required(locations=["cookies"])
 def protected():
     current_user = get_jwt_identity()
     return jsonify(logged_in_as=current_user), 200
