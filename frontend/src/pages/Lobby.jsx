@@ -2,9 +2,10 @@ import React, { useEffect } from "react";
 import useStore from "../store";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import { Sidebar } from "../components/sidebar";
 
 export const Lobby = () => {
-	const { backendUrl, setUserLoged, userLoged } = useStore();
+	const { backendUrl, setUserLoged } = useStore();
 	const navigate = useNavigate();
 
 	const auth = async () => {
@@ -41,9 +42,7 @@ export const Lobby = () => {
 	}, []);
 	return (
 		<>
-			<h1>Este es el Lobby</h1>
-			<span>Hola mundo</span>
-			<h2>{userLoged}</h2>
+			<Sidebar />
 		</>
 	);
 };
