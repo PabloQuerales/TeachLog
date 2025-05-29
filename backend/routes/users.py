@@ -61,14 +61,21 @@ def protected():
     current_user = get_jwt_identity()
     return jsonify(user=current_user), 200
 
-@users_bp.route("/verify-token", methods=["GET"])
-def verify_token():
-    try:
-        verify_jwt_in_request()
-        identity = get_jwt_identity()
-        return jsonify({"valid": True, "user": identity}), 200
-    except NoAuthorizationError:
-        return jsonify({"valid": False, "message": "Token inválido o no proporcionado"}), 401
+@users_bp.route("/logout", methods=["POST"])
+def logout():
+    response = make_response(jsonify({"msg": "Sesión cerrada"}))
+    response.delete_cookie("access_token_cookie", samesite='Strict')
+    return response
+
+
+# @users_bp.route("/verify-token", methods=["GET"])
+# def verify_token():
+#     try:
+#         verify_jwt_in_request()
+#         identity = get_jwt_identity()
+#         return jsonify({"valid": True, "user": identity}), 200
+#     except NoAuthorizationError:
+#         return jsonify({"valid": False, "message": "Token inválido o no proporcionado"}), 401
 
 @users_bp.route("/users/<string:email>", methods=["PUT"])
 def edit_user(email):

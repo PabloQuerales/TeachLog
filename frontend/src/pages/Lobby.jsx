@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import useStore from "../store";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
@@ -7,6 +7,7 @@ import { Sidebar } from "../components/sidebar";
 export const Lobby = () => {
 	const { backendUrl, setUserLoged } = useStore();
 	const navigate = useNavigate();
+	const [isLogged, setIsLogged] = useState(false);
 
 	const auth = async () => {
 		const requestOptions = {
@@ -32,6 +33,7 @@ export const Lobby = () => {
 				});
 			} else {
 				setUserLoged(result.user);
+				setIsLogged(true);
 			}
 		} catch (error) {
 			console.error(error);
@@ -40,9 +42,5 @@ export const Lobby = () => {
 	useEffect(() => {
 		auth();
 	}, []);
-	return (
-		<>
-			<Sidebar />
-		</>
-	);
+	return <>{isLogged ? <Sidebar /> : <></>}</>;
 };

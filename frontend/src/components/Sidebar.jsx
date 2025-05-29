@@ -1,10 +1,27 @@
 // import { Config } from "../pages/config";
 import { useNavigate } from "react-router-dom";
+import useStore from "../store";
 
 export const Sidebar = () => {
 	const navigate = useNavigate();
-	const handleClick = () => {
-		// actions.logout();
+	const { backendUrl } = useStore();
+	const handleClick = async () => {
+		const requestOptions = {
+			method: "POST",
+			credentials: "include",
+			redirect: "follow"
+		};
+
+		try {
+			const response = await fetch(`${backendUrl}/logout`, requestOptions);
+			if (response.status === 200) {
+				navigate("/");
+			} else {
+				console.error("Error al cerrar sesión:", response.status);
+			}
+		} catch (error) {
+			console.error("Error de red:", error);
+		}
 	};
 	return (
 		<div className="sidebar">
