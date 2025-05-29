@@ -1,3 +1,4 @@
+from datetime import timedelta
 from flask import Blueprint, jsonify, make_response, request
 from models import User,db
 from flask_bcrypt import Bcrypt
@@ -41,7 +42,7 @@ def login():
         user = db.session.execute(db.select(User).filter_by(email=email)).scalar_one()
         if not bcrypt.check_password_hash(user.password, password):
             return jsonify({"msg": "email o contraseña equivocados"}), 401
-        access_token = create_access_token(identity=email)        
+        access_token = create_access_token(identity=email, expires_delta=timedelta(minutes=30))        
         response = make_response(jsonify({"msg": "Login exitoso", "email": user.email}))
         response.set_cookie(
             "access_token_cookie",
@@ -58,7 +59,7 @@ def login():
 @jwt_required(locations=["cookies"])
 def protected():
     current_user = get_jwt_identity()
-    return jsonify(logged_in_as=current_user), 200
+    return jsonify(user=current_user), 200
 
 @users_bp.route("/verify-token", methods=["GET"])
 def verify_token():

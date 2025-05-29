@@ -1,3 +1,4 @@
+from datetime import timedelta
 from flask import Flask
 from flask_cors import CORS
 from dotenv import load_dotenv
@@ -18,7 +19,7 @@ setup_db(app)
 for bp in all_blueprints:
     app.register_blueprint(bp)
 
-app.config["JWT_SECRET_KEY"] = "super-secret"
+app.config["JWT_SECRET_KEY"] = "TeachLogApp"
 jwt = JWTManager(app)
 
 @app.route("/")
