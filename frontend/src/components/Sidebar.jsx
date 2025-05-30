@@ -1,11 +1,12 @@
 // import { Config } from "../pages/config";
 import { useNavigate } from "react-router-dom";
 import useStore from "../store";
+import "../styles/sidebar.css";
 
 export const Sidebar = () => {
 	const navigate = useNavigate();
 	const { backendUrl } = useStore();
-	const handleClick = async () => {
+	const logout = async () => {
 		const requestOptions = {
 			method: "POST",
 			credentials: "include",
@@ -22,6 +23,24 @@ export const Sidebar = () => {
 		} catch (error) {
 			console.error("Error de red:", error);
 		}
+	};
+	const getUser = async () => {
+		const requestOptions = {
+			method: "GET",
+			redirect: "follow",
+			credentials: "include"
+		};
+
+		try {
+			const response = await fetch("http://127.0.0.1:5000/user/pabloquerales20@gmail.com", requestOptions);
+			const result = await response.text();
+			console.log(result);
+		} catch (error) {
+			console.error(error);
+		}
+	};
+	const handleClick = () => {
+		logout();
 	};
 	return (
 		<div className="sidebar">
@@ -41,7 +60,7 @@ export const Sidebar = () => {
 				<li className="nav-item" onClick={() => navigate("/")}>
 					<i className="icons-sidebar bi bi-envelope"></i> <span className="icon-name">Cuentas</span>
 				</li>
-				<li onClick={() => navigate("/")}>
+				<li onClick={getUser}>
 					<i className="icons-sidebar bi bi-graph-up"></i> <span className="icon-name">Movimientos</span>
 				</li>
 				{/* <li>

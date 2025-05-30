@@ -20,6 +20,18 @@ def get_all_users():
     }
     return jsonify(response_body), 200
 
+@users_bp.route('/user/<string:email>', methods=['GET'])
+@jwt_required(locations=["cookies"])
+def get_users_loged(email):
+    user = db.session.execute(db.select(User).filter_by(email=email)).scalar_one()
+    result = list(map(lambda item: item.serialize(),user))
+    if result == []:
+        return jsonify({"msg":"No hay usuarios registrados"}), 404
+    response_body = {
+        "results": result
+    }
+    return jsonify(response_body), 200
+
 @users_bp.route("/singup", methods=["POST"])
 def singup():
     body = request.json

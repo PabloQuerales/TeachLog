@@ -42,5 +42,9 @@ export const Lobby = () => {
 	useEffect(() => {
 		auth();
 	}, []);
-	return <>{isLogged ? <Sidebar /> : <></>}</>;
+	return (
+		<>
+			<div className="d-flex vh-100">{isLogged ? <Sidebar /> : <></>}</div>
+		</>
+	);
 };
