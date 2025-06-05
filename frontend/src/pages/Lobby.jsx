@@ -5,7 +5,7 @@ import Swal from "sweetalert2";
 import { Sidebar } from "../components/sidebar";
 
 export const Lobby = () => {
-	const { backendUrl, userLoged } = useStore();
+	const { backendUrl, setUserLogged, userLogged } = useStore();
 	const navigate = useNavigate();
 	const [isLogged, setIsLogged] = useState(false);
 
@@ -39,14 +39,13 @@ export const Lobby = () => {
 	};
 	useEffect(() => {
 		auth();
-		if (isLogged) {
-			console.log(userLoged);
-		}
-	}, [userLoged]);
+		setUserLogged(JSON.parse(localStorage.getItem("userLogged")));
+	}, []);
 
 	return (
 		<>
 			<div className="d-flex vh-100">{isLogged ? <Sidebar /> : <></>}</div>
+			<button onClick={() => console.log(userLogged)}>soy un botons</button>
 		</>
 	);
 };

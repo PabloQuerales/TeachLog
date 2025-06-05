@@ -5,7 +5,7 @@ import "../styles/sidebar.css";
 
 export const Sidebar = () => {
 	const navigate = useNavigate();
-	const { backendUrl } = useStore();
+	const { backendUrl, userLogged } = useStore();
 	const logout = async () => {
 		const requestOptions = {
 			method: "POST",
@@ -24,44 +24,26 @@ export const Sidebar = () => {
 			console.error("Error de red:", error);
 		}
 	};
-	const getUser = async () => {
-		const requestOptions = {
-			method: "GET",
-			redirect: "follow",
-			credentials: "include"
-		};
-
-		try {
-			const response = await fetch("http://127.0.0.1:5000/user/pabloquerales20@gmail.com", requestOptions);
-			const result = await response.text();
-			console.log(result);
-		} catch (error) {
-			console.error(error);
-		}
-	};
 	const handleClick = () => {
 		logout();
+		localStorage.clear();
 	};
 
 	return (
 		<div className="sidebar">
 			<div className="sidebar-header">
 				<span className="title-sidebar fs-1">TeachLog</span>
-				<p className="sidebar-slogan">User Name</p>
+				<p className="sidebar-slogan">
+					{userLogged.name} {userLogged.last_name}
+				</p>
 			</div>
-			<div className="d-flex align-items-center user-info">
-				{/* <img src={`${store.defaultImgProfile}${store.user.first_name}`} className="avatar" />
-				<p className="name p-2">
-					{store.user.first_name} {store.user.last_name}
-				</p> */}
-				perfil del usuario
-			</div>
+			<div className="d-flex align-items-center user-info">perfil del usuario</div>
 			{/* menu */}
 			<ul className="nav nav-pills flex-column mb-auto nav-links">
 				<li className="nav-item" onClick={() => navigate("/")}>
 					<i className="icons-sidebar bi bi-envelope"></i> <span className="icon-name">Cuentas</span>
 				</li>
-				<li onClick={getUser}>
+				<li>
 					<i className="icons-sidebar bi bi-graph-up"></i> <span className="icon-name">Movimientos</span>
 				</li>
 				{/* <li>

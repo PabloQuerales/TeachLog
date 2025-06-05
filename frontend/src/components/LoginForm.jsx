@@ -8,7 +8,7 @@ export const LoginForm = () => {
 	const [loginForm, setLoginForm] = useState({ email: "", password: "" });
 	const [charge, setCharge] = useState(false);
 	let navigate = useNavigate();
-	const { toggleIsFlipped, backendUrl, setUserLoged } = useStore();
+	const { toggleIsFlipped, backendUrl } = useStore();
 
 	const login = async (value) => {
 		const myHeaders = new Headers();
@@ -32,8 +32,7 @@ export const LoginForm = () => {
 			if (response.status === 200) {
 				setLoginForm({ email: "", password: "" });
 				navigate("/lobby");
-				setUserLoged(result);
-				console.log(result);
+				localStorage.setItem("userLogged", JSON.stringify(result));
 			} else {
 				setInvalidAccount(true);
 				setCharge(false);
