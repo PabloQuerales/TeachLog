@@ -5,7 +5,7 @@ import Swal from "sweetalert2";
 import { Sidebar } from "../components/sidebar";
 
 export const Lobby = () => {
-	const { backendUrl, setUserLoged } = useStore();
+	const { backendUrl, userLoged } = useStore();
 	const navigate = useNavigate();
 	const [isLogged, setIsLogged] = useState(false);
 
@@ -18,7 +18,6 @@ export const Lobby = () => {
 
 		try {
 			const response = await fetch(`${backendUrl}/protected`, requestOptions);
-			const result = await response.json();
 			if (response.status !== 200) {
 				Swal.fire({
 					title: "Tu sesión ha caducado",
@@ -32,7 +31,6 @@ export const Lobby = () => {
 					}
 				});
 			} else {
-				setUserLoged(result.user);
 				setIsLogged(true);
 			}
 		} catch (error) {
@@ -41,7 +39,11 @@ export const Lobby = () => {
 	};
 	useEffect(() => {
 		auth();
-	}, []);
+		if (isLogged) {
+			console.log(userLoged);
+		}
+	}, [userLoged]);
+
 	return (
 		<>
 			<div className="d-flex vh-100">{isLogged ? <Sidebar /> : <></>}</div>

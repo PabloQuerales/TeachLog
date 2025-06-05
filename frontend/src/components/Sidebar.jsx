@@ -42,6 +42,7 @@ export const Sidebar = () => {
 	const handleClick = () => {
 		logout();
 	};
+
 	return (
 		<div className="sidebar">
 			<div className="sidebar-header">

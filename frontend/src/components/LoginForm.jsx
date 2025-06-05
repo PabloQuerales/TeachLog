@@ -8,7 +8,7 @@ export const LoginForm = () => {
 	const [loginForm, setLoginForm] = useState({ email: "", password: "" });
 	const [charge, setCharge] = useState(false);
 	let navigate = useNavigate();
-	const { toggleIsFlipped, backendUrl } = useStore();
+	const { toggleIsFlipped, backendUrl, setUserLoged } = useStore();
 
 	const login = async (value) => {
 		const myHeaders = new Headers();
@@ -28,9 +28,12 @@ export const LoginForm = () => {
 
 		try {
 			const response = await fetch(`${backendUrl}/login`, requestOptions);
+			const result = await response.json();
 			if (response.status === 200) {
 				setLoginForm({ email: "", password: "" });
 				navigate("/lobby");
+				setUserLoged(result);
+				console.log(result);
 			} else {
 				setInvalidAccount(true);
 				setCharge(false);
@@ -44,22 +47,7 @@ export const LoginForm = () => {
 		e.preventDefault();
 		setCharge(true);
 		await login(loginForm);
-		// if (!store.auth) {
-		// } else {
-		// 	setInvalidAccount(false);
-		// }
 	}
-
-	// useEffect(() => {
-	// 	if (store.auth) {
-	// 		navigate("/cuentas");
-	// 	} else {
-	// 		navigate("/");
-	// 	}
-	// 	if (invalidAccount) {
-	// 		setInvalidAccount(false);
-	// 	}
-	// }, [store.auth]);
 
 	return (
 		<>
