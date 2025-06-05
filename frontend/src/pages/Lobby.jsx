@@ -1,12 +1,13 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import useStore from "../store";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { Sidebar } from "../components/sidebar";
 
 export const Lobby = () => {
-	const { backendUrl, setUserLoged } = useStore();
+	const { backendUrl, setUserLogged, userLogged } = useStore();
 	const navigate = useNavigate();
+	const [isLogged, setIsLogged] = useState(false);
 
 	const auth = async () => {
 		const requestOptions = {
@@ -17,7 +18,6 @@ export const Lobby = () => {
 
 		try {
 			const response = await fetch(`${backendUrl}/protected`, requestOptions);
-			const result = await response.json();
 			if (response.status !== 200) {
 				Swal.fire({
 					title: "Tu sesión ha caducado",
@@ -31,7 +31,7 @@ export const Lobby = () => {
 					}
 				});
 			} else {
-				setUserLoged(result.user);
+				setIsLogged(true);
 			}
 		} catch (error) {
 			console.error(error);
@@ -39,10 +39,13 @@ export const Lobby = () => {
 	};
 	useEffect(() => {
 		auth();
+		setUserLogged(JSON.parse(localStorage.getItem("userLogged")));
 	}, []);
+
 	return (
 		<>
-			<Sidebar />
+			<div className="d-flex vh-100">{isLogged ? <Sidebar /> : <></>}</div>
+			<button onClick={() => console.log(userLogged)}>soy un botons</button>
 		</>
 	);
 };

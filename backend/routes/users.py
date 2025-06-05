@@ -20,6 +20,18 @@ def get_all_users():
     }
     return jsonify(response_body), 200
 
+@users_bp.route('/user/<string:email>', methods=['GET'])
+@jwt_required(locations=["cookies"])
+def get_users_loged(email):
+    user = db.session.execute(db.select(User).filter_by(email=email)).scalar_one()
+    result = list(map(lambda item: item.serialize(),user))
+    if result == []:
+        return jsonify({"msg":"No hay usuarios registrados"}), 404
+    response_body = {
+        "results": result
+    }
+    return jsonify(response_body), 200
+
 @users_bp.route("/singup", methods=["POST"])
 def singup():
     body = request.json
@@ -43,7 +55,7 @@ def login():
         if not bcrypt.check_password_hash(user.password, password):
             return jsonify({"msg": "email o contraseña equivocados"}), 401
         access_token = create_access_token(identity=email, expires_delta=timedelta(minutes=30))        
-        response = make_response(jsonify({"msg": "Login exitoso", "email": user.email}))
+        response = make_response(jsonify({"email": user.email, "name": user.first_name, "last_name": user.last_name, "students": user.students}))
         response.set_cookie(
             "access_token_cookie",
             access_token,
@@ -59,16 +71,15 @@ def login():
 @jwt_required(locations=["cookies"])
 def protected():
     current_user = get_jwt_identity()
+    user = db.session.execute(db.select(User).filter_by(email=current_user)).scalar_one()
+    print(user)
     return jsonify(user=current_user), 200
 
-@users_bp.route("/verify-token", methods=["GET"])
-def verify_token():
-    try:
-        verify_jwt_in_request()
-        identity = get_jwt_identity()
-        return jsonify({"valid": True, "user": identity}), 200
-    except NoAuthorizationError:
-        return jsonify({"valid": False, "message": "Token inválido o no proporcionado"}), 401
+@users_bp.route("/logout", methods=["POST"])
+def logout():
+    response = make_response(jsonify({"msg": "Sesión cerrada"}))
+    response.delete_cookie("access_token_cookie", samesite='Strict')
+    return response
 
 @users_bp.route("/users/<string:email>", methods=["PUT"])
 def edit_user(email):
@@ -97,3 +108,7 @@ def delete_user(email):
     db.session.delete(user)
     db.session.commit()
     return jsonify({"msg": "usuario eliminado"}), 200
+
+@users_bp.route("/ping")
+def ping():
+    return "pong", 200

@@ -1,35 +1,56 @@
 // import { Config } from "../pages/config";
 import { useNavigate } from "react-router-dom";
+import useStore from "../store";
+import "../styles/sidebar.css";
 
 export const Sidebar = () => {
 	const navigate = useNavigate();
-	const handleClick = () => {
-		// actions.logout();
+	const { backendUrl, userLogged } = useStore();
+	const logout = async () => {
+		const requestOptions = {
+			method: "POST",
+			credentials: "include",
+			redirect: "follow"
+		};
+
+		try {
+			const response = await fetch(`${backendUrl}/logout`, requestOptions);
+			if (response.status === 200) {
+				navigate("/");
+			} else {
+				console.error("Error al cerrar sesión:", response.status);
+			}
+		} catch (error) {
+			console.error("Error de red:", error);
+		}
 	};
+	const handleClick = () => {
+		logout();
+		localStorage.clear();
+	};
+
 	return (
 		<div className="sidebar">
 			<div className="sidebar-header">
 				<span className="title-sidebar fs-1">TeachLog</span>
-				<p className="sidebar-slogan">User Name</p>
-			</div>
-			<div className="d-flex align-items-center user-info">
-				{/* <img src={`${store.defaultImgProfile}${store.user.first_name}`} className="avatar" />
-				<p className="name p-2">
-					{store.user.first_name} {store.user.last_name}
-				</p> */}
-				perfil del usuario
+				<p className="sidebar-slogan">
+					{userLogged.name} {userLogged.last_name}
+				</p>
 			</div>
 			{/* menu */}
 			<ul className="nav nav-pills flex-column mb-auto nav-links">
-				<li className="nav-item" onClick={() => navigate("/")}>
-					<i className="icons-sidebar bi bi-envelope"></i> <span className="icon-name">Cuentas</span>
+				<li className="nav-item" onClick={() => navigate("/lobby")}>
+					<i className="icons-sidebar bi bi-house-fill"></i> <span className="icon-name">Home</span>
 				</li>
-				<li onClick={() => navigate("/")}>
-					<i className="icons-sidebar bi bi-graph-up"></i> <span className="icon-name">Movimientos</span>
+				<li className="nav-item" onClick={() => navigate("/students")}>
+					<i className="icons-sidebar bi bi-backpack-fill"></i> <span className="icon-name">Estudiantes</span>
 				</li>
-				{/* <li>
-					<Config />
-				</li> */}
+				<li className="nav-item" onClick={() => navigate("/registers")}>
+					<i className="icons-sidebar bi bi-clipboard-check-fill"></i> <span className="icon-name">Registros</span>
+				</li>
+				<li className="nav-item" onClick={() => navigate("/calender")}>
+					<i className="icons-sidebar bi bi-calendar-check-fill"></i> <span className="icon-name">Calendario</span>
+				</li>
 			</ul>
 			{/* boton cerrar sesion */}
 			<div className="logout-container">
