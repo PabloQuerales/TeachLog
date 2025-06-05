@@ -116,3 +116,7 @@ def delete_user(email):
     db.session.delete(user)
     db.session.commit()
     return jsonify({"msg": "usuario eliminado"}), 200
+
+@users_bp.route("/ping")
+def ping():
+    return "pong", 200
