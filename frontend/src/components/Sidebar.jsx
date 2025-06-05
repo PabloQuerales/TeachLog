@@ -37,9 +37,11 @@ export const Sidebar = () => {
 					{userLogged.name} {userLogged.last_name}
 				</p>
 			</div>
-			<div className="d-flex align-items-center user-info">perfil del usuario</div>
 			{/* menu */}
 			<ul className="nav nav-pills flex-column mb-auto nav-links">
+				<li className="nav-item" onClick={() => navigate("/")}>
+					<i className="icons-sidebar bi bi-envelope"></i> <span className="icon-name">Home</span>
+				</li>
 				<li className="nav-item" onClick={() => navigate("/")}>
 					<i className="icons-sidebar bi bi-envelope"></i> <span className="icon-name">Cuentas</span>
 				</li>
