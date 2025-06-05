@@ -39,18 +39,18 @@ export const Sidebar = () => {
 			</div>
 			{/* menu */}
 			<ul className="nav nav-pills flex-column mb-auto nav-links">
-				<li className="nav-item" onClick={() => navigate("/")}>
-					<i className="icons-sidebar bi bi-envelope"></i> <span className="icon-name">Home</span>
+				<li className="nav-item" onClick={() => navigate("/lobby")}>
+					<i className="icons-sidebar bi bi-house-fill"></i> <span className="icon-name">Home</span>
 				</li>
-				<li className="nav-item" onClick={() => navigate("/")}>
-					<i className="icons-sidebar bi bi-envelope"></i> <span className="icon-name">Cuentas</span>
+				<li className="nav-item" onClick={() => navigate("/students")}>
+					<i className="icons-sidebar bi bi-backpack-fill"></i> <span className="icon-name">Estudiantes</span>
 				</li>
-				<li>
-					<i className="icons-sidebar bi bi-graph-up"></i> <span className="icon-name">Movimientos</span>
+				<li className="nav-item" onClick={() => navigate("/registers")}>
+					<i className="icons-sidebar bi bi-clipboard-check-fill"></i> <span className="icon-name">Registros</span>
 				</li>
-				{/* <li>
-					<Config />
-				</li> */}
+				<li className="nav-item" onClick={() => navigate("/calender")}>
+					<i className="icons-sidebar bi bi-calendar-check-fill"></i> <span className="icon-name">Calendario</span>
+				</li>
 			</ul>
 			{/* boton cerrar sesion */}
 			<div className="logout-container">
