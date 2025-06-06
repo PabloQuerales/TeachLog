@@ -32,7 +32,7 @@ export const Sidebar = () => {
 	return (
 		<div className="sidebar">
 			<div className="sidebar-header">
-				<span className="title-sidebar fs-1">TeachLog</span>
+				<h2 className="title-sidebar">TeachLog</h2>
 				<p className="sidebar-slogan">
 					{userLogged.name} {userLogged.last_name}
 				</p>
