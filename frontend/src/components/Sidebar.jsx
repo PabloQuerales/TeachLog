@@ -34,7 +34,7 @@ export const Sidebar = () => {
 			<div className="sidebar-header">
 				<h2 className="title-sidebar">TeachLog</h2>
 				<p className="sidebar-slogan">
-					{userLogged.name} {userLogged.last_name}
+					{userLogged.first_name} {userLogged.last_name}
 				</p>
 			</div>
 			{/* menu */}

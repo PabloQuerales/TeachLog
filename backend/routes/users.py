@@ -9,29 +9,6 @@ from flask_jwt_extended.exceptions import NoAuthorizationError
 users_bp = Blueprint('users_bp', __name__)
 bcrypt = Bcrypt()
 
-@users_bp.route('/users', methods=['GET'])
-def get_all_users():
-    data = db.session.scalars(db.select(User)).all()
-    result = list(map(lambda item: item.serialize(),data))
-    if result == []:
-        return jsonify({"msg":"No hay usuarios registrados"}), 404
-    response_body = {
-        "results": result
-    }
-    return jsonify(response_body), 200
-
-@users_bp.route('/user/<string:email>', methods=['GET'])
-@jwt_required(locations=["cookies"])
-def get_users_loged(email):
-    user = db.session.execute(db.select(User).filter_by(email=email)).scalar_one()
-    result = list(map(lambda item: item.serialize(),user))
-    if result == []:
-        return jsonify({"msg":"No hay usuarios registrados"}), 404
-    response_body = {
-        "results": result
-    }
-    return jsonify(response_body), 200
-
 @users_bp.route("/singup", methods=["POST"])
 def singup():
     body = request.json
@@ -54,8 +31,8 @@ def login():
         user = db.session.execute(db.select(User).filter_by(email=email)).scalar_one()
         if not bcrypt.check_password_hash(user.password, password):
             return jsonify({"msg": "email o contraseña equivocados"}), 401
-        access_token = create_access_token(identity=email, expires_delta=timedelta(minutes=30))        
-        response = make_response(jsonify({"email": user.email, "name": user.first_name, "last_name": user.last_name, "students": user.students}))
+        access_token = create_access_token(identity=str(user.id), expires_delta=timedelta(minutes=30))        
+        response = make_response(jsonify({"user_id": user.id}))
         response.set_cookie(
             "access_token_cookie",
             access_token,
@@ -71,9 +48,8 @@ def login():
 @jwt_required(locations=["cookies"])
 def protected():
     current_user = get_jwt_identity()
-    user = db.session.execute(db.select(User).filter_by(email=current_user)).scalar_one()
-    print(user)
-    return jsonify(user=current_user), 200
+    user = db.session.execute(db.select(User).filter_by(id=current_user)).scalar_one()
+    return jsonify(user.serialize()), 200
 
 @users_bp.route("/logout", methods=["POST"])
 def logout():

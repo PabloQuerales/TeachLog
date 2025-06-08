@@ -10,7 +10,7 @@ export const Lobby = () => {
 	const navigate = useNavigate();
 	const [isLogged, setIsLogged] = useState(false);
 
-	const auth = async () => {
+	const userAuth = async () => {
 		const requestOptions = {
 			method: "GET",
 			redirect: "follow",
@@ -19,6 +19,7 @@ export const Lobby = () => {
 
 		try {
 			const response = await fetch(`${backendUrl}/protected`, requestOptions);
+			const result = await response.json();
 			if (response.status !== 200) {
 				Swal.fire({
 					title: "Tu sesión ha caducado",
@@ -32,6 +33,7 @@ export const Lobby = () => {
 					}
 				});
 			} else {
+				setUserLogged(result);
 				setIsLogged(true);
 			}
 		} catch (error) {
@@ -39,8 +41,7 @@ export const Lobby = () => {
 		}
 	};
 	useEffect(() => {
-		auth();
-		setUserLogged(JSON.parse(localStorage.getItem("userLogged")));
+		userAuth();
 	}, []);
 
 	return (

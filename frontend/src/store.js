@@ -10,7 +10,6 @@ const useStore = create((set) => ({
 // Actions
   toggleIsFlipped: () => set((state) => ({isFlipped: !state.isFlipped})),
   setUserLogged: (value) => set(() => ({userLogged: value})),
-
 }));
   
 export default useStore;
