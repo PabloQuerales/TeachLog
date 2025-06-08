@@ -2,8 +2,8 @@ import { createBrowserRouter, createRoutesFromElements, Route } from "react-rout
 import { AuthLayout } from "./layouts/AuthLayout";
 import { AppLayout } from "./layouts/AppLayout";
 import { Login } from "./pages/Login";
-import { Lobby } from "./pages/Lobby";
 import { Students } from "./pages/Students";
+import { UserProfile } from "./pages/UserProfile";
 
 export const router = createBrowserRouter(
 	createRoutesFromElements(
@@ -13,7 +13,7 @@ export const router = createBrowserRouter(
 			</Route>
 
 			<Route element={<AppLayout />}>
-				<Route path="/lobby" element={<Lobby />} />
+				<Route path="/lobby" element={<UserProfile />} />
 				<Route path="/students" element={<Students />} />
 				<Route path="/registers" element={<h2>Registers</h2>} />
 				<Route path="/calender" element={<h2>Calendar</h2>} />

@@ -22,6 +22,8 @@ python-dotenv = "*"
 flask = "*"
 flask-bcrypt = "*"
 flask-jwt-extended = "*"
+flask-migrate = "*"
+
 [dev-packages]
 
 [requires]

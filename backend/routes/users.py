@@ -2,8 +2,7 @@ from datetime import timedelta
 from flask import Blueprint, jsonify, make_response, request
 from models import User,db
 from flask_bcrypt import Bcrypt
-from flask_jwt_extended import create_access_token, get_jwt_identity, jwt_required,verify_jwt_in_request, decode_token
-from flask_jwt_extended.exceptions import NoAuthorizationError
+from flask_jwt_extended import create_access_token, get_jwt_identity, jwt_required
 
 
 users_bp = Blueprint('users_bp', __name__)
