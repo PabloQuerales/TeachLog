@@ -44,16 +44,5 @@ export const Lobby = () => {
 		userAuth();
 	}, []);
 
-	return (
-		<>
-			{isLogged ? (
-				<div className="d-flex vh-100">
-					<Sidebar />
-					<UserProfile />
-				</div>
-			) : (
-				<></>
-			)}
-		</>
-	);
+	return <>{isLogged ? <UserProfile /> : <></>}</>;
 };
