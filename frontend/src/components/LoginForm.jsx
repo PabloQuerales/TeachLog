@@ -28,11 +28,9 @@ export const LoginForm = () => {
 
 		try {
 			const response = await fetch(`${backendUrl}/login`, requestOptions);
-			const result = await response.json();
 			if (response.status === 200) {
 				setLoginForm({ email: "", password: "" });
 				navigate("/lobby");
-				localStorage.setItem("userLogged", JSON.stringify(result));
 			} else {
 				setInvalidAccount(true);
 				setCharge(false);

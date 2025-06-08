@@ -5,7 +5,7 @@ export const UserProfile = () => {
 	return (
 		<div className="container p-0 d-flex flex-column vw-100 align-items-center">
 			<div className="user-header">
-				<img src={`https://api.dicebear.com/9.x/initials/svg?seed=${userLogged.name}`} className="user-avatar" />
+				<img src={`https://api.dicebear.com/9.x/initials/svg?seed=${userLogged.first_name}`} className="user-avatar" />
 			</div>
 			<div className="user-content container">
 				<div className="row justify-content-around mt-5">
@@ -35,7 +35,7 @@ export const UserProfile = () => {
 					</div>
 				</div>
 				<div className="d-flex justify-content-center">
-					<button type="button" class="btn btn-secondary">
+					<button type="button" className="btn btn-secondary">
 						Agregar Registro
 					</button>
 				</div>
