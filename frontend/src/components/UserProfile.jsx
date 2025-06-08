@@ -7,8 +7,8 @@ export const UserProfile = () => {
 			<div className="user-header">
 				<img src={`https://api.dicebear.com/9.x/initials/svg?seed=${userLogged.first_name}`} className="user-avatar" />
 			</div>
-			<div className="user-content container">
-				<div className="row justify-content-around mt-5">
+			<div className="user-content container d-flex flex-column justify-content-center">
+				<div className="row justify-content-around">
 					<div className="card col-4 m-3">
 						<div className="card-body text-center">
 							<h5 className="card-title">Clases dictadas de MES EN CURSO AQUÍ</h5>
