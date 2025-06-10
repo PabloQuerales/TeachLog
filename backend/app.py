@@ -19,6 +19,8 @@ setup_db(app)
 
 # Configuración de JWT
 app.config["JWT_SECRET_KEY"] = "TeachLogApp"
+app.config["JWT_COOKIE_CSRF_PROTECT"] = True
+
 jwt = JWTManager(app)
 
 # Configuración de migraciones

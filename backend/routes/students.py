@@ -10,7 +10,6 @@ def get_all_students():
     return jsonify([student.serialize() for student in students]), 200
 
 @students_bp.route("/new_student", methods=["POST"])
-@jwt_required(locations=["cookies"])
 def post_new_student():
     current_user = get_jwt_identity()
     try:
