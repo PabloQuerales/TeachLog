@@ -9,14 +9,14 @@ def get_all_students():
     students = Students.query.all()
     return jsonify([student.serialize() for student in students]), 200
 
-@students_bp.route("/new_student", methods=["POST"])
-def post_new_student():
-    current_user = get_jwt_identity()
+@students_bp.route("/new_student/<int:user_id>", methods=["POST"])
+def post_new_student(user_id):
     try:
         request_body = request.json
-        exist = db.session.query(db.select(Students).filter_by(name=request_body["name"]).exists()).scalar()
+        exist = db.session.query(db.select(Students).filter_by(name=request_body["name"], user_id=user_id).exists()
+        ).scalar()
         if not exist: 
-            new_student = Students(user_id=current_user, name=request_body["name"],coin=request_body["coin"], price=request_body["price"], level=request_body["level"], contact_name=request_body["contact_name"], contact_phone=request_body["contact_phone"], status= True)
+            new_student = Students(user_id=user_id, name=request_body["name"],coin=request_body["coin"], price=request_body["price"], level=request_body["level"], contact_name=request_body["contact_name"], contact_phone=request_body["contact_phone"], status= True)
             db.session.add(new_student)
             db.session.commit()  
             student_id = new_student.id

@@ -1,12 +1,14 @@
+import { useEffect } from "react";
 import useStore from "../store";
 export const Students = () => {
 	const { userLogged, backendUrl } = useStore();
+
 	const newStudent = async () => {
 		const myHeaders = new Headers();
 		myHeaders.append("Content-Type", "application/json");
 
 		const raw = JSON.stringify({
-			name: "Rodrigo",
+			name: "Pedro",
 			price: "100",
 			coin: "PEN",
 			contact_name: "Samantha",
@@ -18,12 +20,11 @@ export const Students = () => {
 			method: "POST",
 			headers: myHeaders,
 			body: raw,
-			redirect: "follow",
-			credentials: "include"
+			redirect: "follow"
 		};
 
 		try {
-			const response = await fetch(`${backendUrl}/new_student`, requestOptions);
+			const response = await fetch(`${backendUrl}/new_student/${userLogged.id}`, requestOptions);
 			const result = await response.json();
 			console.log(result);
 		} catch (error) {
@@ -32,13 +33,14 @@ export const Students = () => {
 	};
 	return (
 		<>
-			<h1>aqui van los estudiantes</h1>
-
-			<button onClick={newStudent}>Boton para registrar</button>
-			{userLogged.students.map((students) => {
-				<h1>aqui van los estudiantes</h1>;
-				<h2>{students} hola prueba</h2>;
-			})}
+			<div>
+				{userLogged.students.map((student, index) => {
+					return <h1 key={index}>{student.name}</h1>;
+				})}
+				<button className="btn btn-secondary" onClick={newStudent}>
+					Boton para registrar
+				</button>
+			</div>
 		</>
 	);
 };
