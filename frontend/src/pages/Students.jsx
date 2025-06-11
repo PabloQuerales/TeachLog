@@ -1,7 +1,6 @@
 import useStore from "../store";
 export const Students = () => {
 	const { userLogged, backendUrl } = useStore();
-	console.log(userLogged);
 	const newStudent = async () => {
 		const myHeaders = new Headers();
 		myHeaders.append("Content-Type", "application/json");
