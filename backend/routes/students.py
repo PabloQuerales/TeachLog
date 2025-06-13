@@ -6,8 +6,9 @@ students_bp = Blueprint('students_bp', __name__)
 
 @students_bp.route("/students/<int:user_id>", methods=["GET"])
 def get_students(user_id):
-    students = db.session.execute(db.select(Students).filter_by(user_id=user_id)).all()
-    return jsonify({[students]}), 200
+    students = db.session.scalars(db.select(Students).filter_by(user_id=user_id)).all()
+    result = [student.serialize() for student in students]
+    return jsonify(result), 200
 
 @students_bp.route("/new_student/<int:user_id>", methods=["POST"])
 def post_new_student(user_id):
