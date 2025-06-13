@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import useStore from "../store";
 export const Students = () => {
 	const { userLogged, backendUrl } = useStore();
