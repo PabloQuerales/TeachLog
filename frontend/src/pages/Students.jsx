@@ -1,5 +1,9 @@
 import useStore from "../store";
+import { CardStudents } from "../components/CardStudents";
+import { useEffect, useState } from "react";
+
 export const Students = () => {
+	const [students, setStudents] = useState([]);
 	const { userLogged, backendUrl } = useStore();
 
 	const getStudents = async () => {
@@ -10,8 +14,8 @@ export const Students = () => {
 
 		try {
 			const response = await fetch(`${backendUrl}/students/${userLogged.id}`, requestOptions);
-			const result = await response.text();
-			console.log(result);
+			const result = await response.json();
+			setStudents(result);
 		} catch (error) {
 			console.error(error);
 		}
@@ -45,13 +49,19 @@ export const Students = () => {
 			console.error(error);
 		}
 	};
+	useEffect(() => {
+		getStudents();
+	}, []);
 	return (
 		<>
 			<div>
-				{userLogged.students.map((student, index) => {
-					return <h1 key={index}>{student.name}</h1>;
+				{students.map((student, index) => {
+					return <CardStudents key={index} student={student} />;
 				})}
-				<button className="btn btn-secondary" onClick={getStudents}>
+				<button className="btn btn-secondary" onClick={() => console.log(students)}>
+					Boton para registrar
+				</button>
+				<button className="btn btn-secondary" onClick={newStudent}>
 					Boton para registrar
 				</button>
 			</div>
