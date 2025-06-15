@@ -2,26 +2,20 @@ import "../styles/cardStudents.css";
 
 export const CardStudents = ({ student }) => {
 	return (
-		<div className="card-student">
+		<div className=" card card-student">
 			<div className="student-content">
 				<div className="student-info">
 					<h5 className="student-name">{student.name}</h5>
-
 					<div className="info-group">
 						<span className="label">Contacto:</span>
-						<span>
-							{student.contact_name} - {student.contact_phone}
-						</span>
+						<span>{student.contact_name}</span>
+						<span>{student.contact_phone}</span>
 					</div>
-
 					<div className="info-group">
-						<span className="label">Precio / Moneda:</span>
+						<span className="label">Precio:</span>
 						<span>
 							{student.price} {student.coin}
 						</span>
-					</div>
-
-					<div className="info-group">
 						<span className="label">Nivel:</span>
 						<span>{student.level}</span>
 					</div>

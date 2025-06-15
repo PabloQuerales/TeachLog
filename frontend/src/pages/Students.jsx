@@ -26,12 +26,12 @@ export const Students = () => {
 		myHeaders.append("Content-Type", "application/json");
 
 		const raw = JSON.stringify({
-			name: "Pedro",
-			price: "100",
-			coin: "PEN",
-			contact_name: "Samantha",
+			name: "Joanna",
+			price: "30",
+			coin: "EU",
+			contact_name: "Joanna",
 			contact_phone: "+31631261468",
-			level: "B2"
+			level: "C1"
 		});
 
 		const requestOptions = {
@@ -44,7 +44,9 @@ export const Students = () => {
 		try {
 			const response = await fetch(`${backendUrl}/new_student/${userLogged.id}`, requestOptions);
 			const result = await response.json();
-			console.log(result);
+			if (response.status == 200) {
+				getStudents();
+			}
 		} catch (error) {
 			console.error(error);
 		}
@@ -64,7 +66,7 @@ export const Students = () => {
 					Boton para registrar
 				</button>
 				<button className="btn btn-secondary" onClick={newStudent}>
-					Boton para registrar
+					Boton
 				</button>
 			</div>
 		</>
