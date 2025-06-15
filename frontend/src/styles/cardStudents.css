@@ -1,0 +1,70 @@
+.card-student {
+	background-color: #fdfdfd;
+	border: 1px solid #ddd;
+	border-radius: 12px;
+	padding: 16px 20px;
+	margin-bottom: 10px;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+	display: flex;
+	flex-direction: column;
+	transition: transform 0.2s;
+}
+
+.card-student:hover {
+	transform: translateY(-3px);
+}
+
+.student-content {
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-start;
+}
+
+.student-info {
+	flex: 1;
+}
+
+.student-name {
+	margin: 0 0 8px;
+	font-size: 1.2rem;
+	font-weight: bold;
+	color: #333;
+}
+
+.info-group {
+	margin-bottom: 6px;
+	display: flex;
+	gap: 6px;
+	font-size: 0.95rem;
+	color: #555;
+}
+
+.label {
+	font-weight: 500;
+	color: #777;
+	min-width: 50px;
+	display: inline-block;
+}
+
+.student-status {
+	display: flex;
+	align-items: center;
+	font-size: 0.9rem;
+	color: #555;
+}
+
+.status-dot {
+	width: 14px;
+	height: 14px;
+	border-radius: 50%;
+	border: 1.5px solid #222;
+	display: inline-block;
+}
+
+.status-dot.green {
+	background-color: #28a745;
+}
+
+.status-dot.red {
+	background-color: #dc3545;
+}

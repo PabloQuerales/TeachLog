@@ -55,9 +55,11 @@ export const Students = () => {
 	return (
 		<>
 			<div>
-				{students.map((student, index) => {
-					return <CardStudents key={index} student={student} />;
-				})}
+				<div className="container">
+					{students.map((student, index) => {
+						return <CardStudents key={index} student={student} />;
+					})}
+				</div>
 				<button className="btn btn-secondary" onClick={() => console.log(students)}>
 					Boton para registrar
 				</button>
