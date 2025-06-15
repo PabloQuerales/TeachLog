@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
+import { Sidebar } from "../components/sidebar";
+import { Outlet } from "react-router-dom";
+import Swal from "sweetalert2";
 import useStore from "../store";
 import { useNavigate } from "react-router-dom";
-import Swal from "sweetalert2";
-import { Sidebar } from "../components/sidebar";
-import { UserProfile } from "../components/UserProfile";
 
-export const Lobby = () => {
+export const AppLayout = () => {
 	const { backendUrl, setUserLogged } = useStore();
 	const navigate = useNavigate();
 	const [isLogged, setIsLogged] = useState(false);
@@ -47,9 +47,9 @@ export const Lobby = () => {
 	return (
 		<>
 			{isLogged ? (
-				<div className="d-flex vh-100">
+				<div className="d-flex vh-100 ">
 					<Sidebar />
-					<UserProfile />
+					<Outlet />
 				</div>
 			) : (
 				<></>

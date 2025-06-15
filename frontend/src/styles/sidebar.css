@@ -1,5 +1,5 @@
 .sidebar {
-	width: 15vw;
+	min-width: 14vw;
 	height: 100vh;
 	background: linear-gradient(to bottom, #010d87, #0026ff);
 	color: white;

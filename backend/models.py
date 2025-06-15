@@ -28,6 +28,7 @@ class User(db.Model):
             "email": self.email,
             "first_name": self.first_name,
             "last_name": self.last_name,
+            "students": [student.serialize() for student in self.students]
             # do not serialize the password, its a security breach
         }
 
@@ -36,8 +37,12 @@ class Students(db.Model):
     id: Mapped[int] = mapped_column(primary_key=True)
     user_id: Mapped[int] = mapped_column(ForeignKey("user.id"))
     name: Mapped[str] = mapped_column(String(80),nullable=False)
-    contact: Mapped[str] = mapped_column(nullable=False)
+    contact_name: Mapped[str] = mapped_column(nullable=True)
+    contact_phone: Mapped[str] = mapped_column(nullable=True)
     price: Mapped[int] = mapped_column(nullable=False)
+    level: Mapped[str] = mapped_column(nullable=False)
+    status: Mapped[bool] = mapped_column(nullable=False)
+    coin: Mapped[str] = mapped_column(nullable=False)
     user: Mapped["User"] = relationship(back_populates="students")
     student_details: Mapped[List["Student_details"]] = relationship(back_populates="student")
 
@@ -46,8 +51,12 @@ class Students(db.Model):
             "id": self.id,
             "user_id": self.user_id,
             "name": self.name,
-            "contact": self.contact,
-            "price": self.price
+            "contact_name": self.contact_name,
+            "contact_phone": self.contact_phone,
+            "price": self.price,
+            "level": self.level,
+            "coin": self.coin,
+            "status": self.status
         }
 
 class Student_details(db.Model):
