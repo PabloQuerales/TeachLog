@@ -56,11 +56,15 @@ export const Students = () => {
 	}, []);
 	return (
 		<>
-			<div className="container p-5 h-100">
+			<div className="container h-100">
 				<div className="scrollmenu p-3">
 					{students.map((student, index) => {
 						return <CardStudents key={index} student={student} />;
 					})}
+				</div>
+				<div className="d-flex justify-content-evenly">
+					<button className="btn btn-dark">Crear nuevo Alumno</button>
+					<button className="btn btn-dark">Añadir registro de Alumno</button>
 				</div>
 			</div>
 		</>
