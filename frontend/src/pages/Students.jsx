@@ -1,6 +1,7 @@
 import useStore from "../store";
 import { CardStudents } from "../components/CardStudents";
 import { useEffect, useState } from "react";
+import "../styles/students.css";
 
 export const Students = () => {
 	const [students, setStudents] = useState([]);
@@ -43,7 +44,6 @@ export const Students = () => {
 
 		try {
 			const response = await fetch(`${backendUrl}/new_student/${userLogged.id}`, requestOptions);
-			const result = await response.json();
 			if (response.status == 200) {
 				getStudents();
 			}
@@ -56,18 +56,12 @@ export const Students = () => {
 	}, []);
 	return (
 		<>
-			<div>
-				<div className="container">
+			<div className="container p-5 h-100">
+				<div className="scrollmenu p-3">
 					{students.map((student, index) => {
 						return <CardStudents key={index} student={student} />;
 					})}
 				</div>
-				<button className="btn btn-secondary" onClick={() => console.log(students)}>
-					Boton para registrar
-				</button>
-				<button className="btn btn-secondary" onClick={newStudent}>
-					Boton
-				</button>
 			</div>
 		</>
 	);

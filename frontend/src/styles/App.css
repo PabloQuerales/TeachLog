@@ -12,7 +12,6 @@ body {
 	background-color: var(--color-surface);
 	color: var(--color-text);
 }
-
 .card {
 	background-color: var(--color-background);
 	border-radius: 12px;

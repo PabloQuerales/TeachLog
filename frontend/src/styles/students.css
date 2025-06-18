@@ -1,0 +1,6 @@
+.scrollmenu {
+	display: flex;
+	overflow-y: auto;
+	flex-direction: column;
+	max-height: 90vh;
+}
