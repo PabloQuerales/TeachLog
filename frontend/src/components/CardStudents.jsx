@@ -20,10 +20,15 @@ export const CardStudents = ({ student }) => {
 						<span>{student.level}</span>
 					</div>
 				</div>
-
 				<div className="student-status">
-					<span className="label">Status:</span>
-					<span className={`status-dot ${student.status ? "green" : "red"}`}></span>
+					<div className="mb-4">
+						<span className="label">Status:</span>
+						<span className={`status-dot ${student.status ? "green" : "red"}`}></span>
+					</div>
+					<div className="mt-4">
+						<span className="label">Status:</span>
+						<span className={`status-dot ${student.status ? "green" : "red"}`}></span>
+					</div>
 				</div>
 			</div>
 		</div>
