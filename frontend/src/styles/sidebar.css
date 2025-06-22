@@ -1,21 +1,23 @@
 .sidebar {
 	min-width: 14vw;
 	height: 100vh;
-	background: linear-gradient(to bottom, #010d87, #0026ff);
-	color: white;
+	background-color: var(--color-background);
+	color: var(--color-accent);
 	padding: 20px;
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
 	box-shadow: 4px 0 10px rgba(0, 0, 0, 0.4);
 }
+
 .title-sidebar {
 	font-size: 2rem;
 	font-weight: bold;
 }
+
 .sidebar-slogan {
 	font-size: 0.9rem;
-	opacity: 0.8;
+	font-weight: bold;
 }
 
 .user-info {
@@ -27,7 +29,7 @@
 
 .avatar {
 	border-radius: 50%;
-	background-color: #f5f5f5;
+	background-color: var(--color-text);
 	width: 50px;
 	height: 50px;
 	display: flex;
@@ -35,6 +37,7 @@
 	justify-content: center;
 	font-size: 18px;
 	font-weight: bold;
+	color: var(--color-background);
 }
 
 .nav-links {
@@ -42,11 +45,11 @@
 	cursor: pointer;
 }
 
-.nav-links .nav-link {
+.nav-links .nav-item {
 	display: flex;
 	align-items: center;
 	gap: 8px;
-	color: white;
+	color: var(--color-text);
 	text-decoration: none;
 	font-weight: 500;
 	padding: 10px;
@@ -54,16 +57,17 @@
 	transition: background 0.3s;
 }
 
-.nav-links .nav-link:hover {
-	background: rgba(255, 255, 255, 0.2);
+.nav-links .nav-item:hover {
+	background: rgba(196, 159, 59, 0.2); /* color-accent translúcido */
 }
 
 .name {
 	margin: 0 !important;
 }
+
 .toggle-theme {
-	background: #e0e0e0;
-	color: #010d87;
+	background: var(--color-muted);
+	color: var(--color-background);
 	border: none;
 	padding: 10px 15px;
 	cursor: pointer;
@@ -82,8 +86,8 @@
 }
 
 .logout-btn {
-	background-color: #e0e0e0;
-	color: #010d87;
+	background-color: var(--color-accent);
+	color: var(--color-background);
 	font-weight: bold;
 	border: none;
 	padding: 10px 15px;
@@ -95,10 +99,11 @@
 }
 
 .logout-btn:hover {
-	background: #bdbdbd;
+	opacity: 0.85;
 }
 
 @media (max-width: 768px) {
+	/* Si querés puedo ayudarte a adaptar esto también */
 }
 
 @media (max-width: 480px) {

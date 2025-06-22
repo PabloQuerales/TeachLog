@@ -1,6 +1,7 @@
 import useStore from "../store";
 import { CardStudents } from "../components/CardStudents";
 import { useEffect, useState } from "react";
+import "../styles/students.css";
 
 export const Students = () => {
 	const [students, setStudents] = useState([]);
@@ -26,12 +27,12 @@ export const Students = () => {
 		myHeaders.append("Content-Type", "application/json");
 
 		const raw = JSON.stringify({
-			name: "Pedro",
-			price: "100",
-			coin: "PEN",
-			contact_name: "Samantha",
+			name: "Joanna H",
+			price: "30",
+			coin: "EU",
+			contact_name: "Joanna",
 			contact_phone: "+31631261468",
-			level: "B2"
+			level: "C1"
 		});
 
 		const requestOptions = {
@@ -43,8 +44,9 @@ export const Students = () => {
 
 		try {
 			const response = await fetch(`${backendUrl}/new_student/${userLogged.id}`, requestOptions);
-			const result = await response.json();
-			console.log(result);
+			if (response.status == 200) {
+				getStudents();
+			}
 		} catch (error) {
 			console.error(error);
 		}
@@ -54,16 +56,18 @@ export const Students = () => {
 	}, []);
 	return (
 		<>
-			<div>
-				{students.map((student, index) => {
-					return <CardStudents key={index} student={student} />;
-				})}
-				<button className="btn btn-secondary" onClick={() => console.log(students)}>
-					Boton para registrar
-				</button>
-				<button className="btn btn-secondary" onClick={newStudent}>
-					Boton para registrar
-				</button>
+			<div className="container h-100">
+				<div className="scrollmenu p-3">
+					{students.map((student, index) => {
+						return <CardStudents key={index} student={student} />;
+					})}
+				</div>
+				<div className="d-flex justify-content-evenly">
+					<button className="btn btn-dark" onClick={newStudent}>
+						Crear nuevo Alumno
+					</button>
+					<button className="btn btn-dark">Añadir registro de Alumno</button>
+				</div>
 			</div>
 		</>
 	);

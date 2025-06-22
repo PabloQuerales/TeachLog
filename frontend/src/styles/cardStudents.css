@@ -1,0 +1,68 @@
+.card-student {
+	background-color: var(--color-accent);
+	color: var(--color-text);
+	border: 1px solid var(--color-text);
+	border-radius: 12px;
+	padding: 16px 20px;
+	margin-bottom: 10px;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+	display: flex;
+	flex-direction: column;
+	transition: transform 0.2s;
+	width: 35vw;
+}
+
+.student-content {
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-start;
+}
+
+.student-info {
+	flex: 1;
+}
+
+.student-name {
+	margin: 0 0 8px;
+	font-size: 1.5rem;
+	font-weight: bold;
+	color: var(--color-accent);
+}
+
+.info-group {
+	margin-bottom: 6px;
+	display: flex;
+	gap: 20px;
+	font-size: 0.95rem;
+}
+
+.label {
+	font-weight: 500;
+	color: var(--color-accent);
+	min-width: 50px;
+	display: inline-block;
+}
+
+.student-status {
+	display: flex;
+	align-items: center;
+	font-size: 0.9rem;
+	color: #333;
+	flex-direction: column;
+}
+
+.status-dot {
+	width: 14px;
+	height: 14px;
+	border-radius: 50%;
+	border: 1.5px solid #222;
+	display: inline-block;
+}
+
+.status-dot.green {
+	background-color: #28a745;
+}
+
+.status-dot.red {
+	background-color: #dc3545;
+}

@@ -1,0 +1,8 @@
+.scrollmenu {
+	display: flex;
+	overflow-x: auto;
+	flex-wrap: wrap;
+	max-height: 85vh;
+	gap: 2rem;
+	justify-content: center;
+}

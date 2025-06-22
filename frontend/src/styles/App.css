@@ -1,0 +1,36 @@
+:root {
+	--color-background: rgb(47, 50, 63);
+	--color-surface: rgb(100, 100, 124);
+	--color-accent: rgb(196, 159, 59);
+	--color-text: #f5f5f5;
+	--color-muted: #ccc;
+}
+
+body {
+	margin: 0;
+	font-family: system-ui, sans-serif;
+	background-color: var(--color-surface);
+	color: var(--color-text);
+}
+.card {
+	background-color: var(--color-background);
+	border-radius: 12px;
+	color: var(--color-text);
+}
+
+.button-accent {
+	background-color: var(--color-accent);
+	color: var(--color-background);
+	border: none;
+	padding: 8px 16px;
+	border-radius: 6px;
+	cursor: pointer;
+}
+
+.button-accent:hover {
+	opacity: 0.9;
+}
+
+p {
+	margin: 0;
+}

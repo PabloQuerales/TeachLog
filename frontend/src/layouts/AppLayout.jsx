@@ -51,9 +51,7 @@ export const AppLayout = () => {
 					<Sidebar />
 					<Outlet />
 				</div>
-			) : (
-				<></>
-			)}
+			) : null}
 		</>
 	);
 };

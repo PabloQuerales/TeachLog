@@ -1,22 +1,32 @@
-export const CardStudents = (props) => {
+import "../styles/cardStudents.css";
+
+export const CardStudents = ({ student }) => {
 	return (
-		<div className="card mb-3">
-			<div className="row g-0">
-				<div className="col-md-4">
-					<img src="..." className="img-fluid rounded-start" alt="..." />
+		<div className=" card card-student">
+			<div className="student-content">
+				<div className="student-info">
+					<h5 className="student-name">{student.name}</h5>
+					<div className="info-group">
+						<span className="label">Contacto:</span>
+						<span>{student.contact_name}</span>
+						<span>{student.contact_phone}</span>
+					</div>
+					<div className="info-group">
+						<span className="label">Precio:</span>
+						<span>
+							{student.price} {student.coin}
+						</span>
+						<span className="label">Nivel:</span>
+						<span>{student.level}</span>
+					</div>
 				</div>
-				<div className="col-md-8">
-					<div className="card-body">
-						<h5 className="card-title">{props.student.name}</h5>
-						<p className="card-text">{props.student.coin}</p>
-						<p className="card-text">{props.student.contact_name}</p>
-						<p className="card-text">{props.student.contact_phone}</p>
-						<p className="card-text">{props.student.contact_name}</p>
-						<p className="card-text">{props.student.level}</p>
-						<p className="card-text">{props.student.price}</p>
-						<p className="card-text">{props.student.status}</p>
-						{props.student.status ? <p className="btn btn-success"></p> : <p className="btn btn-danger"></p>}
-						<button onClick={() => console.log(props.student.name)}>hola</button>
+				<div className="student-status">
+					<div className="mb-4">
+						<span className="label">Status:</span>
+						<span className={`status-dot ${student.status ? "green" : "red"}`}></span>
+					</div>
+					<div className="mt-4">
+						<button className="btn btn-success">Editar</button>
 					</div>
 				</div>
 			</div>
