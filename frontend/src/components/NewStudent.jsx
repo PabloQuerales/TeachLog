@@ -8,7 +8,7 @@ export const NewStudent = (props) => {
 		myHeaders.append("Content-Type", "application/json");
 
 		const raw = JSON.stringify({
-			name: "Juan H",
+			name: "Jose H",
 			price: "30",
 			coin: "EU",
 			contact_name: "Joanna",
