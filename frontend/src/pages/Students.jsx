@@ -27,7 +27,7 @@ export const Students = () => {
 		myHeaders.append("Content-Type", "application/json");
 
 		const raw = JSON.stringify({
-			name: "Joanna",
+			name: "Joanna H",
 			price: "30",
 			coin: "EU",
 			contact_name: "Joanna",
@@ -63,7 +63,9 @@ export const Students = () => {
 					})}
 				</div>
 				<div className="d-flex justify-content-evenly">
-					<button className="btn btn-dark">Crear nuevo Alumno</button>
+					<button className="btn btn-dark" onClick={newStudent}>
+						Crear nuevo Alumno
+					</button>
 					<button className="btn btn-dark">Añadir registro de Alumno</button>
 				</div>
 			</div>
