@@ -41,12 +41,27 @@ export const NewStudent = (props) => {
 				<div class="modal-dialog modal-dialog-centered">
 					<div class="modal-content">
 						<div class="modal-header">
-							<h1 class="modal-title fs-5" id="exampleModalLabel">
-								Modal title
+							<h1 class="modal-title fs-5" id="newStudenModal">
+								Registro de Estudiantes
 							</h1>
 							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 						</div>
-						<div class="modal-body">...</div>
+						<div class="modal-body">
+							<form action="">
+								<label htmlFor="">Nombre y Apellido</label>
+								<input type="text" />
+								<label htmlFor="">Persona de Contacto</label>
+								<input type="text" />
+								<label htmlFor="">Numero de Contacto</label>
+								<input type="text" />
+								<label htmlFor="">Nivel Actual del Estudiante</label>
+								<input type="text" />
+								<label htmlFor="">Precio de Clase X Hora</label>
+								<input type="text" />
+								<label htmlFor="">Moneda</label>
+								<input type="text" />
+							</form>
+						</div>
 						<div class="modal-footer">
 							<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
 								Close
