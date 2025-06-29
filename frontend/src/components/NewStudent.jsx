@@ -1,5 +1,6 @@
 import { useState } from "react";
 import useStore from "../store";
+import Swal from "sweetalert2";
 
 export const NewStudent = (props) => {
 	const { backendUrl, userLogged } = useStore();
@@ -34,11 +35,29 @@ export const NewStudent = (props) => {
 		console.log(inputValue);
 		try {
 			const response = await fetch(`${backendUrl}/new_student/${userLogged.id}`, requestOptions);
-			if (response.status == 200) {
+			if (response.status === 200) {
 				props.getStudents();
+				Swal.fire({
+					title: "Nuevo Alumno Registrado!",
+					icon: "success",
+					confirmButton: "swal-confirm-btn",
+					confirmButtonColor: "rgb(196, 159, 59)"
+				});
+			} else {
+				Swal.fire({
+					title: "Error!",
+					text: "Este alumno ya está registrado, prueba añadir su nombre completo",
+					icon: "error",
+					confirmButtonText: "Volver",
+					confirmButtonColor: "rgb(196, 159, 59)",
+					customClass: {
+						confirmButton: "swal-confirm-btn"
+					}
+				});
 			}
 		} catch (error) {
 			console.error(error);
+			console.log("campos repetidos");
 		}
 		setInputValue({
 			name: "",
