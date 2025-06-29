@@ -39,7 +39,7 @@ export const NewStudent = (props) => {
 			</button>
 			<div class="modal fade" id="newStudenModal" tabindex="-1" aria-labelledby="newStudenModal" aria-hidden="true">
 				<div class="modal-dialog modal-dialog-centered">
-					<div class="modal-content">
+					<div class="modal-content bg-dark text-white">
 						<div class="modal-header">
 							<h1 class="modal-title fs-5" id="newStudenModal">
 								Registro de Estudiantes
@@ -47,19 +47,37 @@ export const NewStudent = (props) => {
 							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 						</div>
 						<div class="modal-body">
-							<form action="">
-								<label htmlFor="">Nombre y Apellido</label>
-								<input type="text" />
-								<label htmlFor="">Persona de Contacto</label>
-								<input type="text" />
-								<label htmlFor="">Numero de Contacto</label>
-								<input type="text" />
-								<label htmlFor="">Nivel Actual del Estudiante</label>
-								<input type="text" />
-								<label htmlFor="">Precio de Clase X Hora</label>
-								<input type="text" />
-								<label htmlFor="">Moneda</label>
-								<input type="text" />
+							<form>
+								<div className="mb-3">
+									<label className="form-label">Nombre y Apellido</label>
+									<input type="text" className="form-control" />
+								</div>
+
+								<div className="row mb-3">
+									<div className="col">
+										<label className="form-label">Persona de Contacto</label>
+										<input type="text" className="form-control" />
+									</div>
+									<div className="col">
+										<label className="form-label">Número de Contacto</label>
+										<input type="text" className="form-control" />
+									</div>
+								</div>
+
+								<div className="row mb-3">
+									<div className="col">
+										<label className="form-label">Nivel Actual del Estudiante</label>
+										<input type="text" className="form-control" />
+									</div>
+									<div className="col">
+										<label className="form-label">Precio de Clase X Hora</label>
+										<input type="text" className="form-control" />
+									</div>
+									<div className="col">
+										<label className="form-label">Moneda</label>
+										<input type="text" className="form-control" />
+									</div>
+								</div>
 							</form>
 						</div>
 						<div class="modal-footer">
