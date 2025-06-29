@@ -40,20 +40,18 @@ export const SignupForm = () => {
 				Swal.fire({
 					title: "Usuario registrado correctamente",
 					icon: "success",
-					customClass: {
-						confirmButton: "swal-confirm-btn"
-					}
+					confirmButton: "swal-confirm-btn",
+					confirmButtonColor: "rgb(196, 159, 59)",
+					theme: "dark"
 				});
 			} else {
 				Swal.fire({
 					title: "Error!",
 					text: "Este correo ya está siendo utilizado",
 					icon: "error",
-					confirmButtonText: "Volver",
-					confirmButtonColor: "#010D87",
-					customClass: {
-						confirmButton: "swal-confirm-btn"
-					}
+					confirmButton: "swal-confirm-btn",
+					confirmButtonColor: "rgb(196, 159, 59)",
+					theme: "dark"
 				});
 			}
 		} catch (error) {

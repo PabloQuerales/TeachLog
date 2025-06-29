@@ -41,18 +41,17 @@ export const NewStudent = (props) => {
 					title: "Nuevo Alumno Registrado!",
 					icon: "success",
 					confirmButton: "swal-confirm-btn",
-					confirmButtonColor: "rgb(196, 159, 59)"
+					confirmButtonColor: "rgb(196, 159, 59)",
+					theme: "dark"
 				});
 			} else {
 				Swal.fire({
 					title: "Error!",
 					text: "Este alumno ya está registrado, prueba añadir su nombre completo",
 					icon: "error",
-					confirmButtonText: "Volver",
 					confirmButtonColor: "rgb(196, 159, 59)",
-					customClass: {
-						confirmButton: "swal-confirm-btn"
-					}
+					confirmButton: "swal-confirm-btn",
+					theme: "dark"
 				});
 			}
 		} catch (error) {
