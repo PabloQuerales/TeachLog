@@ -90,3 +90,18 @@ input.form-control {
 input.form-control-sm {
 	width: 100%;
 }
+/* Agrupar inputs y selects en filas ordenadas */
+.input-row {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 10px;
+	margin-bottom: 10px;
+}
+
+/* Aplicar estilo uniforme a todos los inputs/selects pequeños */
+.input-sm {
+	flex: 1 1 30%;
+	min-width: 80px;
+	font-size: 0.8rem;
+	padding: 4px 6px;
+}

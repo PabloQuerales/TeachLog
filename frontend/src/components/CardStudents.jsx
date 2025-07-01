@@ -96,31 +96,24 @@ export const CardStudents = ({ student, getStudents }) => {
 							/>
 						</div>
 
-						<div className="info-group">
-							<label className="label">Precio:</label>
+						<div className="input-row">
 							<input
 								type="text"
 								name="price"
-								className="form-control form-control-sm"
+								className="form-control input-sm"
 								value={inputValue.price}
 								onChange={handleChange}
-								placeholder="Monto"
+								placeholder="Precio"
 							/>
-							<select className="form-select form-select-sm" aria-label="Moneda" name="coin" required value={inputValue.coin} onChange={handleChange}>
+
+							<select className="form-select input-sm" name="coin" required value={inputValue.coin} onChange={handleChange}>
 								<option value="">Moneda</option>
 								<option value="PEN">PEN</option>
 								<option value="EUR">EUR</option>
 								<option value="USD">USD</option>
 							</select>
 
-							<label className="label">Nivel:</label>
-							<select
-								className="form-select form-select-sm"
-								aria-label="Level"
-								name="level"
-								required
-								value={inputValue.level}
-								onChange={handleChange}>
+							<select className="form-select input-sm" name="level" required value={inputValue.level} onChange={handleChange}>
 								<option value="">Nivel</option>
 								<option value="A2">A2</option>
 								<option value="B1">B1</option>
