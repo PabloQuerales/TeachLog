@@ -30,7 +30,7 @@ export const Students = () => {
 			<div className="container h-100 d-flex flex-column justify-content-around">
 				<div className="scrollmenu p-3">
 					{students.map((student, index) => {
-						return <CardStudents key={index} student={student} />;
+						return <CardStudents key={index} student={student} getStudents={getStudents} />;
 					})}
 				</div>
 				<div className="d-flex justify-content-evenly">

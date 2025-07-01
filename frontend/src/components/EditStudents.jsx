@@ -16,9 +16,10 @@ export const EditStudents = (props) => {
 		};
 
 		try {
-			const response = await fetch(`${backendUrl}/edit_student/3`, requestOptions);
-			const result = await response.json();
-			console.log(result);
+			const response = await fetch(`${backendUrl}/edit_student/${props.inputValue.id}`, requestOptions);
+			if (response.status == 200) {
+				props.getStudents();
+			}
 		} catch (error) {
 			console.error(error);
 		}

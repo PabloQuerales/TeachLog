@@ -4,7 +4,7 @@ import "../styles/cardStudents.css";
 import { EditStudents } from "./EditStudents";
 import { DeletStudents } from "./DeletStudents";
 
-export const CardStudents = ({ student }) => {
+export const CardStudents = ({ student, getStudents }) => {
 	const [isFlipped, setIsFlipped] = useState(false);
 	const [inputValue, setInputValue] = useState({
 		name: student.name,
@@ -13,7 +13,8 @@ export const CardStudents = ({ student }) => {
 		price: student.price,
 		coin: student.coin,
 		level: student.level,
-		status: student.status
+		status: student.status,
+		id: student.id
 	});
 
 	const handleFlip = () => setIsFlipped(!isFlipped);
@@ -131,7 +132,7 @@ export const CardStudents = ({ student }) => {
 
 					<div className="student-status student-status-edit">
 						<DeletStudents />
-						<EditStudents inputValue={inputValue} />
+						<EditStudents inputValue={inputValue} getStudents={getStudents} />
 					</div>
 				</form>
 			</div>
