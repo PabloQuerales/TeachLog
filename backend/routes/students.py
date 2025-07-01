@@ -6,7 +6,7 @@ students_bp = Blueprint('students_bp', __name__)
 
 @students_bp.route("/students/<int:user_id>", methods=["GET"])
 def get_students(user_id):
-    students = db.session.scalars(db.select(Students).filter_by(user_id=user_id).order_by(Students.id)).all()
+    students = db.session.scalars(db.select(Students).filter_by(user_id=user_id, status=True).order_by(Students.id)).all()
     result = [student.serialize() for student in students]
     return jsonify(result), 200
 
@@ -55,3 +55,18 @@ def edit_student(student_id):
 
     except Exception as e:
         return jsonify({"msg": "Error al editar estudiante", "error": str(e)}), 500
+    
+@students_bp.route("/delete_student/<int:student_id>", methods=["PUT"])
+def delete_student(student_id):
+    try:
+        student = db.get_or_404(Students, student_id)
+
+        if not student.status:
+            return jsonify({"msg": "El estudiante ya estaba desactivado"}), 400
+
+        student.status = False
+        db.session.commit()
+        return jsonify({"msg": "Estudiante desactivado correctamente"}), 200
+
+    except Exception as e:
+        return jsonify({"msg": "Error al desactivar estudiante", "error": str(e)}), 500

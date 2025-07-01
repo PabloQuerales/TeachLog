@@ -24,11 +24,8 @@ export const EditStudents = (props) => {
 			console.error(error);
 		}
 	};
-	const handleClick = () => {
-		editStudent();
-	};
 	return (
-		<button type="submit" className="btn btn-success btn-sm mt-3" onClick={handleClick}>
+		<button type="submit" className="btn btn-success btn-sm mt-4" onClick={editStudent}>
 			Confirmar Cambios
 		</button>
 	);

@@ -4,17 +4,17 @@ import "../styles/cardStudents.css";
 import { EditStudents } from "./EditStudents";
 import { DeletStudents } from "./DeletStudents";
 
-export const CardStudents = ({ student, getStudents }) => {
+export const CardStudents = (props) => {
 	const [isFlipped, setIsFlipped] = useState(false);
 	const [inputValue, setInputValue] = useState({
-		name: student.name,
-		contact_name: student.contact_name,
-		contact_phone: student.contact_phone,
-		price: student.price,
-		coin: student.coin,
-		level: student.level,
-		status: student.status,
-		id: student.id
+		name: props.student.name,
+		contact_name: props.student.contact_name,
+		contact_phone: props.student.contact_phone,
+		price: props.student.price,
+		coin: props.student.coin,
+		level: props.student.level,
+		status: props.student.status,
+		id: props.student.id
 	});
 
 	const handleFlip = () => setIsFlipped(!isFlipped);
@@ -34,25 +34,25 @@ export const CardStudents = ({ student, getStudents }) => {
 			<div className="card card-student" key="front">
 				<div className="student-content">
 					<div className="student-info">
-						<h5 className="student-name">{student.name}</h5>
+						<h5 className="student-name">{props.student.name}</h5>
 						<div className="info-group">
 							<span className="label">Contacto:</span>
-							<span>{student.contact_name}</span>
-							<span>{student.contact_phone}</span>
+							<span>{props.student.contact_name}</span>
+							<span>{props.student.contact_phone}</span>
 						</div>
 						<div className="info-group">
 							<span className="label">Precio:</span>
 							<span>
-								{student.price} {student.coin}
+								{props.student.price} {props.student.coin}
 							</span>
 							<span className="label">Nivel:</span>
-							<span>{student.level}</span>
+							<span>{props.student.level}</span>
 						</div>
 					</div>
 					<div className="student-status">
 						<div className="mb-4">
 							<span className="label">Status:</span>
-							<span className={`status-dot ${student.status ? "green" : "red"}`}></span>
+							<span className={`status-dot ${props.student.status ? "green" : "red"}`}></span>
 						</div>
 						<div className="mt-4">
 							<button className="btn btn-success" onClick={handleFlip}>
@@ -124,8 +124,8 @@ export const CardStudents = ({ student, getStudents }) => {
 					</div>
 
 					<div className="student-status student-status-edit">
-						<DeletStudents />
-						<EditStudents inputValue={inputValue} getStudents={getStudents} />
+						<DeletStudents studentId={props.student.id} getStudents={props.getStudents} />
+						<EditStudents inputValue={inputValue} getStudents={props.getStudents} />
 					</div>
 				</form>
 			</div>
