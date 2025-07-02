@@ -32,15 +32,22 @@ export const NewStudent = (props) => {
 			body: raw,
 			redirect: "follow"
 		};
-		console.log(inputValue);
 		try {
 			const response = await fetch(`${backendUrl}/new_student/${userLogged.id}`, requestOptions);
-			if (response.status === 200) {
+			if (response.status === 201) {
 				props.getStudents();
 				Swal.fire({
 					title: "Nuevo Alumno Registrado!",
 					icon: "success",
-					confirmButton: "swal-confirm-btn",
+					confirmButtonColor: "rgb(196, 159, 59)",
+					theme: "dark"
+				});
+			} else if (response.status === 200) {
+				props.getStudents();
+				Swal.fire({
+					title: "Alumno Recuperado!",
+					text: "Este alumno ya estaba en tu base de datos así que lo hemos vuelto a activar!",
+					icon: "success",
 					confirmButtonColor: "rgb(196, 159, 59)",
 					theme: "dark"
 				});
@@ -50,13 +57,11 @@ export const NewStudent = (props) => {
 					text: "Este alumno ya está registrado, prueba añadir su nombre completo",
 					icon: "error",
 					confirmButtonColor: "rgb(196, 159, 59)",
-					confirmButton: "swal-confirm-btn",
 					theme: "dark"
 				});
 			}
 		} catch (error) {
 			console.error(error);
-			console.log("campos repetidos");
 		}
 		setInputValue({
 			name: "",
@@ -75,7 +80,6 @@ export const NewStudent = (props) => {
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		newStudent();
-		console.log("confirm");
 	};
 	return (
 		<>

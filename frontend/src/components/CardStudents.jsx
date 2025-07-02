@@ -124,7 +124,7 @@ export const CardStudents = (props) => {
 					</div>
 
 					<div className="student-status student-status-edit">
-						<DeletStudents studentId={props.student.id} getStudents={props.getStudents} />
+						<DeletStudents inputValue={inputValue} getStudents={props.getStudents} />
 						<EditStudents inputValue={inputValue} getStudents={props.getStudents} />
 					</div>
 				</form>
