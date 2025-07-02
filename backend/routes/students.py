@@ -14,16 +14,39 @@ def get_students(user_id):
 def post_new_student(user_id):
     try:
         request_body = request.json
-        exist = db.session.query(db.select(Students).filter_by(name=request_body["name"], user_id=user_id).exists()
-        ).scalar()
-        if not exist: 
-            new_student = Students(user_id=user_id, name=request_body["name"],coin=request_body["coin"], price=request_body["price"], level=request_body["level"], contact_name=request_body["contact_name"], contact_phone=request_body["contact_phone"], status= True)
-            db.session.add(new_student)
-            db.session.commit()  
-            student_id = new_student.id
-            return jsonify({"id": student_id, **request_body}), 200
-        else:
-            return jsonify({"msg": "Account already exists"}), 404
+
+        # Buscar si ya existe un estudiante con ese nombre y ese user_id
+        existing_student = Students.query.filter_by(name=request_body["name"], user_id=user_id).first()
+
+        if existing_student:
+            if existing_student.status:
+                return jsonify({"msg": "Ya existe un estudiante activo con ese nombre"}), 400
+            else:
+                # Reactivar estudiante desactivado
+                existing_student.coin = request_body["coin"]
+                existing_student.price = request_body["price"]
+                existing_student.level = request_body["level"]
+                existing_student.contact_name = request_body["contact_name"]
+                existing_student.contact_phone = request_body["contact_phone"]
+                existing_student.status = True
+                db.session.commit()
+                return jsonify({"msg": "Estudiante reactivado", "id": existing_student.id}), 200
+
+        # Si no existe ningún estudiante con ese nombre
+        new_student = Students(
+            user_id=user_id,
+            name=request_body["name"],
+            coin=request_body["coin"],
+            price=request_body["price"],
+            level=request_body["level"],
+            contact_name=request_body["contact_name"],
+            contact_phone=request_body["contact_phone"],
+            status=True
+        )
+        db.session.add(new_student)
+        db.session.commit()
+        return jsonify({"msg": "Estudiante creado", "id": new_student.id}), 201
+
     except Exception as e:
         return jsonify({"msg": "Error", "error": str(e)}), 500
 
