@@ -25,6 +25,7 @@ export const AppLayout = () => {
 					title: "Tu sesión ha caducado",
 					html: "Serás redirigido al lobby en breve",
 					timer: 1500,
+					theme: "dark",
 					didOpen: () => {
 						Swal.showLoading();
 					},

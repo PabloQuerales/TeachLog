@@ -1,5 +1,6 @@
 import useStore from "../store";
 import { CardStudents } from "../components/CardStudents";
+import { NewStudent } from "../components/NewStudent";
 import { useEffect, useState } from "react";
 import "../styles/students.css";
 
@@ -21,51 +22,19 @@ export const Students = () => {
 			console.error(error);
 		}
 	};
-
-	const newStudent = async () => {
-		const myHeaders = new Headers();
-		myHeaders.append("Content-Type", "application/json");
-
-		const raw = JSON.stringify({
-			name: "Joanna H",
-			price: "30",
-			coin: "EU",
-			contact_name: "Joanna",
-			contact_phone: "+31631261468",
-			level: "C1"
-		});
-
-		const requestOptions = {
-			method: "POST",
-			headers: myHeaders,
-			body: raw,
-			redirect: "follow"
-		};
-
-		try {
-			const response = await fetch(`${backendUrl}/new_student/${userLogged.id}`, requestOptions);
-			if (response.status == 200) {
-				getStudents();
-			}
-		} catch (error) {
-			console.error(error);
-		}
-	};
 	useEffect(() => {
 		getStudents();
 	}, []);
 	return (
 		<>
-			<div className="container h-100">
+			<div className="container h-100 d-flex flex-column justify-content-around">
 				<div className="scrollmenu p-3">
 					{students.map((student, index) => {
-						return <CardStudents key={index} student={student} />;
+						return <CardStudents key={index} student={student} getStudents={getStudents} />;
 					})}
 				</div>
 				<div className="d-flex justify-content-evenly">
-					<button className="btn btn-dark" onClick={newStudent}>
-						Crear nuevo Alumno
-					</button>
+					<NewStudent getStudents={getStudents} />
 					<button className="btn btn-dark">Añadir registro de Alumno</button>
 				</div>
 			</div>
