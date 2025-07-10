@@ -36,7 +36,7 @@ export const Students = () => {
 				</div>
 				<div className="d-flex justify-content-evenly">
 					<NewStudent getStudents={getStudents} />
-					<RegisterClass />
+					<RegisterClass students={students} />
 				</div>
 			</div>
 		</>

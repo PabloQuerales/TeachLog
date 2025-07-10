@@ -1,16 +1,19 @@
-import { useEffect } from "react";
+import { useState } from "react";
 import { useLocation } from "react-router-dom";
-export const RegisterClass = () => {
+export const RegisterClass = (props) => {
+	const [studentSelected, setStudentSelected] = useState("");
 	const path = useLocation();
-	useEffect(() => {
-		console.log(path.pathname);
-	}, []);
+	const students = props.students;
+	const handleClick = () => {
+		console.log(students.find((student) => student.name == "Julio Cesar"));
+	};
+
 	return (
 		<>
-			<button type="button" className="btn btn-dark" data-bs-toggle="modal" data-bs-target="#registerClass">
+			<button onClick={handleClick} type="button" className="btn btn-dark" data-bs-toggle="modal" data-bs-target="#registerClass">
 				Añadir registro de estudiante
 			</button>
-			<div className="modal fade" id="registerClass" tabIndex="-1" aria-labelledby="registerClass" aria-hidden="true">
+			<div className="modal modal-lg fade" id="registerClass" tabIndex="-1" aria-labelledby="registerClass" aria-hidden="true">
 				<div className="modal-dialog modal-dialog-centered">
 					<div className="modal-content bg-dark text-white">
 						<div className="modal-header">
@@ -24,23 +27,39 @@ export const RegisterClass = () => {
 								<div className="mb-3">
 									<label className="form-label">Estudiante</label>
 									{path.pathname == "/students" ? (
-										<select className="form-select" aria-label="Level" name="level" required value="JUAN">
-											<option value="">Nivel</option>
-											<option value="A2">A2</option>
-											<option value="B1">B1</option>
-											<option value="B2">B2</option>
-											<option value="C1">C1</option>
+										<select
+											className="form-select"
+											aria-label="Name"
+											name="name"
+											required
+											onClick={() => setStudentSelected(students.find((student) => student.name == "Julio Cesar"))}>
+											<option value="">---Seleccionar Estudiante---</option>
+											{props.students.map((student) => {
+												return <option value={student.id}>{student.name}</option>;
+											})}
 										</select>
 									) : null}
 								</div>
 								<div className="row mb-3">
 									<div className="col">
-										<label className="form-label">Persona de Contacto</label>
-										{/* <input type="text" className="form-control" name="contact_name" value={inputValue.contact_name} onChange={handleChange} /> */}
+										<label className="form-label">Precio x Hora</label>
+										<input type="text" className="form-select text-center" name="contact_name" value={studentSelected.price} disabled />
 									</div>
 									<div className="col">
-										<label className="form-label">Número de Contacto</label>
-										{/* <input type="text" className="form-control" name="contact_phone" value={inputValue.contact_phone} onChange={handleChange} /> */}
+										<label className="form-label">Moneda</label>
+										<input type="text" className="form-select text-center" name="contact_name" value={studentSelected.coin} disabled />
+									</div>
+									<div className="col">
+										<label className="form-label">Duración de la sesión</label>
+										<select aria-label="Time" name="time" required className="form-select">
+											<option value="">--Selecciona una Opción--</option>
+											<option value="0.5">30 min</option>
+											<option value="1">1 hora</option>
+											<option value="1.5">1 hora y 30 min</option>
+											<option value="2">2 horas</option>
+											<option value="2.5">2 horas y 30 min</option>
+											<option value="3">3 horas</option>
+										</select>
 									</div>
 								</div>
 							</form>
