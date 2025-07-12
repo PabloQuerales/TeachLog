@@ -1,38 +1,92 @@
 import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import TextField from "@mui/material/TextField";
+import useStore from "../store";
+import Swal from "sweetalert2";
 
 export const RegisterClass = (props) => {
+	const { backendUrl } = useStore();
 	const [studentSelected, setStudentSelected] = useState("");
 	const [currentDate, setCurrentDate] = useState("");
+	const [register, setRegister] = useState({
+		student_id: studentSelected.id || "",
+		date: currentDate,
+		time: 0
+	});
 	const path = useLocation();
 	const students = props.students;
 
-	const handleClick = () => {
-		console.log(students.find((student) => student.name === "Julio Cesar"));
-	};
+	const postStudentDetail = async () => {
+		const myHeaders = new Headers();
+		myHeaders.append("Content-Type", "application/json");
 
+		const raw = JSON.stringify(register);
+		console.log(register);
+		const requestOptions = {
+			method: "POST",
+			headers: myHeaders,
+			body: raw,
+			redirect: "follow"
+		};
+
+		try {
+			const response = await fetch(`${backendUrl}/student-details`, requestOptions);
+			if (response.status === 200) {
+				Swal.fire({
+					title: "Clase registada!",
+					icon: "success",
+					confirmButtonColor: "rgb(196, 159, 59)",
+					theme: "dark"
+				});
+				setRegister({ student_id: studentSelected.id || "", date: currentDate, time: 0 });
+			}
+		} catch (error) {
+			console.error(error);
+		}
+		setStudentSelected("");
+	};
 	const handleChange = (e) => {
-		setStudentSelected(students.find((student) => student.name === e.target.value));
+		const { value, name } = e.target;
+		let parsedValue = value;
+		if (name === "time") {
+			parsedValue = parseFloat(value);
+		}
+		if (name === "studentNameSelect") {
+			const selectedStudent = students.find((student) => student.name === value);
+			setStudentSelected(selectedStudent || "");
+		} else {
+			setRegister(() => ({ ...register, [name]: parsedValue, student_id: studentSelected.id }));
+		}
 	};
 
+	const handleClick = async () => {
+		if (register.time != 0) {
+			postStudentDetail();
+		} else {
+			Swal.fire({
+				text: "Faltó ingresar la cantidad de tiempo a registrar",
+				icon: "error",
+				confirmButtonColor: "rgb(196, 159, 59)",
+				theme: "dark"
+			});
+		}
+	};
 	useEffect(() => {
 		const now = new Date();
 		const formattedDate = now.toISOString().split("T")[0];
 		setCurrentDate(formattedDate);
+		setRegister({ ...register, date: formattedDate });
 	}, []);
 
 	return (
 		<>
-			<button onClick={handleClick} type="button" className="btn btn-dark" data-bs-toggle="modal" data-bs-target="#registerClass">
+			<button type="button" className="btn btn-dark" data-bs-toggle="modal" data-bs-target="#registerClass">
 				Añadir registro de estudiante
 			</button>
 
 			<div className="modal fade" id="registerClass" tabIndex="-1" aria-labelledby="registerClass" aria-hidden="true">
 				<div className="modal-dialog modal-dialog-centered">
 					<div className="modal-content bg-dark text-white">
-						{" "}
-						{/* Mantienes los estilos de Bootstrap para el modal */}
 						<div className="modal-header">
 							<h1 className="modal-title fs-5" id="registerClass">
 								Registro de Estudiantes
@@ -45,11 +99,17 @@ export const RegisterClass = (props) => {
 									<div className="col-11 mb-3">
 										<label className="form-label">Estudiante</label>
 										{path.pathname === "/students" ? (
-											<select className="form-select" aria-label="Name" name="name" required onChange={handleChange}>
+											<select
+												className="form-select"
+												aria-label="Name"
+												name="studentNameSelect"
+												required
+												value={studentSelected ? studentSelected.name : ""}
+												onChange={handleChange}>
 												<option value="">---Seleccionar Estudiante---</option>
 												{props.students.map((student) => {
 													return (
-														<option key={student.name} value={student.name}>
+														<option key={student.id} value={student.name}>
 															{student.name}
 														</option>
 													);
@@ -83,7 +143,7 @@ export const RegisterClass = (props) => {
 											</div>
 											<div className="col-5">
 												<label className="form-label ">Duración de la sesión</label>
-												<select aria-label="Time" name="time" required className="form-select">
+												<select aria-label="Time" name="time" required className="form-select" onChange={handleChange}>
 													<option value="">--Selecciona--</option>
 													<option value="0.5">30 min</option>
 													<option value="1">1 hora</option>
@@ -100,7 +160,9 @@ export const RegisterClass = (props) => {
 													id="date"
 													label="Día"
 													type="date"
+													name="date"
 													defaultValue={currentDate}
+													onChange={handleChange}
 													sx={{
 														"& .MuiInputLabel-root": {
 															color: "white"
@@ -124,7 +186,7 @@ export const RegisterClass = (props) => {
 												/>
 											</div>
 											<div className="col-4 d-flex">
-												<button type="button" className="button-accent" data-bs-dismiss="modal">
+												<button type="button" className="button-accent" data-bs-dismiss="modal" onClick={handleClick}>
 													Registrar
 												</button>
 											</div>
@@ -133,9 +195,6 @@ export const RegisterClass = (props) => {
 								) : null}
 							</form>
 						</div>
-						{/* <button type="button" className="btn btn-primary" onClick={handleSubmit} data-bs-dismiss="modal">
-                Save changes
-              </button> */}
 					</div>
 				</div>
 			</div>
