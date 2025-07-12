@@ -28,7 +28,7 @@ export const RegisterClass = (props) => {
 				Añadir registro de estudiante
 			</button>
 
-			<div className="modal modal-lg fade" id="registerClass" tabIndex="-1" aria-labelledby="registerClass" aria-hidden="true">
+			<div className="modal fade" id="registerClass" tabIndex="-1" aria-labelledby="registerClass" aria-hidden="true">
 				<div className="modal-dialog modal-dialog-centered">
 					<div className="modal-content bg-dark text-white">
 						{" "}
@@ -41,33 +41,47 @@ export const RegisterClass = (props) => {
 						</div>
 						<div className="modal-body">
 							<form>
-								<div className="mb-3">
-									<label className="form-label">Estudiante</label>
-									{path.pathname === "/students" ? (
-										<select className="form-select" aria-label="Name" name="name" required onChange={handleChange}>
-											<option value="">---Seleccionar Estudiante---</option>
-											{props.students.map((student) => {
-												return (
-													<option key={student.name} value={student.name}>
-														{student.name}
-													</option>
-												);
-											})}
-										</select>
-									) : null}
+								<div className="row">
+									<div className="col-11 mb-3">
+										<label className="form-label">Estudiante</label>
+										{path.pathname === "/students" ? (
+											<select className="form-select" aria-label="Name" name="name" required onChange={handleChange}>
+												<option value="">---Seleccionar Estudiante---</option>
+												{props.students.map((student) => {
+													return (
+														<option key={student.name} value={student.name}>
+															{student.name}
+														</option>
+													);
+												})}
+											</select>
+										) : null}
+									</div>
 								</div>
 								{studentSelected ? (
 									<>
 										<div className="row mb-3">
-											<div className="col">
+											<div className="col-3">
 												<label className="form-label">Precio x Hora</label>
-												<input type="text" className="form-select text-center" name="contact_name" value={studentSelected.price} disabled />
+												<input
+													type="text"
+													className="form-select text-center bg-gradient"
+													name="contact_name"
+													value={studentSelected.price}
+													disabled
+												/>
 											</div>
-											<div className="col">
-												<label className="form-label">Moneda</label>
-												<input type="text" className="form-select text-center" name="contact_name" value={studentSelected.coin} disabled />
+											<div className="col-3">
+												<label className="form-label ">Moneda</label>
+												<input
+													type="text"
+													className="form-select text-center bg-gradient"
+													name="contact_name"
+													value={studentSelected.coin}
+													disabled
+												/>
 											</div>
-											<div className="col">
+											<div className="col-5">
 												<label className="form-label ">Duración de la sesión</label>
 												<select aria-label="Time" name="time" required className="form-select">
 													<option value="">--Selecciona--</option>
@@ -81,7 +95,7 @@ export const RegisterClass = (props) => {
 											</div>
 										</div>
 										<div className="row">
-											<div className="col d-flex justify-content-center align-items-end">
+											<div className="col">
 												<TextField
 													id="date"
 													label="Día"
@@ -109,19 +123,19 @@ export const RegisterClass = (props) => {
 													}}
 												/>
 											</div>
+											<div className="col-4 d-flex">
+												<button type="button" className="button-accent" data-bs-dismiss="modal">
+													Registrar
+												</button>
+											</div>
 										</div>
 									</>
 								) : null}
 							</form>
 						</div>
-						<div className="modal-footer">
-							<button type="button" className="btn btn-secondary" data-bs-dismiss="modal">
-								Close
-							</button>
-							{/* <button type="button" className="btn btn-primary" onClick={handleSubmit} data-bs-dismiss="modal">
+						{/* <button type="button" className="btn btn-primary" onClick={handleSubmit} data-bs-dismiss="modal">
                 Save changes
               </button> */}
-						</div>
 					</div>
 				</div>
 			</div>
