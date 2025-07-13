@@ -1,6 +1,7 @@
 import useStore from "../store";
 import { CardStudents } from "../components/CardStudents";
 import { NewStudent } from "../components/NewStudent";
+import { RegisterClass } from "../components/RegisterClass";
 import { useEffect, useState } from "react";
 import "../styles/students.css";
 
@@ -35,7 +36,7 @@ export const Students = () => {
 				</div>
 				<div className="d-flex justify-content-evenly">
 					<NewStudent getStudents={getStudents} />
-					<button className="btn btn-dark">Añadir registro de Alumno</button>
+					<RegisterClass students={students} />
 				</div>
 			</div>
 		</>

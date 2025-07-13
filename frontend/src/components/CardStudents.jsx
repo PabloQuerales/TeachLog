@@ -50,14 +50,15 @@ export const CardStudents = (props) => {
 						</div>
 					</div>
 					<div className="student-status">
-						<div className="mb-4">
+						<div className="mb-2">
 							<span className="label">Status:</span>
 							<span className={`status-dot ${props.student.status ? "green" : "red"}`}></span>
 						</div>
-						<div className="mt-4">
-							<button className="btn btn-success" onClick={handleFlip}>
+						<div className="d-flex flex-column ">
+							<button className="btn btn-success mb-1" onClick={handleFlip}>
 								Editar
 							</button>
+							<button className="btn btn-secondary">Ver Detalles</button>
 						</div>
 					</div>
 				</div>
