@@ -59,7 +59,7 @@ export const RegisterClass = (props) => {
 		}
 	};
 
-	const handleClick = async () => {
+	const handleClick = () => {
 		if (register.time != 0) {
 			postStudentDetail();
 		} else {
