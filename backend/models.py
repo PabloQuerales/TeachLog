@@ -64,7 +64,7 @@ class Student_details(db.Model):
     id: Mapped[int] = mapped_column(primary_key=True)
     student_id: Mapped[int] = mapped_column(ForeignKey("students.id"))
     date: Mapped[str] = mapped_column(String(80),nullable=False)
-    time: Mapped[int] = mapped_column(nullable=False)
+    time: Mapped[float] = mapped_column(nullable=False)
     student: Mapped["Students"] = relationship(back_populates="student_details")
     
     def serialize(self):
