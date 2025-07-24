@@ -48,7 +48,6 @@ export const StudentDetails = () => {
 
 			const monthlyTimeSum = filteredClassesThisMonth.reduce((sum, detail) => sum + detail.time, 0);
 			setTotalTimeThisMonth(monthlyTimeSum);
-			setClassesThisMonth("No se han registrado clases este mes");
 
 			const overallTimeSum = result.reduce((sum, detail) => sum + detail.time, 0);
 			setTotalTimeOverall(overallTimeSum);
