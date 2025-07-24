@@ -4,6 +4,7 @@ import { AppLayout } from "./layouts/AppLayout";
 import { Login } from "./pages/Login";
 import { Students } from "./pages/Students";
 import { UserProfile } from "./pages/UserProfile";
+import { StudentDetails } from "./pages/StudentDetails";
 
 export const router = createBrowserRouter(
 	createRoutesFromElements(
@@ -17,6 +18,7 @@ export const router = createBrowserRouter(
 				<Route path="/students" element={<Students />} />
 				<Route path="/registers" element={<h2>Registers</h2>} />
 				<Route path="/calender" element={<h2>Calendar</h2>} />
+				<Route path="/student_details/:id" element={<StudentDetails />} />
 			</Route>
 		</>
 	)
