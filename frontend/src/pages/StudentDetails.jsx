@@ -111,11 +111,11 @@ export const StudentDetails = () => {
 		<>
 			<div className="container p-0 d-flex flex-column vw-100 align-items-center">
 				<div className="user-header">
-					<img src={`https://api.dicebear.com/9.x/initials/svg?seed=${student.name}`} className="user-avatar" />
+					<img src={`https://api.dicebear.com/9.x/avataaars/svg?seed=${student.name}`} className="user-avatar" />
 				</div>
 				<div className="user-content container d-flex flex-column justify-content-start">
 					<div className="row justify-content-around ">
-						<div className="card col-4 m-3" style={{ maxWidth: "400px" }}>
+						<div className="card col-4 m-3 mb-0" style={{ maxWidth: "400px" }}>
 							<div className="card-body">
 								<h2 className="card-title title text-center">Información</h2>
 								<div className="row">
@@ -136,7 +136,9 @@ export const StudentDetails = () => {
 									</div>
 									<div className="col">
 										<p className="fw-bold">
-											Teléfono de Contacto <span className="title">{student.contact_phone}</span>
+											Teléfono de Contacto
+											<br />
+											<span className="title">{student.contact_phone}</span>
 										</p>
 									</div>
 								</div>
@@ -160,7 +162,7 @@ export const StudentDetails = () => {
 								</div>
 							</div>
 						</div>
-						<div className="card m-3 col-4 " style={{ maxWidth: "400px" }}>
+						<div className="card m-3 col-4 mb-0 " style={{ maxWidth: "400px" }}>
 							<div className="card-body">
 								<h2 className="card-title title text-center">Resumen de Clases</h2>
 								<div className="row">
@@ -213,7 +215,7 @@ export const StudentDetails = () => {
 								</div>
 							</div>
 						</div>
-						<div className="card m-3 col-4" style={{ maxWidth: "400px" }}>
+						<div className="card m-3 col-4 mb-0" style={{ maxWidth: "400px" }}>
 							<div className="card-body text-center">
 								<h2 className="card-title title text-center">Balance</h2>
 								<div className="row d-flex align-items-center mb-3">
@@ -238,7 +240,7 @@ export const StudentDetails = () => {
 								</div>
 							</div>
 						</div>
-						<div className="card m-3 col-4" style={{ maxWidth: "400px" }}>
+						<div className="card m-3 col-4 mb-0" style={{ maxWidth: "400px" }}>
 							<div className="card-body text-center">
 								<div className="row align-items-center">
 									<div className="col-10">
