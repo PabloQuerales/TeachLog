@@ -18,8 +18,6 @@ def get_single_student(student_id):
     student = db.session.get(Students, student_id)
     if not student:
         return jsonify({"msg": "Estudiante no encontrado"}), 404
-    if not student.status:
-        return jsonify({"msg": "Estudiante inactivo"}), 404
     return jsonify(student.serialize()), 200
 
 @students_bp.route("/new_student/<int:user_id>", methods=["POST"])
