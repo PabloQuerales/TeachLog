@@ -1,6 +1,5 @@
 import "../styles/UserProfile.css";
 import useStore from "../store";
-import { RegisterClass } from "../components/RegisterClass";
 
 export const UserProfile = () => {
 	const { userLogged } = useStore();
