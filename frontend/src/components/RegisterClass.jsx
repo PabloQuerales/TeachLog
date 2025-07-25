@@ -192,7 +192,72 @@ export const RegisterClass = (props) => {
 											</div>
 										</div>
 									</>
-								) : null}
+								) : (
+									<>
+										{props.student ? (
+											<div className="row">
+												<div className="col">
+													<h5 className="mb-3">{props.student.name}</h5>
+												</div>
+												<div className="col">
+													<h5 className="mb-3">
+														{props.student.price} {props.student.coin}
+													</h5>
+												</div>
+											</div>
+										) : null}
+										<div className="row">
+											<div className="col">
+												<TextField
+													id="date"
+													label="Día"
+													type="date"
+													name="date"
+													defaultValue={currentDate}
+													onChange={handleChange}
+													sx={{
+														"& .MuiInputLabel-root": {
+															color: "white"
+														},
+														"& .MuiInputBase-input": {
+															color: "white"
+														},
+														"& .MuiOutlinedInput-notchedOutline": {
+															borderColor: "white"
+														},
+														"& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline": {
+															borderColor: "white"
+														},
+														"&:hover .MuiOutlinedInput-notchedOutline": {
+															borderColor: "white"
+														},
+														"& .MuiInputAdornment-root .MuiSvgIcon-root": {
+															color: "white"
+														}
+													}}
+												/>
+											</div>
+											<div className="col align-content-center">
+												<select aria-label="Time" name="time" required className="form-select" onChange={handleChange}>
+													<option value="">--Selecciona Tiempo--</option>
+													<option value="0.5">30 min</option>
+													<option value="1">1 hora</option>
+													<option value="1.5">1 hora y 30 min</option>
+													<option value="2">2 horas</option>
+													<option value="2.5">2 horas y 30 min</option>
+													<option value="3">3 horas</option>
+												</select>
+											</div>
+										</div>
+										<div className="row mt-1 d-flex justify-content-end">
+											<div className="col-4 d-flex justify-content-end">
+												<button type="button" className="button-accent" data-bs-dismiss="modal" onClick={handleClick}>
+													Registrar
+												</button>
+											</div>
+										</div>
+									</>
+								)}
 							</form>
 						</div>
 					</div>

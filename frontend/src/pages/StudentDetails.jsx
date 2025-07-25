@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import useStore from "../store";
 import { useParams } from "react-router-dom";
+import { RegisterClass } from "../components/RegisterClass";
 
 export const StudentDetails = () => {
 	const { backendUrl } = useStore();
@@ -103,9 +104,7 @@ export const StudentDetails = () => {
 						</div>
 					</div>
 					<div className="d-flex justify-content-center">
-						<button type="button" className="btn btn-secondary">
-							Agregar Registro
-						</button>
+						<RegisterClass student={student} />
 					</div>
 				</div>
 			</div>
