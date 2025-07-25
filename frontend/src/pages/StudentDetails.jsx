@@ -71,15 +71,46 @@ export const StudentDetails = () => {
 						<div className="card col-4 m-3">
 							<div className="card-body">
 								<h2 className="card-title title text-center">Información</h2>
-								<h3 className="title">{student.name}</h3>
-								<p>
-									Precio por Hora: {student.price} {student.coin}
-								</p>
-								<p>Persona de Contacto: {student.contact_name}</p>
-								<p>Teléfono de Contacto: {student.contact_phone}</p>
-								<p>Nivel: {student.level}</p>
-								<p>Teléfono de Contacto: {student.contact_phone}</p>
-								<p>Status: {student.status ? "Activo" : "Inactivo"}</p>
+								<div className="row">
+									<div className="col">
+										<h3 className="title">{student.name}</h3>
+									</div>
+									<div className="col">
+										<h3>
+											Nivel <span className="title">{student.level} </span>
+										</h3>
+									</div>
+								</div>
+								<div className="row">
+									<div className="col">
+										<p>
+											Persona de Contacto <span className="title">{student.contact_name}</span>
+										</p>
+									</div>
+									<div className="col">
+										<p>
+											Teléfono de Contacto <span className="title">{student.contact_phone}</span>
+										</p>
+									</div>
+								</div>
+								<div className="row">
+									<div className="col">
+										<p>
+											Precio por Hora
+											<br />
+											<span className="title">
+												{student.price} {student.coin}
+											</span>
+										</p>
+									</div>
+									<div className="col">
+										<p>
+											Status
+											<br />
+											<span className="title"> {student.status ? "Activo" : "Inactivo"}</span>
+										</p>
+									</div>
+								</div>
 							</div>
 						</div>
 						<div className="card m-3 col-4">
