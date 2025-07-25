@@ -140,10 +140,10 @@ export const NewStudent = (props) => {
 						</div>
 						<div className="modal-footer">
 							<button type="button" className="btn btn-secondary" data-bs-dismiss="modal">
-								Close
+								Cancelar
 							</button>
-							<button type="button" className="btn btn-primary" onClick={handleSubmit} data-bs-dismiss="modal">
-								Save changes
+							<button type="button" className="btn button-accent" onClick={handleSubmit} data-bs-dismiss="modal">
+								Crear
 							</button>
 						</div>
 					</div>
