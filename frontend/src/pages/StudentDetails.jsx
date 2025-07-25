@@ -44,7 +44,8 @@ export const StudentDetails = () => {
 		try {
 			const response = await fetch(`${backendUrl}/student-details/student/${pathname.id}`, requestOptions);
 			const result = await response.json();
-			setStudentDetails(result);
+			let resultReverse = result.reverse();
+			setStudentDetails(resultReverse);
 			const now = new Date();
 			const currentMonth = now.getMonth();
 			const currentYear = now.getFullYear();
