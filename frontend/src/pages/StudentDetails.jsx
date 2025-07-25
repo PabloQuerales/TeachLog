@@ -111,7 +111,7 @@ export const StudentDetails = () => {
 		<>
 			<div className="container p-0 d-flex flex-column vw-100 align-items-center">
 				<div className="user-header">
-					<img src={`https://api.dicebear.com/9.x/avataaars/svg?seed=${student.name}`} className="user-avatar" />
+					<img src={`https://api.dicebear.com/9.x/initials/svg?seed=${student.name}`} className="user-avatar" />
 				</div>
 				<div className="user-content container d-flex flex-column justify-content-start">
 					<div className="row justify-content-around ">
