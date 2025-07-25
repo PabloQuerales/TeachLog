@@ -12,6 +12,9 @@ body {
 	background-color: var(--color-surface);
 	color: var(--color-text);
 }
+.background-login {
+	background-color: var(--color-background);
+}
 .card {
 	background-color: var(--color-background);
 	border-radius: 12px;
@@ -25,12 +28,18 @@ body {
 	padding: 8px 16px;
 	border-radius: 6px;
 	cursor: pointer;
+	transition: background 0.3s;
 }
 
 .button-accent:hover {
-	opacity: 0.9;
+	opacity: 0.85;
 }
 
 p {
 	margin: 0;
+}
+
+.title {
+	color: var(--color-accent);
+	font-weight: bold;
 }

@@ -1,13 +1,24 @@
 from flask import Blueprint, jsonify, request
-from models import db, Students
+from models import db, Students, User
 
 students_bp = Blueprint('students_bp', __name__)
 
 @students_bp.route("/students/<int:user_id>", methods=["GET"])
-def get_students(user_id):
-    students = db.session.scalars(db.select(Students).filter_by(user_id=user_id, status=True).order_by(Students.id)).all()
-    result = [student.serialize() for student in students]
-    return jsonify(result), 200
+def get_all_students(user_id):
+    exists_user = db.session.query(db.select(User).filter_by(id=user_id).exists()).scalar()
+    if exists_user:
+        students = db.session.scalars(db.select(Students).filter_by(user_id=user_id, status=True).order_by(Students.id)).all()
+        result = [student.serialize() for student in students]
+        return jsonify(result), 200
+    else:
+        return jsonify({"msg": "Usuario no existente"}), 401
+
+@students_bp.route("/student/<int:student_id>", methods=["GET"])
+def get_single_student(student_id):
+    student = db.session.get(Students, student_id)
+    if not student:
+        return jsonify({"msg": "Estudiante no encontrado"}), 404
+    return jsonify(student.serialize()), 200
 
 @students_bp.route("/new_student/<int:user_id>", methods=["POST"])
 def post_new_student(user_id):

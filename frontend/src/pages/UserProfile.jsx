@@ -1,5 +1,6 @@
 import "../styles/UserProfile.css";
 import useStore from "../store";
+
 export const UserProfile = () => {
 	const { userLogged } = useStore();
 	return (
@@ -33,11 +34,6 @@ export const UserProfile = () => {
 							<p className="card-text">Some quick example text to build on the card title and make up the bulk of the card’s content.</p>
 						</div>
 					</div>
-				</div>
-				<div className="d-flex justify-content-center">
-					<button type="button" className="btn btn-secondary">
-						Agregar Registro
-					</button>
 				</div>
 			</div>
 		</div>

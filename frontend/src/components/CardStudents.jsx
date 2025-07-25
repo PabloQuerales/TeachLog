@@ -3,8 +3,10 @@ import ReactCardFlip from "react-card-flip";
 import "../styles/cardStudents.css";
 import { EditStudents } from "./EditStudents";
 import { DeletStudents } from "./DeletStudents";
+import { useNavigate } from "react-router-dom";
 
 export const CardStudents = (props) => {
+	const navigate = useNavigate();
 	const [isFlipped, setIsFlipped] = useState(false);
 	const [inputValue, setInputValue] = useState({
 		name: props.student.name,
@@ -58,7 +60,9 @@ export const CardStudents = (props) => {
 							<button className="btn btn-success mb-1" onClick={handleFlip}>
 								Editar
 							</button>
-							<button className="btn btn-secondary">Ver Detalles</button>
+							<button className="btn btn-secondary" onClick={() => navigate(`/student_details/${props.student.id}`)}>
+								Ver Detalles
+							</button>
 						</div>
 					</div>
 				</div>

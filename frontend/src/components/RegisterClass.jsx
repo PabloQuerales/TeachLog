@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import TextField from "@mui/material/TextField";
 import useStore from "../store";
 import Swal from "sweetalert2";
@@ -14,6 +14,7 @@ export const RegisterClass = (props) => {
 		time: 0
 	});
 	const path = useLocation();
+	const params = useParams();
 	const students = props.students;
 
 	const postStudentDetail = async () => {
@@ -21,7 +22,6 @@ export const RegisterClass = (props) => {
 		myHeaders.append("Content-Type", "application/json");
 
 		const raw = JSON.stringify(register);
-		console.log(register);
 		const requestOptions = {
 			method: "POST",
 			headers: myHeaders,
@@ -39,11 +39,17 @@ export const RegisterClass = (props) => {
 					theme: "dark"
 				});
 				setRegister({ student_id: studentSelected.id || "", date: currentDate, time: 0 });
+				if (path.pathname !== "/students") {
+					props.getStudent();
+					props.getStudentDetails();
+				}
 			}
 		} catch (error) {
 			console.error(error);
 		}
-		setStudentSelected("");
+		if (path.pathname === "/students") {
+			setStudentSelected("");
+		}
 	};
 	const handleChange = (e) => {
 		const { value, name } = e.target;
@@ -51,15 +57,19 @@ export const RegisterClass = (props) => {
 		if (name === "time") {
 			parsedValue = parseFloat(value);
 		}
-		if (name === "studentNameSelect") {
-			const selectedStudent = students.find((student) => student.name === value);
-			setStudentSelected(selectedStudent || "");
+		if (path.pathname === "/students") {
+			if (name === "studentNameSelect") {
+				const selectedStudent = students.find((student) => student.name === value);
+				setStudentSelected(selectedStudent || "");
+			} else {
+				setRegister(() => ({ ...register, [name]: parsedValue, student_id: studentSelected.id }));
+			}
 		} else {
-			setRegister(() => ({ ...register, [name]: parsedValue, student_id: studentSelected.id }));
+			setRegister(() => ({ ...register, [name]: parsedValue, student_id: params.id }));
 		}
 	};
 
-	const handleClick = async () => {
+	const handleClick = () => {
 		if (register.time != 0) {
 			postStudentDetail();
 		} else {
@@ -81,7 +91,7 @@ export const RegisterClass = (props) => {
 	return (
 		<>
 			<button type="button" className="btn btn-dark" data-bs-toggle="modal" data-bs-target="#registerClass">
-				Añadir registro de estudiante
+				{path.pathname === "/students" ? "Agregar nuevo registro" : "+"}
 			</button>
 
 			<div className="modal fade" id="registerClass" tabIndex="-1" aria-labelledby="registerClass" aria-hidden="true">
@@ -143,7 +153,7 @@ export const RegisterClass = (props) => {
 											</div>
 											<div className="col-5">
 												<label className="form-label ">Duración de la sesión</label>
-												<select aria-label="Time" name="time" required className="form-select" onChange={handleChange}>
+												<select aria-label="Time" name="time" required className="form-select" onChange={handleChange} value={register.time}>
 													<option value="">--Selecciona--</option>
 													<option value="0.5">30 min</option>
 													<option value="1">1 hora</option>
@@ -192,7 +202,72 @@ export const RegisterClass = (props) => {
 											</div>
 										</div>
 									</>
-								) : null}
+								) : (
+									<>
+										{props.student ? (
+											<div className="row">
+												<div className="col">
+													<h5 className="mb-3">{props.student.name}</h5>
+												</div>
+												<div className="col">
+													<h5 className="mb-3">
+														{props.student.price} {props.student.coin}
+													</h5>
+												</div>
+											</div>
+										) : null}
+										<div className="row">
+											<div className="col">
+												<TextField
+													id="date"
+													label="Día"
+													type="date"
+													name="date"
+													defaultValue={currentDate}
+													onChange={handleChange}
+													sx={{
+														"& .MuiInputLabel-root": {
+															color: "white"
+														},
+														"& .MuiInputBase-input": {
+															color: "white"
+														},
+														"& .MuiOutlinedInput-notchedOutline": {
+															borderColor: "white"
+														},
+														"& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline": {
+															borderColor: "white"
+														},
+														"&:hover .MuiOutlinedInput-notchedOutline": {
+															borderColor: "white"
+														},
+														"& .MuiInputAdornment-root .MuiSvgIcon-root": {
+															color: "white"
+														}
+													}}
+												/>
+											</div>
+											<div className="col align-content-center">
+												<select aria-label="Time" name="time" required className="form-select" onChange={handleChange} value={register.time}>
+													<option value="">--Selecciona Tiempo--</option>
+													<option value="0.5">30 min</option>
+													<option value="1">1 hora</option>
+													<option value="1.5">1 hora y 30 min</option>
+													<option value="2">2 horas</option>
+													<option value="2.5">2 horas y 30 min</option>
+													<option value="3">3 horas</option>
+												</select>
+											</div>
+										</div>
+										<div className="row mt-1 d-flex justify-content-end">
+											<div className="col-4 d-flex justify-content-end">
+												<button type="button" className="button-accent" data-bs-dismiss="modal" onClick={handleClick}>
+													Registrar
+												</button>
+											</div>
+										</div>
+									</>
+								)}
 							</form>
 						</div>
 					</div>

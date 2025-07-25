@@ -1,6 +1,5 @@
 import { useState } from "react";
 import useStore from "../store";
-import "../styles/login.css";
 import { useNavigate } from "react-router-dom";
 
 export const LoginForm = () => {
@@ -50,7 +49,7 @@ export const LoginForm = () => {
 		<>
 			<form onSubmit={handleSubmit} className="form-container mx-auto w-50 ">
 				<div className="input-container">
-					<label htmlFor="exampleInputEmail1" className="form-label">
+					<label htmlFor="exampleInputEmail1" className="form-label title">
 						Correo
 					</label>
 					<input
@@ -63,7 +62,7 @@ export const LoginForm = () => {
 					/>
 				</div>
 				<div className="input-container">
-					<label htmlFor="exampleInputPassword1" className="form-label">
+					<label htmlFor="exampleInputPassword1" className="form-label title">
 						Contraseña
 					</label>
 					<input
@@ -74,24 +73,24 @@ export const LoginForm = () => {
 						value={loginForm.password}
 					/>
 					{!invalidAccount ? (
-						<div id="emailHelp" className="form-text">
+						<div id="emailHelp" className="form-text title">
 							Nunca compartiremos su correo electrónico con nadie más.
 						</div>
 					) : (
-						<div id="emailHelp" className="form-text invalidAccount">
+						<div id="emailHelp" className="form-text invalidAccount title">
 							Correo o Contraseña incorrectos
 						</div>
 					)}
 				</div>
 				<div className="input-container mt-4">
 					{charge ? (
-						<button type="submit" className="btn btn-primary w-100" disabled={charge}>
+						<button type="submit" className="btn button-accent w-100 " disabled={charge}>
 							<>
 								INICIAR SESION <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
 							</>
 						</button>
 					) : (
-						<button type="submit" className="btn btn-primary w-100" disabled={charge}>
+						<button type="submit" className="btn button-accent w-100" disabled={charge}>
 							<>INICIAR SESION</>
 						</button>
 					)}
@@ -106,7 +105,7 @@ export const LoginForm = () => {
 					<hr className="hr-login" />
 				</div>
 				<div className="register-container">
-					<p className="form-text register-text m-0">¿Aún no estás registrado?</p>
+					<p className="form-text register-text m-0 title">¿Aún no estás registrado?</p>
 					<button type="button" className="btn btn-secondary w-100 mb-2" onClick={() => toggleIsFlipped()}>
 						Crear usuario
 					</button>
