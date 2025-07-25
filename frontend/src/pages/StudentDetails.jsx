@@ -98,6 +98,14 @@ export const StudentDetails = () => {
 	if (!student) {
 		return <div className="text-white">Cargando detalles del estudiante...</div>;
 	}
+	const formatToDDMMYY = (dateString) => {
+		const date = new Date(dateString);
+		const day = String(date.getDate()).padStart(2, "0");
+		const month = String(date.getMonth() + 1).padStart(2, "0"); // Meses son 0-indexados
+		const year = String(date.getFullYear()).slice(-2); // Últimos dos dígitos del año
+		return `${day}/${month}/${year}`;
+	};
+
 	return (
 		<>
 			<div className="container p-0 d-flex flex-column vw-100 align-items-center">
@@ -106,34 +114,34 @@ export const StudentDetails = () => {
 				</div>
 				<div className="user-content container d-flex flex-column justify-content-start">
 					<div className="row justify-content-around ">
-						<div className="card col-4 m-3">
+						<div className="card col-4 m-3" style={{ maxWidth: "400px" }}>
 							<div className="card-body">
 								<h2 className="card-title title text-center">Información</h2>
 								<div className="row">
-									<div className="col">
-										<h3 className="title text-center">{student.name}</h3>
+									<div className="col-7">
+										<p className="title fs-4">{student.name}</p>
 									</div>
-									<div className="col">
-										<h3 className="text-center">
+									<div className="col-5">
+										<p className="fs-4 ms-1">
 											Nivel <span className="title">{student.level} </span>
-										</h3>
+										</p>
 									</div>
 								</div>
-								<div className="row">
+								<div className="row text-center">
 									<div className="col">
-										<p className="fw-bold text-center">
+										<p className="fw-bold">
 											Persona de Contacto <span className="title">{student.contact_name}</span>
 										</p>
 									</div>
 									<div className="col">
-										<p className="fw-bold text-center">
+										<p className="fw-bold">
 											Teléfono de Contacto <span className="title">{student.contact_phone}</span>
 										</p>
 									</div>
 								</div>
-								<div className="row">
+								<div className="row text-center">
 									<div className="col">
-										<p className="fw-bold text-center">
+										<p className="fw-bold">
 											Precio por Hora
 											<br />
 											<span className="title">
@@ -142,7 +150,7 @@ export const StudentDetails = () => {
 										</p>
 									</div>
 									<div className="col">
-										<p className="fw-bold text-center">
+										<p className="fw-bold">
 											Status
 											<br />
 											<span className="title"> {student.status ? "Activo" : "Inactivo"}</span>
@@ -151,7 +159,7 @@ export const StudentDetails = () => {
 								</div>
 							</div>
 						</div>
-						<div className="card m-3 col-4">
+						<div className="card m-3 col-4 " style={{ maxWidth: "400px" }}>
 							<div className="card-body">
 								<h2 className="card-title title text-center">Resumen de Clases</h2>
 								<div className="row">
@@ -204,10 +212,10 @@ export const StudentDetails = () => {
 								</div>
 							</div>
 						</div>
-						<div className="card m-3 col-4">
+						<div className="card m-3 col-4" style={{ maxWidth: "400px" }}>
 							<div className="card-body text-center">
 								<h2 className="card-title title text-center">Balance</h2>
-								<div className="row d-flex align-items-center">
+								<div className="row d-flex align-items-center mb-3">
 									<div className="col fw-bold">
 										<p>Mes en curso</p>
 									</div>
@@ -229,20 +237,26 @@ export const StudentDetails = () => {
 								</div>
 							</div>
 						</div>
-						<div className="card m-3 col-4">
+						<div className="card m-3 col-4" style={{ maxWidth: "400px" }}>
 							<div className="card-body text-center">
-								<h3 className="card-title title text-center m-0">Últimos Registros</h3>
+								<div className="row align-items-center">
+									<div className="col-10">
+										<h3 className="card-title title text-center m-2">Últimos Registros</h3>
+									</div>
+									<div className="col">
+										<RegisterClass />
+									</div>
+								</div>
 								<div className="row scrollmenu-y">
 									{studentDetails.map((detail) => {
 										return (
 											<>
 												<div className="col-4 p-1 pb-2  ">
 													<div className="card bg-secondary">
-														<div className="card-body p-2  "></div>
 														<p className="m-0">
 															Fecha
 															<br />
-															<span className="title">{detail.date}</span>
+															<span className="title">{formatToDDMMYY(detail.date)}</span>
 														</p>
 														<p className="fw-bold">{detail.time} hrs</p>
 													</div>

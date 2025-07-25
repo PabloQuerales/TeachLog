@@ -91,7 +91,7 @@ export const RegisterClass = (props) => {
 	return (
 		<>
 			<button type="button" className="btn btn-dark" data-bs-toggle="modal" data-bs-target="#registerClass">
-				Añadir registro de estudiante
+				{path.pathname === "/students" ? "Agregar nuevo registro" : "+"}
 			</button>
 
 			<div className="modal fade" id="registerClass" tabIndex="-1" aria-labelledby="registerClass" aria-hidden="true">
