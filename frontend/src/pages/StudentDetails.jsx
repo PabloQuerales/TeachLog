@@ -104,7 +104,7 @@ export const StudentDetails = () => {
 						</div>
 					</div>
 					<div className="d-flex justify-content-center">
-						<RegisterClass student={student} />
+						<RegisterClass student={student} getStudent={getStudent} getStudentDetails={getStudentDetails} />
 					</div>
 				</div>
 			</div>

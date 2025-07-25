@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import TextField from "@mui/material/TextField";
 import useStore from "../store";
 import Swal from "sweetalert2";
@@ -14,6 +14,7 @@ export const RegisterClass = (props) => {
 		time: 0
 	});
 	const path = useLocation();
+	const params = useParams();
 	const students = props.students;
 
 	const postStudentDetail = async () => {
@@ -21,7 +22,6 @@ export const RegisterClass = (props) => {
 		myHeaders.append("Content-Type", "application/json");
 
 		const raw = JSON.stringify(register);
-		console.log(register);
 		const requestOptions = {
 			method: "POST",
 			headers: myHeaders,
@@ -39,11 +39,17 @@ export const RegisterClass = (props) => {
 					theme: "dark"
 				});
 				setRegister({ student_id: studentSelected.id || "", date: currentDate, time: 0 });
+				if (path.pathname !== "/students") {
+					props.getStudent();
+					props.getStudentDetails();
+				}
 			}
 		} catch (error) {
 			console.error(error);
 		}
-		setStudentSelected("");
+		if (path.pathname === "/students") {
+			setStudentSelected("");
+		}
 	};
 	const handleChange = (e) => {
 		const { value, name } = e.target;
@@ -51,11 +57,15 @@ export const RegisterClass = (props) => {
 		if (name === "time") {
 			parsedValue = parseFloat(value);
 		}
-		if (name === "studentNameSelect") {
-			const selectedStudent = students.find((student) => student.name === value);
-			setStudentSelected(selectedStudent || "");
+		if (path.pathname === "/students") {
+			if (name === "studentNameSelect") {
+				const selectedStudent = students.find((student) => student.name === value);
+				setStudentSelected(selectedStudent || "");
+			} else {
+				setRegister(() => ({ ...register, [name]: parsedValue, student_id: studentSelected.id }));
+			}
 		} else {
-			setRegister(() => ({ ...register, [name]: parsedValue, student_id: studentSelected.id }));
+			setRegister(() => ({ ...register, [name]: parsedValue, student_id: params.id }));
 		}
 	};
 
@@ -143,7 +153,7 @@ export const RegisterClass = (props) => {
 											</div>
 											<div className="col-5">
 												<label className="form-label ">Duración de la sesión</label>
-												<select aria-label="Time" name="time" required className="form-select" onChange={handleChange}>
+												<select aria-label="Time" name="time" required className="form-select" onChange={handleChange} value={register.time}>
 													<option value="">--Selecciona--</option>
 													<option value="0.5">30 min</option>
 													<option value="1">1 hora</option>
@@ -238,7 +248,7 @@ export const RegisterClass = (props) => {
 												/>
 											</div>
 											<div className="col align-content-center">
-												<select aria-label="Time" name="time" required className="form-select" onChange={handleChange}>
+												<select aria-label="Time" name="time" required className="form-select" onChange={handleChange} value={register.time}>
 													<option value="">--Selecciona Tiempo--</option>
 													<option value="0.5">30 min</option>
 													<option value="1">1 hora</option>
