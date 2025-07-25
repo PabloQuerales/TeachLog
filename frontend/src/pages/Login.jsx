@@ -11,7 +11,7 @@ export const Login = () => {
 		<div className="container-login background-login">
 			<div className="login w-75">
 				<div className="w-50 login-left">
-					<h1 className="optima-title title">Bienvenido a TeachLog</h1>
+					<h1 className="optima-title title m-4">TeachLog</h1>
 					<p>
 						TeachLog es una app de gestión diseñada para profesores remotos. Con ella podrás: Registrar, editar o eliminar tus estudiantes fácilmente.
 						Asignar precios a tus clases por hora, en diferentes monedas. Visualizar un balance mensual y un histórico de tu trabajo acumulado.
