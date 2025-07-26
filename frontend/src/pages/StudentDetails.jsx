@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import useStore from "../store";
 import { useParams } from "react-router-dom";
 import { RegisterClass } from "../components/RegisterClass";
+import { EditStudents } from "../components/EditStudents";
+
 import "../styles/studentDetail.css";
 
 export const StudentDetails = () => {
@@ -64,19 +66,38 @@ export const StudentDetails = () => {
 
 			setClassesThisMonth(filteredClassesThisMonth.length);
 
+			let monthlyTimeSum = 0;
+			let monthlyBalanceSum = 0;
+			filteredClassesThisMonth.forEach((detail) => {
+				monthlyTimeSum += detail.time;
+				monthlyBalanceSum += detail.time * detail.hourly_rate;
+			});
+			setTotalTimeThisMonth(monthlyTimeSum);
+			setBalanceThisMonth(monthlyBalanceSum);
+
 			const filteredClassesLastMonth = result.filter((detail) => {
 				const detailDate = new Date(detail.date);
 				return detailDate.getMonth() === lastMonth && detailDate.getFullYear() === lastMonthYear;
 			});
 			setClassesLastMonth(filteredClassesLastMonth.length);
-			const lastMonthlyTimeSum = filteredClassesLastMonth.reduce((sum, detail) => sum + detail.time, 0);
+
+			let lastMonthlyTimeSum = 0;
+			let lastMonthlyBalanceSum = 0;
+			filteredClassesLastMonth.forEach((detail) => {
+				lastMonthlyTimeSum += detail.time;
+				lastMonthlyBalanceSum += detail.time * detail.hourly_rate;
+			});
 			setTotalTimeLastMonth(lastMonthlyTimeSum);
+			setBalanceLastMonth(lastMonthlyBalanceSum);
 
-			const monthlyTimeSum = filteredClassesThisMonth.reduce((sum, detail) => sum + detail.time, 0);
-			setTotalTimeThisMonth(monthlyTimeSum);
-
-			const overallTimeSum = result.reduce((sum, detail) => sum + detail.time, 0);
+			let overallTimeSum = 0;
+			let overallBalanceSum = 0;
+			result.forEach((detail) => {
+				overallTimeSum += detail.time;
+				overallBalanceSum += detail.time * detail.hourly_rate;
+			});
 			setTotalTimeOverall(overallTimeSum);
+			setBalanceOverall(overallBalanceSum);
 		} catch (error) {
 			console.error(error);
 		}
@@ -85,16 +106,6 @@ export const StudentDetails = () => {
 		getStudent();
 		getStudentDetails();
 	}, []);
-
-	useEffect(() => {
-		if (student && student.price !== undefined) {
-			const price = parseFloat(student.price);
-
-			setBalanceThisMonth(totalTimeThisMonth * price);
-			setBalanceLastMonth(totalTimeLastMonth * price);
-			setBalanceOverall(totalTimeOverall * price);
-		}
-	}, [student, totalTimeThisMonth, totalTimeLastMonth, totalTimeOverall]);
 
 	if (!student) {
 		return <div className="text-white">Cargando detalles del estudiante...</div>;
@@ -112,17 +123,18 @@ export const StudentDetails = () => {
 			<div className="container p-0 d-flex flex-column vw-100 align-items-center">
 				<div className="user-header">
 					<img src={`https://api.dicebear.com/9.x/initials/svg?seed=${student.name}`} className="user-avatar" />
+					<EditStudents getStudent={getStudent} getStudentDetails={getStudentDetails} />
 				</div>
 				<div className="user-content container d-flex flex-column justify-content-start">
 					<div className="row justify-content-around ">
 						<div className="card col-4 m-3 mb-0" style={{ maxWidth: "400px" }}>
 							<div className="card-body">
 								<h2 className="card-title title text-center">Información</h2>
-								<div className="row">
-									<div className="col-7">
-										<p className="title fs-4">{student.name}</p>
+								<div className="row text-center">
+									<div className="col-6">
+										<p className="title fs-4 text-nowrap overflow-hidden text-truncate">{student.name}</p>
 									</div>
-									<div className="col-5">
+									<div className="col-6">
 										<p className="fs-4 ms-1">
 											Nivel <span className="title">{student.level} </span>
 										</p>
@@ -247,24 +259,21 @@ export const StudentDetails = () => {
 										<h3 className="card-title title text-center m-2">Últimos Registros</h3>
 									</div>
 									<div className="col">
-										<RegisterClass />
+										<RegisterClass student={student} getStudent={getStudent} getStudentDetails={getStudentDetails} />
 									</div>
 								</div>
 								<div className="row scrollmenu-y">
 									{studentDetails.map((detail) => {
 										return (
-											<>
-												<div className="col-4 p-1 pb-2  ">
-													<div className="card bg-secondary">
-														<p className="m-0">
-															Fecha
-															<br />
-															<span className="title">{formatToDDMMYY(detail.date)}</span>
-														</p>
-														<p className="fw-bold">{detail.time} hrs</p>
-													</div>
+											<div className="col-4 p-1 pb-2" key={detail.id}>
+												<div className="card bg-secondary">
+													<p className="title">{formatToDDMMYY(detail.date)}</p>
+													<p className="m-0 fw-bold">
+														{detail.hourly_rate * detail.time} {student.coin}
+													</p>
+													<p className="fw-bold">{detail.time} hrs</p>
 												</div>
-											</>
+											</div>
 										);
 									})}
 								</div>

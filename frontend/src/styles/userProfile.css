@@ -22,3 +22,19 @@
 	border: 2.5px solid black;
 	z-index: 10;
 }
+.user-avatar-edit-icon {
+	text-align: center;
+	width: 35px;
+	height: 35px;
+	position: absolute;
+	top: 100%;
+	left: calc(50% + 6rem);
+	transform: translate(-50%, -50%);
+
+	font-size: 1.4rem;
+	color: var(--color-text);
+	background-color: var(--color-background);
+	border-radius: 25%;
+	cursor: pointer;
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}

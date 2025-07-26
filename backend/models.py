@@ -65,6 +65,7 @@ class Student_details(db.Model):
     student_id: Mapped[int] = mapped_column(ForeignKey("students.id"))
     date: Mapped[str] = mapped_column(String(80),nullable=False)
     time: Mapped[float] = mapped_column(nullable=False)
+    hourly_rate:Mapped[float] = mapped_column(nullable=False)
     student: Mapped["Students"] = relationship(back_populates="student_details")
     
     def serialize(self):
@@ -72,5 +73,6 @@ class Student_details(db.Model):
             "id": self.id,
             "student_id": self.student_id,
             "date": self.date,
-            "time": self.time
+            "time": self.time,
+            "hourly_rate": self.hourly_rate
         }

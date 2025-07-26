@@ -33,7 +33,7 @@ export const CardStudents = (props) => {
 	return (
 		<ReactCardFlip isFlipped={isFlipped} flipDirection="horizontal">
 			{/* LADO FRONTAL */}
-			<div className="card card-student" key="front">
+			<div className="card card-student" key="front" style={{ height: "156px" }}>
 				<div className="student-content">
 					<div className="student-info">
 						<h5 className="student-name">{props.student.name}</h5>
