@@ -121,11 +121,11 @@ export const StudentDetails = () => {
 						<div className="card col-4 m-3 mb-0" style={{ maxWidth: "400px" }}>
 							<div className="card-body">
 								<h2 className="card-title title text-center">Información</h2>
-								<div className="row">
-									<div className="col-7">
-										<p className="title fs-4">{student.name}</p>
+								<div className="row text-center">
+									<div className="col-6">
+										<p className="title fs-4 text-nowrap overflow-hidden text-truncate">{student.name}</p>
 									</div>
-									<div className="col-5">
+									<div className="col-6">
 										<p className="fs-4 ms-1">
 											Nivel <span className="title">{student.level} </span>
 										</p>

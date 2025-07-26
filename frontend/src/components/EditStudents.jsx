@@ -1,6 +1,7 @@
 import useStore from "../store";
 import { useLocation, useParams } from "react-router-dom";
 import { useState } from "react";
+import Swal from "sweetalert2";
 
 export const EditStudents = (props) => {
 	const { backendUrl } = useStore();
@@ -38,6 +39,19 @@ export const EditStudents = (props) => {
 					props.getStudent();
 					props.getStudentDetails();
 				}
+				Swal.fire({
+					title: "Edición realizada correctamente!",
+					icon: "success",
+					confirmButtonColor: "rgb(196, 159, 59)",
+					theme: "dark"
+				});
+			} else {
+				Swal.fire({
+					title: "Información incompleta",
+					icon: "error",
+					confirmButtonColor: "rgb(196, 159, 59)",
+					theme: "dark"
+				});
 			}
 		} catch (error) {
 			console.error(error);
@@ -64,7 +78,7 @@ export const EditStudents = (props) => {
 		<>
 			{path.pathname !== "/students" ? (
 				<>
-					<i className="bi bi-gear user-avatar-edit-icon" data-bs-toggle="modal" data-bs-target="#editModal" onClick={() => console.log(path)}></i>
+					<i className="bi bi-gear user-avatar-edit-icon" data-bs-toggle="modal" data-bs-target="#editModal"></i>
 
 					<div className="modal fade" id="editModal" tabIndex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
 						<div className="modal-dialog">
