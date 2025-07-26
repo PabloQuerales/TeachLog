@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import useStore from "../store";
 import { useParams } from "react-router-dom";
 import { RegisterClass } from "../components/RegisterClass";
+import { EditStudents } from "../components/EditStudents";
+
 import "../styles/studentDetail.css";
 
 export const StudentDetails = () => {
@@ -112,7 +114,7 @@ export const StudentDetails = () => {
 			<div className="container p-0 d-flex flex-column vw-100 align-items-center">
 				<div className="user-header">
 					<img src={`https://api.dicebear.com/9.x/initials/svg?seed=${student.name}`} className="user-avatar" />
-					<i className="bi bi-gear user-avatar-edit-icon" onClick={() => console.log("Editar perfil")}></i>
+					<EditStudents getStudent={getStudent} getStudentDetails={getStudentDetails} />
 				</div>
 				<div className="user-content container d-flex flex-column justify-content-start">
 					<div className="row justify-content-around ">
@@ -254,18 +256,16 @@ export const StudentDetails = () => {
 								<div className="row scrollmenu-y">
 									{studentDetails.map((detail) => {
 										return (
-											<>
-												<div className="col-4 p-1 pb-2  ">
-													<div className="card bg-secondary">
-														<p className="m-0">
-															Fecha
-															<br />
-															<span className="title">{formatToDDMMYY(detail.date)}</span>
-														</p>
-														<p className="fw-bold">{detail.time} hrs</p>
-													</div>
+											<div className="col-4 p-1 pb-2" key={detail.id}>
+												<div className="card bg-secondary">
+													<p className="m-0">
+														Fecha
+														<br />
+														<span className="title">{formatToDDMMYY(detail.date)}</span>
+													</p>
+													<p className="fw-bold">{detail.time} hrs</p>
 												</div>
-											</>
+											</div>
 										);
 									})}
 								</div>
