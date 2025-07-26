@@ -18,18 +18,24 @@ def add_student_detail():
     student_id = data.get('student_id')
     date = data.get('date')
     time = data.get('time')
-
-    if not all([student_id, date, time]):
-        return jsonify({"msg": "Faltan campos obligatorios para el detalle del estudiante"}), 400
+    
+    if not student_id or not date or time is None:
+        return jsonify({"msg": "Faltan campos obligatorios (student_id, date, time) para el detalle del estudiante"}), 400
 
     student_exists = db.session.get(Students, student_id)
     if not student_exists:
         return jsonify({"msg": "ID de estudiante no válido"}), 404
 
+    current_hourly_rate = student_exists.price
+
+    if current_hourly_rate is None:
+        return jsonify({"msg": "El estudiante no tiene un precio por hora definido."}), 400
+
     new_detail = Student_details(
         student_id=student_id,
         date=date,
-        time=time
+        time=time,
+        hourly_rate=current_hourly_rate  # ¡Asigna el precio actual aquí!
     )
     db.session.add(new_detail)
     db.session.commit()

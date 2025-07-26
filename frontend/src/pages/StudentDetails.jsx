@@ -66,19 +66,38 @@ export const StudentDetails = () => {
 
 			setClassesThisMonth(filteredClassesThisMonth.length);
 
+			let monthlyTimeSum = 0;
+			let monthlyBalanceSum = 0;
+			filteredClassesThisMonth.forEach((detail) => {
+				monthlyTimeSum += detail.time;
+				monthlyBalanceSum += detail.time * detail.hourly_rate;
+			});
+			setTotalTimeThisMonth(monthlyTimeSum);
+			setBalanceThisMonth(monthlyBalanceSum);
+
 			const filteredClassesLastMonth = result.filter((detail) => {
 				const detailDate = new Date(detail.date);
 				return detailDate.getMonth() === lastMonth && detailDate.getFullYear() === lastMonthYear;
 			});
 			setClassesLastMonth(filteredClassesLastMonth.length);
-			const lastMonthlyTimeSum = filteredClassesLastMonth.reduce((sum, detail) => sum + detail.time, 0);
+
+			let lastMonthlyTimeSum = 0;
+			let lastMonthlyBalanceSum = 0;
+			filteredClassesLastMonth.forEach((detail) => {
+				lastMonthlyTimeSum += detail.time;
+				lastMonthlyBalanceSum += detail.time * detail.hourly_rate;
+			});
 			setTotalTimeLastMonth(lastMonthlyTimeSum);
+			setBalanceLastMonth(lastMonthlyBalanceSum);
 
-			const monthlyTimeSum = filteredClassesThisMonth.reduce((sum, detail) => sum + detail.time, 0);
-			setTotalTimeThisMonth(monthlyTimeSum);
-
-			const overallTimeSum = result.reduce((sum, detail) => sum + detail.time, 0);
+			let overallTimeSum = 0;
+			let overallBalanceSum = 0;
+			result.forEach((detail) => {
+				overallTimeSum += detail.time;
+				overallBalanceSum += detail.time * detail.hourly_rate;
+			});
 			setTotalTimeOverall(overallTimeSum);
+			setBalanceOverall(overallBalanceSum);
 		} catch (error) {
 			console.error(error);
 		}
@@ -87,16 +106,6 @@ export const StudentDetails = () => {
 		getStudent();
 		getStudentDetails();
 	}, []);
-
-	useEffect(() => {
-		if (student && student.price !== undefined) {
-			const price = parseFloat(student.price);
-
-			setBalanceThisMonth(totalTimeThisMonth * price);
-			setBalanceLastMonth(totalTimeLastMonth * price);
-			setBalanceOverall(totalTimeOverall * price);
-		}
-	}, [student, totalTimeThisMonth, totalTimeLastMonth, totalTimeOverall]);
 
 	if (!student) {
 		return <div className="text-white">Cargando detalles del estudiante...</div>;
@@ -258,10 +267,9 @@ export const StudentDetails = () => {
 										return (
 											<div className="col-4 p-1 pb-2" key={detail.id}>
 												<div className="card bg-secondary">
-													<p className="m-0">
-														Fecha
-														<br />
-														<span className="title">{formatToDDMMYY(detail.date)}</span>
+													<p className="title">{formatToDDMMYY(detail.date)}</p>
+													<p className="m-0 fw-bold">
+														{detail.hourly_rate * detail.time} {student.coin}
 													</p>
 													<p className="fw-bold">{detail.time} hrs</p>
 												</div>
