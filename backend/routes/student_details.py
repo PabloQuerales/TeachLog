@@ -12,6 +12,27 @@ def get_student_details_by_student_id(student_id):
     result = [detail.serialize() for detail in details]
     return jsonify(result), 200
 
+@student_details_bp.route("/student-details/user/<int:user_id>", methods=["GET"])
+def get_all_student_details_by_user_id(user_id):
+    query_result = db.session.execute(
+        db.select(Student_details, Students.name, Students.coin)
+        .join(Students, Student_details.student_id == Students.id)
+        .filter(Students.user_id == user_id)
+        .order_by(Student_details.date)
+    ).all()
+
+    if not query_result:
+        return jsonify({"msg": "No se encontraron detalles de clases para este usuario"}), 404
+
+    all_details = []
+    for detail_obj, student_name, student_coin in query_result:
+        serialized_detail = detail_obj.serialize()
+        serialized_detail["student_name"] = student_name
+        serialized_detail["student_coin"] = student_coin
+        all_details.append(serialized_detail)
+    
+    return jsonify(all_details), 200
+
 @student_details_bp.route('/student-details', methods=['POST'])
 def add_student_detail():
     data = request.get_json()
