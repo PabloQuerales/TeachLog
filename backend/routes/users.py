@@ -1,8 +1,10 @@
-from datetime import timedelta
+from datetime import datetime, timedelta
 from flask import Blueprint, jsonify, make_response, request
-from models import User,db
+from models import db, Students, Student_details, User
 from flask_bcrypt import Bcrypt
 from flask_jwt_extended import create_access_token, get_jwt_identity, jwt_required
+from sqlalchemy import extract, func
+
 
 
 users_bp = Blueprint('users_bp', __name__)
@@ -83,6 +85,83 @@ def delete_user(email):
     db.session.delete(user)
     db.session.commit()
     return jsonify({"msg": "usuario eliminado"}), 200
+
+@users_bp.route("/user_dashboard/<int:user_id>", methods=['GET'])
+def teacher_dashboard(user_id):
+    # Obtener todos los estudiantes de este usuario
+    students = Students.query.filter_by(user_id=user_id).all()
+    
+    if not students:
+        return jsonify({"error": "No hay estudiantes para este usuario"}), 404
+
+    # Recoger todos los registros de todos los estudiantes
+    registros = []
+    for student in students:
+        student_records = Student_details.query.filter_by(student_id=student.id).all()
+        registros.extend(student_records)
+
+    now = datetime.now()
+    current_month = now.month
+    current_year = now.year
+
+    # Calcular mes anterior
+    previous_month = current_month - 1 if current_month > 1 else 12
+    previous_month_year = current_year if current_month > 1 else current_year - 1
+
+    def ensure_datetime(date_obj):
+        if isinstance(date_obj, str):
+            try:
+                return datetime.fromisoformat(date_obj)
+            except ValueError:
+                return datetime.strptime(date_obj, "%Y-%m-%d")  # formato alternativo
+        return date_obj
+
+    def is_same_month(date_obj, month, year):
+        date_obj = ensure_datetime(date_obj)
+        return date_obj.month == month and date_obj.year == year
+
+    # Calcular totales
+    total_classes = len(registros)
+    total_time = sum([r.time for r in registros])
+    total_earned = sum([r.hourly_rate * r.time for r in registros])
+
+    current_month_classes = [
+        r for r in registros if is_same_month(r.date, current_month, current_year)
+    ]
+    previous_month_classes = [
+        r for r in registros if is_same_month(r.date, previous_month, previous_month_year)
+    ]
+
+    last_records = sorted(registros, key=lambda r: ensure_datetime(r.date), reverse=True)[:5]
+
+    response = {
+        "profile": {
+            "students_count": len(students)
+        },
+        "summary": {
+            "total_classes": total_classes,
+            "total_hours": total_time,
+            "current_month_classes": len(current_month_classes),
+            "current_month_hours": sum([r.time for r in current_month_classes]),
+            "previous_month_classes": len(previous_month_classes),
+            "previous_month_hours": sum([r.time for r in previous_month_classes])
+        },
+        "balance": {
+            "total_earned": total_earned,
+            "current_month": sum([r.hourly_rate * r.time for r in current_month_classes]),
+            "previous_month": sum([r.hourly_rate * r.time for r in previous_month_classes])
+        },
+        "last_records": [
+            {
+                "date": ensure_datetime(r.date).strftime('%Y-%m-%d'),
+                "amount": r.hourly_rate * r.time,
+                "duration": r.time
+            }
+            for r in last_records
+        ]
+    }
+
+    return jsonify(response)
 
 @users_bp.route("/ping")
 def ping():
