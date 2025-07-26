@@ -1,12 +1,10 @@
 import { useEffect, useState } from "react";
 import useStore from "../store";
-import ReactCardFlip from "react-card-flip";
 import "../styles/cardStudents.css";
 
 export const AllRegisters = () => {
 	const { backendUrl, userLogged } = useStore();
 	const [allDetails, setAllDetails] = useState([]);
-	const [isFlipped, setIsFlipped] = useState(false);
 
 	const getAllDetails = async () => {
 		const requestOptions = {
@@ -38,23 +36,18 @@ export const AllRegisters = () => {
 			<div className="row scrollmenu">
 				{allDetails.map((detail) => {
 					return (
-						<div className="col-2 mb-3" key={detail.id}>
+						<div className="col-2" key={detail.id}>
 							<div className="card">
 								<div className="card-body">
 									<div className="text-center">
 										<h5 className="card-title title text-nowrap overflow-hidden text-truncate">{detail.student_name}</h5>
 									</div>
-									<div>
+									<div className="text-center m-1">
 										<p className="title">{formatToDDMMYY(detail.date)}</p>
 										<p className="m-0 fw-bold">
 											{detail.hourly_rate * detail.time} {detail.student_coin}
 										</p>
 										<p className="fw-bold">{detail.time} hrs</p>
-									</div>
-									<div className="d-flex justify-content-center">
-										<a href="#" className="btn button-accent text-white">
-											Editar
-										</a>
 									</div>
 								</div>
 							</div>
