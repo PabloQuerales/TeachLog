@@ -247,7 +247,7 @@ export const StudentDetails = () => {
 										<h3 className="card-title title text-center m-2">Últimos Registros</h3>
 									</div>
 									<div className="col">
-										<RegisterClass />
+										<RegisterClass student={student} getStudent={getStudent} getStudentDetails={getStudentDetails} />
 									</div>
 								</div>
 								<div className="row scrollmenu-y">

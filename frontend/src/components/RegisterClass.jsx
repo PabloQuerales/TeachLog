@@ -207,12 +207,12 @@ export const RegisterClass = (props) => {
 										{props.student ? (
 											<div className="row">
 												<div className="col">
-													<h5 className="mb-3">{props.student.name}</h5>
+													<h4 className="mb-3">{props.student.name}</h4>
 												</div>
 												<div className="col">
-													<h5 className="mb-3">
+													<h4 className="mb-3">
 														{props.student.price} {props.student.coin}
-													</h5>
+													</h4>
 												</div>
 											</div>
 										) : null}
