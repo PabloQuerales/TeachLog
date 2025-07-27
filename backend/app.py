@@ -12,7 +12,11 @@ from routes import all_blueprints
 load_dotenv()
 
 app = Flask(__name__)
-CORS(app, supports_credentials=True, origins=["http://localhost:5173"])
+CORS(app, supports_credentials=True, origins=[
+    "http://localhost:5173",
+    "https://your-frontend-app.netlify.app", # <-- ¡REEMPLAZA ESTO con la URL REAL de tu frontend en Netlify/Vercel!
+    "https://your-frontend-app.vercel.app"   # <-- ¡O ESTA si usas Vercel!
+])
 
 # Configuración de base de datos
 setup_db(app)
