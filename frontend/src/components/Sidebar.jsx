@@ -48,9 +48,9 @@ export const Sidebar = () => {
 				<li className="nav-item" onClick={() => navigate("/registers")}>
 					<i className="icons-sidebar bi bi-clipboard-check-fill"></i> <span className="icon-name">Registros</span>
 				</li>
-				<li className="nav-item" onClick={() => navigate("/calender")}>
+				{/* <li className="nav-item" onClick={() => navigate("/calender")}>
 					<i className="icons-sidebar bi bi-calendar-check-fill"></i> <span className="icon-name">Calendario</span>
-				</li>
+				</li> */}
 			</ul>
 			{/* boton cerrar sesion */}
 			<div className="logout-container">
