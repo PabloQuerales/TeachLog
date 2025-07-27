@@ -17,7 +17,6 @@ export const UserProfile = () => {
 		try {
 			const response = await fetch(`${backendUrl}/user_dashboard/${userLogged.id}`, requestOptions);
 			const result = await response.json();
-			console.log(result);
 			setDashBoardInformation(result);
 		} catch (error) {
 			console.error(error);
@@ -66,9 +65,9 @@ export const UserProfile = () => {
 								Tienes <span className="title">{profile.inactive_students}</span> inactivos
 							</p>
 							<p className="mt-1">
-								Puedes activar y desactivar estudiantes desde la seccion{" "}
+								Puedes activar y desactivar estudiantes desde la seccion {""}
 								<a
-									className="btn p-0 title "
+									className=" p-0 border-0 "
 									onClick={() => {
 										navigate("/students");
 									}}>
@@ -83,13 +82,23 @@ export const UserProfile = () => {
 						<div className="card-body text-center">
 							<h3 className="card-title title">Resumen de Clases</h3>
 							<p className="fw-bold">
-								Totales: <span className="title">{summary.total_classes}</span>
+								Haz tenido un total de <span className="title">{summary.total_classes}</span> clases dadas
 							</p>
 							<p className="fw-bold">
-								Mes actual: <span className="title">{summary.current_month_classes}</span>
+								<span className="title">{summary.current_month_classes}</span> En el mes actual
 							</p>
 							<p className="fw-bold">
-								Mes anterior: <span className="title">{summary.previous_month_classes}</span>
+								<span className="title">{summary.previous_month_classes}</span> En el mes anterior
+							</p>
+							<p className="mt-1">
+								Puedes añadir clases desde la sección {""}
+								<a
+									className=" p-0 border-0 "
+									onClick={() => {
+										navigate("/students");
+									}}>
+									Estudiantes.
+								</a>
 							</p>
 						</div>
 					</div>
@@ -99,14 +108,15 @@ export const UserProfile = () => {
 						<div className="card-body text-center">
 							<h3 className="card-title title">Resumen de Ganancias</h3>
 							<p className="fw-bold">
-								Total: <span className="title">{balance.total_earned.toFixed(2)}</span>
+								Total generado hasta la fecha <span className="title">{balance.total_earned.toFixed(2)}</span> PEN
 							</p>
 							<p className="fw-bold">
-								Mes actual: <span className="title">{balance.current_month.toFixed(2)}</span>
+								Generado en el mes <span className="title">{balance.current_month.toFixed(2)}</span> PEN
 							</p>
 							<p className="fw-bold">
-								Mes anterior: <span className="title">{balance.previous_month.toFixed(2)}</span>
+								Generado el mes anterior: <span className="title">{balance.previous_month.toFixed(2)}</span> PEN
 							</p>
+							<p>Los montos mostrados se basan en la moneda configurada en su perfil.</p>
 						</div>
 					</div>
 

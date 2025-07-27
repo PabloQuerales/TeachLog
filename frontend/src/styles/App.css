@@ -43,3 +43,10 @@ p {
 	color: var(--color-accent);
 	font-weight: bold;
 }
+
+a {
+	color: var(--color-accent);
+	font-weight: bold;
+	cursor: pointer;
+	border: none;
+}
