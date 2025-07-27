@@ -98,6 +98,8 @@ def teacher_dashboard(user_id):
     registros = []
     for student in students:
         student_records = Student_details.query.filter_by(student_id=student.id).all()
+        for record in student_records:
+            record.student_name = student.name  # Añadir el nombre del estudiante a cada registro
         registros.extend(student_records)
 
     now = datetime.now()
@@ -134,9 +136,14 @@ def teacher_dashboard(user_id):
 
     last_records = sorted(registros, key=lambda r: ensure_datetime(r.date), reverse=True)[:5]
 
+    active_students = [s for s in students if s.status]
+    inactive_students = [s for s in students if not s.status]
+
     response = {
         "profile": {
-            "students_count": len(students)
+            "students_count": len(students),
+            "active_students": len(active_students),
+            "inactive_students": len(inactive_students)
         },
         "summary": {
             "total_classes": total_classes,
@@ -155,7 +162,8 @@ def teacher_dashboard(user_id):
             {
                 "date": ensure_datetime(r.date).strftime('%Y-%m-%d'),
                 "amount": r.hourly_rate * r.time,
-                "duration": r.time
+                "duration": r.time,
+                "student_name": r.student_name  # Nuevo campo con el nombre del estudiante
             }
             for r in last_records
         ]
