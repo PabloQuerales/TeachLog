@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Sidebar } from "../components/sidebar";
+import { Sidebar } from "../components/Sidebar";
 import { Outlet } from "react-router-dom";
 import Swal from "sweetalert2";
 import useStore from "../store";
