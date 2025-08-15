@@ -1,4 +1,4 @@
-import "../styles/UserProfile.css";
+import "../styles/userProfile.css";
 import useStore from "../store";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
