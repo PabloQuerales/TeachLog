@@ -34,12 +34,13 @@ def login():
             return jsonify({"msg": "email o contraseña equivocados"}), 401
         access_token = create_access_token(identity=str(user.id), expires_delta=timedelta(minutes=30))        
         response = make_response(jsonify({"user_id": user.id}))
+        secure = request.host != "localhost"  # solo secure en prod
         response.set_cookie(
             "access_token_cookie",
             access_token,
             httponly=True,
-            secure=True,    # en desarrollo lo dejamos False; en prod: True con HTTPS
-            samesite='Strict'
+            secure=secure,
+            samesite='None'  # más flexible para frontend separado
         )
         return response
     except:
