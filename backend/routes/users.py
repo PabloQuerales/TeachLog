@@ -38,7 +38,7 @@ def login():
             "access_token_cookie",
             access_token,
             httponly=True,
-            secure=False,    # en desarrollo lo dejamos False; en prod: True con HTTPS
+            secure=True,    # en desarrollo lo dejamos False; en prod: True con HTTPS
             samesite='Strict'
         )
         return response
