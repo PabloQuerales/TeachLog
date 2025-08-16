@@ -89,25 +89,23 @@ def delete_user(email):
 
 @users_bp.route("/user_dashboard/<int:user_id>", methods=['GET'])
 def teacher_dashboard(user_id):
-    # Obtener todos los estudiantes de este usuario
     students = Students.query.filter_by(user_id=user_id).all()
     
-    if not students:
-        return jsonify({"error": "No hay estudiantes para este usuario"}), 404
+    # Separar activos e inactivos aunque esté vacío
+    active_students = [s for s in students if s.status] if students else []
+    inactive_students = [s for s in students if not s.status] if students else []
 
-    # Recoger todos los registros de todos los estudiantes
+    # Recoger todos los registros
     registros = []
     for student in students:
         student_records = Student_details.query.filter_by(student_id=student.id).all()
         for record in student_records:
-            record.student_name = student.name  # Añadir el nombre del estudiante a cada registro
+            record.student_name = student.name
         registros.extend(student_records)
 
     now = datetime.now()
     current_month = now.month
     current_year = now.year
-
-    # Calcular mes anterior
     previous_month = current_month - 1 if current_month > 1 else 12
     previous_month_year = current_year if current_month > 1 else current_year - 1
 
@@ -116,29 +114,21 @@ def teacher_dashboard(user_id):
             try:
                 return datetime.fromisoformat(date_obj)
             except ValueError:
-                return datetime.strptime(date_obj, "%Y-%m-%d")  # formato alternativo
+                return datetime.strptime(date_obj, "%Y-%m-%d")
         return date_obj
 
     def is_same_month(date_obj, month, year):
         date_obj = ensure_datetime(date_obj)
         return date_obj.month == month and date_obj.year == year
 
-    # Calcular totales
     total_classes = len(registros)
-    total_time = sum([r.time for r in registros])
-    total_earned = sum([r.hourly_rate * r.time for r in registros])
+    total_time = sum([r.time for r in registros]) if registros else 0
+    total_earned = sum([r.hourly_rate * r.time for r in registros]) if registros else 0
 
-    current_month_classes = [
-        r for r in registros if is_same_month(r.date, current_month, current_year)
-    ]
-    previous_month_classes = [
-        r for r in registros if is_same_month(r.date, previous_month, previous_month_year)
-    ]
+    current_month_classes = [r for r in registros if is_same_month(r.date, current_month, current_year)]
+    previous_month_classes = [r for r in registros if is_same_month(r.date, previous_month, previous_month_year)]
 
-    last_records = sorted(registros, key=lambda r: ensure_datetime(r.date), reverse=True)[:5]
-
-    active_students = [s for s in students if s.status]
-    inactive_students = [s for s in students if not s.status]
+    last_records = sorted(registros, key=lambda r: ensure_datetime(r.date), reverse=True)[:5] if registros else []
 
     response = {
         "profile": {
@@ -164,7 +154,7 @@ def teacher_dashboard(user_id):
                 "date": ensure_datetime(r.date).strftime('%Y-%m-%d'),
                 "amount": r.hourly_rate * r.time,
                 "duration": r.time,
-                "student_name": r.student_name  # Nuevo campo con el nombre del estudiante
+                "student_name": r.student_name
             }
             for r in last_records
         ]
