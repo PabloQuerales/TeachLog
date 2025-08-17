@@ -24,10 +24,6 @@ export const Sidebar = () => {
 			console.error("Error de red:", error);
 		}
 	};
-	const handleClick = () => {
-		logout();
-		cookieStore.clear();
-	};
 
 	return (
 		<div className="sidebar">
@@ -54,7 +50,7 @@ export const Sidebar = () => {
 			</ul>
 			{/* boton cerrar sesion */}
 			<div className="logout-container">
-				<button className="logout-btn" onClick={handleClick}>
+				<button className="logout-btn" onClick={() => logout()}>
 					<i className="icons-sidebar bi bi-box-arrow-left"></i> <span className="icon-name">Cerrar sesion</span>
 				</button>
 			</div>
