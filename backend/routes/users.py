@@ -2,7 +2,8 @@ from datetime import datetime, timedelta
 from flask import Blueprint, jsonify, make_response, request
 from models import db, Students, Student_details, User
 from flask_bcrypt import Bcrypt
-from flask_jwt_extended import create_access_token, get_jwt_identity, jwt_required
+from flask_jwt_extended import create_access_token, get_jwt_identity, jwt_required, unset_jwt_cookies
+
 from sqlalchemy import extract, func
 
 
@@ -52,12 +53,6 @@ def protected():
     current_user = get_jwt_identity()
     user = db.session.execute(db.select(User).filter_by(id=current_user)).scalar_one()
     return jsonify(user.serialize()), 200
-
-@users_bp.route("/logout", methods=["POST"])
-def logout():
-    response = make_response(jsonify({"msg": "Sesión cerrada"}))
-    response.delete_cookie("access_token_cookie", samesite='Strict')
-    return response
 
 @users_bp.route("/users/<string:email>", methods=["PUT"])
 def edit_user(email):
@@ -161,6 +156,12 @@ def teacher_dashboard(user_id):
     }
 
     return jsonify(response)
+
+@users_bp.route("/logout", methods=["POST"])
+def logout():
+    resp = jsonify({"msg": "logout ok"})
+    unset_jwt_cookies(resp)
+    return resp, 200
 
 @users_bp.route("/ping")
 def ping():
