@@ -26,7 +26,7 @@ export const Sidebar = () => {
 	};
 	const handleClick = () => {
 		logout();
-		localStorage.clear();
+		cookieStore.clear();
 	};
 
 	return (
