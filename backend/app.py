@@ -24,6 +24,9 @@ setup_db(app)
 # --- JWT ---
 app.config["JWT_SECRET_KEY"] = os.getenv("JWT_SECRET_KEY", "TeachLogApp")
 app.config["JWT_COOKIE_CSRF_PROTECT"] = True
+app.config["JWT_COOKIE_SECURE"] = True   # cookies solo por https
+app.config["JWT_COOKIE_SAMESITE"] = "None"  # permitir cross-site
+app.config["JWT_TOKEN_LOCATION"] = ["cookies"]
 jwt = JWTManager(app)
 
 # --- Migraciones ---
