@@ -141,7 +141,7 @@ export const UserProfile = () => {
 										</div>
 									))
 								) : (
-									<p className="text-muted">No hay clases recientes</p>
+									<p className="fw-bold">No hay clases recientes</p>
 								)}
 							</div>
 						</div>

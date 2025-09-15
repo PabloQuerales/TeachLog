@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import useStore from "../store";
+import empty from "../resources/img/contabilidad.png";
 import "../styles/cardStudents.css";
 
 export const AllRegisters = () => {
@@ -34,26 +35,33 @@ export const AllRegisters = () => {
 	return (
 		<div className="container mt-5">
 			<div className="row scrollmenu">
-				{allDetails.map((detail) => {
-					return (
-						<div className="col-2" key={detail.id}>
-							<div className="card">
-								<div className="card-body">
-									<div className="text-center">
-										<h5 className="card-title title text-nowrap overflow-hidden text-truncate">{detail.student_name}</h5>
-									</div>
-									<div className="text-center m-1">
-										<p className="title">{formatToDDMMYY(detail.date)}</p>
-										<p className="m-0 fw-bold">
-											{detail.hourly_rate * detail.time} {detail.student_coin}
-										</p>
-										<p className="fw-bold">{detail.time} hrs</p>
+				{allDetails.length > 0 ? (
+					allDetails.map((detail) => {
+						return (
+							<div className="col-2" key={detail.id}>
+								<div className="card">
+									<div className="card-body">
+										<div className="text-center">
+											<h5 className="card-title title text-nowrap overflow-hidden text-truncate">{detail.student_name}</h5>
+										</div>
+										<div className="text-center m-1">
+											<p className="title">{formatToDDMMYY(detail.date)}</p>
+											<p className="m-0 fw-bold">
+												{detail.hourly_rate * detail.time} {detail.student_coin}
+											</p>
+											<p className="fw-bold">{detail.time} hrs</p>
+										</div>
 									</div>
 								</div>
 							</div>
-						</div>
-					);
-				})}
+						);
+					})
+				) : (
+					<div className="d-flex justify-content-center align-content-center flex-column align-items-center">
+						<img src={empty} className=" mb-5" style={{ height: "300px" }} />
+						<h2>Aun no existen registros...</h2>
+					</div>
+				)}
 			</div>
 		</div>
 	);
