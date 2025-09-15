@@ -3,6 +3,7 @@ import { CardStudents } from "../components/CardStudents";
 import { NewStudent } from "../components/NewStudent";
 import { RegisterClass } from "../components/RegisterClass";
 import { useEffect, useState } from "react";
+import empty from "../resources/img/clase-virtual.png";
 import "../styles/students.css";
 
 export const Students = () => {
@@ -30,9 +31,16 @@ export const Students = () => {
 		<>
 			<div className="container h-100 d-flex flex-column justify-content-around">
 				<div className="scrollmenu p-3">
-					{students.map((student, index) => {
-						return <CardStudents key={index} student={student} getStudents={getStudents} />;
-					})}
+					{students.length > 0 ? (
+						students.map((student, index) => {
+							return <CardStudents key={index} student={student} getStudents={getStudents} />;
+						})
+					) : (
+						<div className="h-100 d-flex justify-content-center align-content-center flex-column align-items-center">
+							<img src={empty} className="h-full w-50 mb-5" />
+							<h2> Aun no hay alumnos registrados...</h2>
+						</div>
+					)}
 				</div>
 				<div className="d-flex justify-content-evenly">
 					<NewStudent getStudents={getStudents} />
