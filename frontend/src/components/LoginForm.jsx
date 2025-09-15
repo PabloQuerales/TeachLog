@@ -96,6 +96,7 @@ export const LoginForm = () => {
 					)}
 					<div
 						className="form-text register-text highlight-text mt-2"
+						disabled
 						// onClick={() => {
 						// 	navigate("/recuperar-contrasena");
 						// }}
