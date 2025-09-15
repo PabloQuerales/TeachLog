@@ -94,15 +94,14 @@ export const LoginForm = () => {
 							<>INICIAR SESION</>
 						</button>
 					)}
-					<div
+					{/* <div
 						className="form-text register-text highlight-text mt-2"
-						disabled
 						// onClick={() => {
 						// 	navigate("/recuperar-contrasena");
 						// }}
 					>
 						Olvidé mi contraseña
-					</div>
+					</div> */}
 					<hr className="hr-login" />
 				</div>
 				<div className="register-container">
