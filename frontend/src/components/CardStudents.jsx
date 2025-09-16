@@ -114,8 +114,12 @@ export const CardStudents = (props) => {
 							<select className="form-select input-sm" name="coin" required value={inputValue.coin} onChange={handleChange}>
 								<option value="">Moneda</option>
 								<option value="PEN">PEN</option>
-								<option value="EUR">EUR</option>
-								<option value="USD">USD</option>
+								<option value="EUR" disabled>
+									EUR
+								</option>
+								<option value="USD" disabled>
+									USD
+								</option>
 							</select>
 
 							<select className="form-select input-sm" name="level" required value={inputValue.level} onChange={handleChange}>

@@ -125,8 +125,12 @@ export const EditStudents = (props) => {
 												<select className="form-select" aria-label="Moneda" name="coin" required value={inputValue.coin} onChange={handleChange}>
 													<option value="">Moneda</option>
 													<option value="PEN">PEN</option>
-													<option value="EUR">EUR</option>
-													<option value="USD">USD</option>
+													<option value="EUR" disabled>
+														EUR
+													</option>
+													<option value="USD" disabled>
+														USD
+													</option>
 												</select>
 											</div>
 										</div>
