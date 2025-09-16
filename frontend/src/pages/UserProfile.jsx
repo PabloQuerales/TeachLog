@@ -46,7 +46,7 @@ export const UserProfile = () => {
 		<div className="container p-0 d-flex flex-column vw-100 align-items-center">
 			<div className="user-header">
 				<img src={`https://api.dicebear.com/9.x/initials/svg?seed=${userLogged.first_name}`} className="user-avatar" alt="User Avatar" />
-				<i className="bi bi-gear user-avatar-edit-icon" data-bs-toggle="modal" data-bs-target="#editModal"></i>
+				{/* <i className="bi bi-gear user-avatar-edit-icon" data-bs-toggle="modal" data-bs-target="#editModal"></i> */}
 			</div>
 
 			<div className="user-content container d-flex flex-column justify-content-center">
